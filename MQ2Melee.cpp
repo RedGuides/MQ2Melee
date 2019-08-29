@@ -84,19 +84,20 @@ enum {
 };
 
 #ifndef PLUGIN_API
-#include "../MQ2Plugin.h"
+#include "../../MQ2Plugin.h"
 PreSetup(PLUGIN_NAME);
 PLUGIN_VERSION(PLUGIN_VERS);
 #include <map>
 #include <string>
-#include "../Blech/Blech.h"
+#include "../../Blech/Blech.h"
 #endif PLUGIN_API
 
-#include "../moveitem.h"
+// TODO: Remove this include file, move functions in it to main
+#include "../../moveitem.h"
 
-using namespace std;
 //MoveUtils 11.x
-void(*fStickCommand)(PSPAWNINFO pChar, char* szLine);
+
+fEQCommand fStickCommand;
 bool* pbStickOn;
 PLUGIN_API bool bMULoaded = false;
 bool bMUPointers = false;
@@ -115,7 +116,7 @@ long      GemsMax        = 12;              // Maximum Number of Gems
 short     PET_BUTTONS    = 14;              // Number of buttons on Pet UI window
 
 long      InvSlot        = NOID;            // slot # where item is found
-PCONTENTS InvCont        = NULL;            // slot content pointer
+CONTENTS* InvCont        = NULL;            // slot content pointer
 
 bool      Sticking       = false;           // Stick Saved State On/Off?
 char      StickArg[128]  = { 0 };           // Stick Saved Arguments
@@ -1436,35 +1437,32 @@ char* UI_PetAttk = "attack";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
-unsigned long   AACheck(unsigned long id);
-unsigned long   AAPoint(unsigned long index);
-int             AAReady(unsigned long index);
-long            Aggroed(unsigned long id);
-FLOAT           AngularDistance(float h1, float h2);
-DOUBLE          AngularHeading(PSPAWNINFO t, PSPAWNINFO s);
-int             CACheck(unsigned long id);
-int             CAPress(unsigned long id);
-int             Casting(char* command);
-int             CursorEmpty();
-long            Discipline();
-int             Equip(unsigned long ID, long SlotID);
-int             Equipped(unsigned long id);
-long            Evaluate(char* zFormat, ...);
-void            MeleeReset();
-long            OkayToEquip(long Size = NOID);
-PMQPLUGIN       Plugin(char* PluginName);
-void*           PluginEntry(char* PluginName, char* FuncName);
-int             SKCheck(unsigned long id);
-int             SKReady(unsigned long id);
-int             SKPress(unsigned long id);
-long            SpawnMask(PSPAWNINFO x);
-int             SpellCheck(unsigned long id);
-long            SpellGemID(unsigned long ID, long slotid = NOID);
-int             SpellReady(unsigned long ID, long SlotID = NOID);
-int             Stick(char* command);
-long            Unequip(long SlotID);
-//void            WinClick(CXWnd *Wnd, char* ScreenID, char* ClickNotification, unsigned long KeyState);
-PSTR            WinTexte(CXWnd *Wnd, char* ScreenID, PSTR Buffer);
+unsigned long AACheck(unsigned long id);
+unsigned long AAPoint(unsigned long index);
+int AAReady(unsigned long index);
+long Aggroed(unsigned long id);
+FLOAT AngularDistance(float h1, float h2);
+DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s);
+int CACheck(unsigned long id);
+int CAPress(unsigned long id);
+int Casting(char* command);
+int CursorEmpty();
+long Discipline();
+int Equip(unsigned long ID, long SlotID);
+int Equipped(unsigned long id);
+long Evaluate(const char* zFormat, ...);
+void MeleeReset();
+long OkayToEquip(long Size = NOID);
+int SKCheck(unsigned long id);
+int SKReady(unsigned long id);
+int SKPress(unsigned long id);
+long SpawnMask(PSPAWNINFO x);
+int SpellCheck(unsigned long id);
+long SpellGemID(unsigned long ID, long slotid = NOID);
+int SpellReady(unsigned long ID, long SlotID = NOID);
+int Stick(char* command);
+long Unequip(long SlotID);
+//void WinClick(CXWnd *Wnd, char* ScreenID, char* ClickNotification, unsigned long KeyState);
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
@@ -1473,7 +1471,7 @@ long doDEBUG;
 void Announce(unsigned long Wanted, char* Format, ...) {
     char Output[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, Format); vsprintf_s(Output, Format, vaList);
     if (Output[0]) {
-        unsigned long Result = 0; PMQPLUGIN pPlugin = pPlugins;
+        bool Result = false; auto pPlugin = pPlugins;
         while (pPlugin) {
             fMQIncomingChat Request = (fMQIncomingChat)GetProcAddress(pPlugin->hModule, "OnMeleeChat");
             if (Request) Result |= Request(Output, Wanted);
@@ -1487,7 +1485,7 @@ void Announce(unsigned long Wanted, char* Format, ...) {
 #define TargetIT(X) *(PSPAWNINFO*)ppTarget=X
 
 static inline int WinState(CXWnd *Wnd) {
-    return (Wnd && ((PCSIDLWND)Wnd)->IsVisible());
+    return (Wnd && Wnd->IsVisible());
 }
 
 static inline PSPAWNINFO Target() {
@@ -1533,11 +1531,11 @@ static inline unsigned long StandState() {
     return SpawnMe() ? SpawnMe()->StandState : 0;
 }
 
-static inline int Stackable(PCONTENTS Item) {
+static inline int Stackable(CONTENTS* Item) {
     return (Item && GetItemFromContents(Item)->Type == ITEMTYPE_NORMAL && ((EQ_Item*)Item)->IsStackable());
 }
 
-static inline long StackUnit(PCONTENTS Item) {
+static inline long StackUnit(CONTENTS* Item) {
     return (!Stackable(Item)) ? 1 : Item->StackCount;
 }
 
@@ -1581,38 +1579,38 @@ static inline CXWnd* XMLChild(CXWnd* window, char* screenid) {
 }
 
 static inline int XMLEnabled(CXWnd* window) {
-    return (window && ((PCSIDLWND)window)->IsEnabled());
+    return (window && window->IsEnabled());
 }
 
-static inline PCONTENTS ContAmmo() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Ammo;
+static inline CONTENTS* ContAmmo() {
+    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Ammo;
     return NULL;
 }
 
-static inline PCONTENTS ContPrimary() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Primary;
+static inline CONTENTS* ContPrimary() {
+    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Primary;
     return NULL;
 }
 
-static inline PCONTENTS ContRange() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Range;
+static inline CONTENTS* ContRange() {
+    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Range;
     return NULL;
 }
 
-static inline PCONTENTS ContSecondary() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Secondary;
+static inline CONTENTS* ContSecondary() {
+    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Secondary;
     return NULL;
 }
 
-static inline int PokerType(PCONTENTS item) {
+static inline int PokerType(CONTENTS* item) {
     return (item && GetItemFromContents(item)->ItemType == 2);
 }
 
-static inline int ShieldType(PCONTENTS item) {
+static inline int ShieldType(CONTENTS* item) {
     return(item && GetItemFromContents(item)->ItemType == 8);
 }
 
-static inline int TwohandType(PCONTENTS item) {
+static inline int TwohandType(CONTENTS* item) {
     if (item) {
         if (GetItemFromContents(item)->ItemType == 1)   return true;
         if (GetItemFromContents(item)->ItemType == 4)   return true;
@@ -1628,7 +1626,7 @@ unsigned long AACheck(unsigned long id) {
     }
 	if (pAltAdvManager)
 	{
-		if (PCHARINFO2 Me = GetCharInfo2())
+		if (CHARINFO2* Me = GetCharInfo2())
 		{
 			if (id)
 			{
@@ -1654,7 +1652,7 @@ unsigned long AACheck(unsigned long id) {
 unsigned long AAPoint(unsigned long index) {
 	if (index)
 	{
-		if (PCHARINFO2 Me = GetCharInfo2())
+		if (CHARINFO2* Me = GetCharInfo2())
 		{
 			for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
 			{
@@ -1682,9 +1680,9 @@ int AAReady(unsigned long index) {
                 //unsigned long i = 0;
                 //i = pAltAdvManager->GetCalculatedTimer(pPCData, ability);
                 //DebugSpew("ability timer: %d", i);
-                if (pAltAdvManager->GetCalculatedTimer(pPCData, ability) > 0)
+                if (pAltAdvManager->GetCalculatedTimer((PcClient*)pPCData, ability) > 0)
                 {
-                    pAltAdvManager->IsAbilityReady(pPCData, ability, &result);
+                    pAltAdvManager->IsAbilityReady((PcClient*)pPCData, ability, &result);
                     //DebugSpew("result: %d", result);
                 }
             }
@@ -1717,7 +1715,7 @@ DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s) {
 }
 
 int CACheck(unsigned long id) {
-    if (PCHARINFO2 Me = GetCharInfo2())
+    if (CHARINFO2* Me = GetCharInfo2())
 		if (id)
 		{
 			for (unsigned long nCombat = 0; nCombat < NUM_COMBAT_ABILITIES; nCombat++)
@@ -1741,7 +1739,7 @@ int CAPress(unsigned long id) {
 
 int Casting(char* command) {
     typedef void(__cdecl *fCALL)(PSPAWNINFO, char*);
-    if (fCALL request = (fCALL)PluginEntry("mq2cast", "CastCommand")) {
+    if (auto request = (fCALL)GetPluginProc("mq2cast", "CastCommand")) {
         Announce(SHOW_CASTING, "%s::Casting [\ay%s\ax].", PLUGIN_NAME, command);
         request(NULL, command);
         return true;
@@ -1756,7 +1754,7 @@ void Command(char* zFormat, ...) {
 }
 
 int CursorEmpty() {
-    if (PCHARINFO2 Me = GetCharInfo2())
+    if (CHARINFO2* Me = GetCharInfo2())
         if (!Me->pInventoryArray->Inventory.Cursor)
             if (!Me->CursorPlat)
                 if (!Me->CursorGold)
@@ -1767,20 +1765,19 @@ int CursorEmpty() {
 }
 
 long Discipline() {
-    char temps[MAX_STRING];
-    PSPELL spell = GetSpellByName(WinTexte((CXWnd*)pCombatAbilityWnd, "CAW_CombatEffectLabel", temps));
+    PSPELL spell = GetSpellByName(pCombatAbilityWnd->GetChildItem("CAW_CombatEffectLabel")->GetWindowText().c_str());
     return (spell) ? spell->ID : 0;
 }
 
 int Equipped(unsigned long id) {
     if (id)
         for (int i = 0; i < BAG_SLOT_START; i++)
-            if (PCONTENTS Cont = GetCharInfo2()->pInventoryArray->InventoryArray[i])
+            if (CONTENTS* Cont = GetCharInfo2()->pInventoryArray->InventoryArray[i])
                 if (id == GetItemFromContents(Cont)->ItemNumber) return true;
     return false;
 }
 
-long Evaluate(char* zFormat, ...) {
+long Evaluate(const char* zFormat, ...) {
     char zOutput[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, zFormat);
     vsprintf_s(zOutput, zFormat, vaList); if (!zOutput[0]) return 1;
     //DebugSpewAlways("E[%s]",zOutput);
@@ -1789,24 +1786,10 @@ long Evaluate(char* zFormat, ...) {
     return atoi(zOutput);
 }
 
-long ItemTimer(PCONTENTS pItem) {
+long ItemTimer(CONTENTS* pItem) {
     if (GetItemFromContents(pItem)->Clicky.TimerID != 0xFFFFFFFF) return GetItemTimer(pItem);
     if (GetItemFromContents(pItem)->Clicky.SpellID != 0xFFFFFFFF) return 0;
     return 999999;
-}
-
-PMQPLUGIN Plugin(char* PluginName) {
-    long Length = strlen(PluginName) + 1;
-    PMQPLUGIN pLook = pPlugins;
-    while (pLook && _strnicmp(PluginName, pLook->szFilename, Length)) pLook = pLook->pNext;
-    return pLook;
-}
-
-void* PluginEntry(char* PluginName, char* FuncName) {
-    if (PMQPLUGIN pLook = Plugin(PluginName))
-        if (void* entry = GetProcAddress(pLook->hModule, FuncName))
-            return entry;
-    return NULL;
 }
 
 int SKCheck(unsigned long id) {
@@ -1826,15 +1809,9 @@ int SKReady(unsigned long id) {
 }
 
 int SKPress(unsigned long id) {
-    if (PCHARINFO pChar = GetCharInfo()) {
-#if defined(NEWCHARINFO) 
-		if (pChar->PcClient_CharacterZoneClient_vfTable) {
-#else
-		if (pChar->vtable2) {
-#endif
-            pCharData1->UseSkill((unsigned char)id, (EQPlayer*)pCharData1);
-            return true;
-        }
+    if (pCharData) {
+        pCharData->UseSkill((unsigned char)id, pCharData->me);
+        return true;
     }
     return false;
 }
@@ -1852,7 +1829,7 @@ long SpawnMask(PSPAWNINFO x) {
 
 int SpellCheck(unsigned long ID) {
     if (ID)
-        if (PCHARINFO2 Me = GetCharInfo2())
+        if (CHARINFO2* Me = GetCharInfo2())
             for (unsigned long nSlot = 0; nSlot < NUM_BOOK_SLOTS; nSlot++)
                 if (ID == Me->SpellBook[nSlot])
                     return true;
@@ -1860,7 +1837,7 @@ int SpellCheck(unsigned long ID) {
 }
 
 long SpellGemID(unsigned long ID, long SlotID) {
-    if (PCHARINFO2 Me = GetCharInfo2()) {
+    if (CHARINFO2* Me = GetCharInfo2()) {
         if (SlotID != NOID && ID == Me->MemorizedSpells[SlotID]) return SlotID;
         for (long GEM = 0; GEM < GemsMax; GEM++)
             if (ID == Me->MemorizedSpells[GEM])
@@ -1871,12 +1848,12 @@ long SpellGemID(unsigned long ID, long SlotID) {
 
 int SpellReady(unsigned long ID, long SlotID) {
     if (pCastSpellWnd)
-        if (PCHARINFO2 Me = GetCharInfo2()) {
+        if (CHARINFO2* Me = GetCharInfo2()) {
             unsigned long GemID = (SlotID != NOID) ? SlotID : SpellGemID(ID);
             if (GemID < (unsigned long)GemsMax)
                 if (Me->MemorizedSpells[GemID] == ID)
-                    if ((long)((PEQCASTSPELLWINDOW)pCastSpellWnd)->SpellSlots[GemID]->spellicon != NOID)
-                        if (BardClass || (long)((PEQCASTSPELLWINDOW)pCastSpellWnd)->SpellSlots[GemID]->spellstate != 1)
+                    if (pCastSpellWnd->SpellSlots[GemID]->spellicon != NOID)
+                        if (BardClass || pCastSpellWnd->SpellSlots[GemID]->spellstate != 1)
                             return true;
         }
     return false;
@@ -1885,13 +1862,8 @@ int SpellReady(unsigned long ID, long SlotID) {
 bool HandleMoveUtils(void)
 {
     bMUPointers = false;
-    fStickCommand = NULL;
-    pbStickOn = NULL;
-    if (PMQPLUGIN pLook = Plugin("mq2moveutils"))
-    {
-        fStickCommand = (void(*)(PSPAWNINFO pChar, char* szLine))GetProcAddress(pLook->hModule, "StickCommand");
-        pbStickOn = (bool *)GetProcAddress(pLook->hModule, "bStickOn");
-    }
+    fStickCommand = (MQ2Prototypes::fEQCommand)GetPluginProc("mq2moveutils", "StickCommand");
+    pbStickOn = (bool *)GetPluginProc("mq2moveutils", "bStickOn");
     if (fStickCommand && pbStickOn)
     {
         bMUPointers = true;
@@ -1902,24 +1874,12 @@ bool HandleMoveUtils(void)
 
 unsigned char PetButtonEnabled(char* pszButtonName)
 {
-    int i = 0;
-	CHAR *szBuf = new CHAR[MAX_STRING];
-    for (i = 0; i < PET_BUTTONS; i++)
+    for (int i = 0; i < PET_BUTTONS; i++)
     {
-        if (((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i])
-        {
-            if (PCXSTR Str = ((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i]->Wnd.CGetWindowText())
-            {
-				GetCXStr(Str, szBuf);
-                if (!_stricmp(szBuf, pszButtonName))
-                {
-					delete szBuf;
-					return ((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i]->Wnd.IsEnabled();
-                }
-            }
-        }
+        if (auto pButton = pPetInfoWnd->pButton[i])
+			if (ci_equals(pButton->GetWindowText(), pszButtonName))
+				return pButton->IsEnabled();
     }
-	delete szBuf;
     return 0;
 }
 
@@ -1956,18 +1916,6 @@ unsigned long TimeSince(unsigned long Timer) {
     return 0;
 }
 
-PSTR WinTexte(CXWnd *Wnd, char* ScreenID, PSTR Buffer) {
-    Buffer[0] = '\0';
-	if (Wnd)
-	{
-		if (CXWnd *Child = (CXWnd*)Wnd->GetChildItem(ScreenID))
-		{
-			GetCXStr(Child->CGetWindowText(), Buffer);
-		}
-	}
-    return Buffer;
-}
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // item related
 
@@ -1978,7 +1926,7 @@ bool FitInPack(long Size)
     unsigned char ucSlot = 0;
     for (ucSlot = BAG_SLOT_START; ucSlot < NUM_INV_SLOTS; ucSlot++)
     {
-        if (PCONTENTS pInvSlot = GetCharInfo2()->pInventoryArray->InventoryArray[ucSlot])
+        if (CONTENTS* pInvSlot = GetCharInfo2()->pInventoryArray->InventoryArray[ucSlot])
         {
             if (TypePack(pInvSlot) && GetItemFromContents(pInvSlot)->Combine != 2 && Size <= GetItemFromContents(pInvSlot)->SizeCapacity)// && (!pSLOT || GetItemFromContents(pInvSlot)->SizeCapacity < pSIZE))
             {
@@ -2015,7 +1963,7 @@ long Unequip(long SlotID)
 {
     if (SlotID < NUM_INV_SLOTS)
     {
-        PCONTENTS uCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID];
+        CONTENTS* uCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID];
         if (!uCONT) return true;
 
         CItemLocation cUnequipTo;
@@ -2052,7 +2000,7 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == cMoveItem.InvSlot) return true; // item already in place
 
     // check class, level, deity and race to see if we have rights to equip this items.
-    PCONTENTS fITEM = cMoveItem.pBagSlot;
+    CONTENTS* fITEM = cMoveItem.pBagSlot;
     if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetCharInfo2()->Class) - 1))))                                     return false;
     if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetCharInfo2()->Level)                                 return false;
     if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetCharInfo2()->Deity - 200))))  return false;
@@ -2070,7 +2018,7 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == inv_secondary && TwohandType(ContPrimary()))           if (!Unequip(inv_primary))   return false;
 
     // if wearing something
-    if (PCONTENTS dCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID])
+    if (CONTENTS* dCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID])
     {
         if (cMoveItem.InvSlot >= NUM_INV_SLOTS) // if not a main inv slot
         {
@@ -2144,7 +2092,7 @@ public:
                             strcpy_s(NAME, pCDBStr->GetString(ability->nName, 1, NULL));
                             sprintf_s(COMM, "%d|ALT", ID);
                             EFFECT = spell;
-                            REUSE = pAltAdvManager->GetCalculatedTimer(pPCData, ability) * 1000 + spell->CastTime + delay * 3;
+                            REUSE = pAltAdvManager->GetCalculatedTimer(pCharData, ability) * 1000 + spell->CastTime + delay * 3;
                             INDEX = AAIndex;
                             TYPE = AA;
                             return true;
@@ -2171,7 +2119,7 @@ public:
                 CItemLocation cFindItem;
                 if (ItemFind(&cFindItem, szTempItem))
                 {
-                    if (PCONTENTS find = cFindItem.pBagSlot)
+                    if (CONTENTS* find = cFindItem.pBagSlot)
                     {
                         INDEX = cFindItem.InvSlot;
                         strcpy_s(NAME, GetItemFromContents(find)->Name);
@@ -2196,7 +2144,7 @@ public:
         return (ID > 0 && TYPE != UNKNOWN) ? true : false;
     }
 
-    long Check(string test) {
+    long Check(const std::string& test) {
         if (!Found())                        return 0x01;  // Ability Not Found
         if ((unsigned long)clock() <= READY) return 0x02;  // Ability Not Refreshed
         if (TYPE == SKILL)
@@ -2281,13 +2229,13 @@ public:
             }
             else if (TYPE == POTION || TYPE == CLICKY)
             {
-                //PCONTENTS find=ItemLocate(ID,0,NUM_INV_SLOTS,INDEX);
+                //CONTENTS* find=ItemLocate(ID,0,NUM_INV_SLOTS,INDEX);
                 char szTempItem[25] = { 0 };
                 sprintf_s(szTempItem, "%d", ID);
                 CItemLocation cFindItem;
                 if (ItemFind(&cFindItem, szTempItem))
                 {
-                    PCONTENTS find = cFindItem.pBagSlot;
+                    CONTENTS* find = cFindItem.pBagSlot;
                     INDEX = cFindItem.InvSlot;
                     //INDEX=InvSlot;
                     if (!find || !find->Charges || ItemTimer(find)) return 0x13;  // Ability Not Ready
@@ -2299,7 +2247,7 @@ public:
         return 0x00;
     }
 
-    int Ready(string test) {
+    int Ready(const std::string& test) {
         long Result = Check(test);
         if (DebugReady && Result) {
             char* Message = "";
@@ -2371,17 +2319,18 @@ public:
 
 class Option {
 public:
+	// TODO: Give these sane names and make them std::string (lose the pointers)
     char*    K;  // key?
     char*    H;  // help?
     char*    D;  // default?
     char*    S;  // show?
-    string  *C;  // condition?
+    std::string  *C;  // condition?
     Ability *A;  // ability?
     long    *V;  // value?
     Function F;  // function?
     int      U;  // update?
 
-    Option(char* k, char* h, char* d, char* s, Function f, string *c) {
+    Option(char* k, char* h, char* d, char* s, Function f, std::string *c) {
         K = k; H = h; D = d; S = s; F = f; U = false; C = c; A = NULL; V = NULL;
     }
 
@@ -2453,7 +2402,7 @@ public:
     }
 };
 
-typedef map<string, Option> Liste;    // declare a type so more easy to refer
+typedef std::map<std::string, Option> Liste;    // declare a type so more easy to refer
 Liste     CmdListe;                   // settings from command or ini
 Liste     IniListe;                   // settings from ini only
 Liste     VarListe;                   // settings from var liste
@@ -2582,7 +2531,7 @@ elPOKER,
 elRANGED,
 elSHIELD;
 
-string    ifASP,
+std::string    ifASP,
 ifASSAULT,
 ifBACKSTAB,
 ifBASH,
@@ -2887,8 +2836,8 @@ public:
         TypeMember(NumHits);
         TypeMember(XTaggro);
     }
-    bool MQ2MeleeType::GETMEMBER() {
-        PMQ2TYPEMEMBER pMember = MQ2MeleeType::FindMember(Member);
+    bool MQ2MeleeType::GetMember(MQ2VARPTR VarPtr, char* Member, char* Index, MQ2TYPEVAR& Dest) {
+        auto pMember = MQ2MeleeType::FindMember(Member);
         isKill = false; if (doSKILL) if (MeleeTarg) isKill = true;
         if (pMember)
         {
@@ -2970,7 +2919,7 @@ public:
                     return true;
                 case Ammunition:
                     Dest.DWord = CountItemByID(elARROWS);
-                    if (PCONTENTS r = GetCharInfo2()->pInventoryArray->Inventory.Ammo)
+                    if (CONTENTS* r = GetCharInfo2()->pInventoryArray->Inventory.Ammo)
                         if (GetItemFromContents(r)->ItemNumber != elARROWS)
                             if (GetItemFromContents(r)->ItemType == 7 || GetItemFromContents(r)->ItemType == 19 || GetItemFromContents(r)->ItemType == 27)
                                 Dest.DWord = CountItemByID(GetItemFromContents(r)->ItemNumber);
@@ -3087,7 +3036,7 @@ int datameleemvs(char* Index, MQ2TYPEVAR &Dest) {
     Dest.Ptr = &Workings;
     Liste::iterator c = IniListe.find(Index);
     if (IniListe.end() != c) {
-        if (string *S = (string*)(*c).second.Value())
+        if (std::string *S = (std::string*)(*c).second.Value())
             strcpy_s(Workings, S->c_str());
     }
     else Workings[0] = 0;
@@ -3128,11 +3077,11 @@ bool BashCheck() {
 
 void BashPress() {
     long savedpri = 0; long savedoff = 0; int got2hand = false;
-    if (PCONTENTS pri = ContPrimary()) {
+    if (CONTENTS* pri = ContPrimary()) {
         got2hand = TwohandType(pri);
         savedpri = GetItemFromContents(pri)->ItemNumber;
     }
-    if (PCONTENTS off = ContSecondary()) savedoff = GetItemFromContents(off)->ItemNumber;
+    if (CONTENTS* off = ContSecondary()) savedoff = GetItemFromContents(off)->ItemNumber;
     if (elSHIELD && CountItemByID(elSHIELD) && OkayToEquip(Giant)) Equip(elSHIELD, inv_secondary);
     if (ShieldType(ContSecondary()) || (got2hand && HaveBash)) idBASH.Press();
     if (savedoff) Equip(savedoff, inv_secondary);
@@ -3140,7 +3089,7 @@ void BashPress() {
 }
 
 void Configure() {
-    PCHARINFO2 pChar2 = GetCharInfo2();
+    CHARINFO2* pChar2 = GetCharInfo2();
     PCHARINFO pChar = GetCharInfo();
     if (!pChar2 || !pChar)
         return;
@@ -3448,7 +3397,7 @@ void Exporting() {
     for (c = CmdListe.begin(); c != e; c++) {
         output[0] = 0;
         if ((*c).second.C)
-            if (string *S = (string*)(*c).second.Value())
+            if (std::string *S = (std::string*)(*c).second.Value())
                 strcpy_s(output, S->c_str());
         if ((*c).second.A || (*c).second.V)
             if (long *V = (long*)(*c).second.Value())
@@ -3465,7 +3414,7 @@ void Exporting() {
     for (c = IniListe.begin(); c != e; c++) {
         output[0] = 0;
         if ((*c).second.C)
-            if (string *S = (string*)(*c).second.Value())
+            if (std::string *S = (std::string*)(*c).second.Value())
                 strcpy_s(output, S->c_str());
         if ((*c).second.A || (*c).second.V)
             if (long *V = (long*)(*c).second.Value())
@@ -3493,11 +3442,11 @@ void MeleeHelp()
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
     for (Liste::iterator i = CmdListe.begin(); i != CmdListe.end(); i++) (*i).second.Write();
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
-    if (NULL == PluginEntry("mq2cast", "CastCommand"))
+    if (NULL == GetPluginProc("mq2cast", "CastCommand"))
     {
         WriteChatf("%s::Required Latest [\arMQ2Cast\ax] for AA/SPELL/ITEM casting.", PLUGIN_NAME);
     }
-    if (NULL == PluginEntry("mq2moveutils", "StickCommand"))
+    if (NULL == GetPluginProc("mq2moveutils", "StickCommand"))
     {
         WriteChatf("%s::Required Latest [\arMQ2MoveUtils\ax] for MOVEMENT.", PLUGIN_NAME);
     }
@@ -3637,7 +3586,7 @@ void StabPress() {
     sprintf_s(szTempItem, "%d", elPOKER);
     if (elPOKER && OkayToEquip(Giant) && ItemFind(&cMoveItem, szTempItem))
     {
-        if (PCONTENTS pri = ContPrimary())
+        if (CONTENTS* pri = ContPrimary())
             if (GetItemFromContents(pri)->ItemNumber != elPOKER) {
                 saveid = GetItemFromContents(pri)->ItemNumber;
                 Equip(elPOKER, inv_primary);
@@ -3665,13 +3614,13 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
         char szItemName[MAX_STRING] = { 0 };
         // test if we could do ranged with current ammo/range configuration
         long crT = 99; long crI = 0; long caT = 99; long caI = 0; long caQ = 0;
-        if (PCONTENTS r = ContRange())
+        if (CONTENTS* r = ContRange())
         {
             crI = GetItemFromContents(r)->ItemNumber;
             crT = GetItemFromContents(r)->ItemType;
             strcpy_s(szItemName, GetItemFromContents(r)->Name);
         }
-        if (PCONTENTS a = ContAmmo()) {
+        if (CONTENTS* a = ContAmmo()) {
             caI = GetItemFromContents(a)->ItemNumber;
             caT = GetItemFromContents(a)->ItemType;
             if (caT == 7 || caT == 19 || caT == 27) caQ = CountItemByID(caI);
@@ -3683,10 +3632,10 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
             // grab information about user defined range/ammunition
             long erT = 99; long eaT = 99; long eaQ = 0;
 
-            PCONTENTS r = NULL;
-            PCONTENTS a = NULL;
+            CONTENTS* r = NULL;
+            CONTENTS* a = NULL;
 
-            //if(PCONTENTS r=ItemLocate(elRANGED)) erT=GetItemFromContents(r)->ItemType;
+            //if(CONTENTS* r=ItemLocate(elRANGED)) erT=GetItemFromContents(r)->ItemType;
             sprintf_s(szTempItem, "%d", elRANGED);
             if (ItemFind(&cMoveItem, szTempItem))
             {
@@ -3694,7 +3643,7 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
                 erT = GetItemFromContents(r)->ItemType;
             }
 
-            //if(PCONTENTS a=ItemLocate(elARROWS)) {
+            //if(CONTENTS* a=ItemLocate(elARROWS)) {
             //    eaT=a->Item->ItemType;
             //    if(eaT == 7 || eaT == 19 || eaT == 27) eaQ=ItemCounts(elARROWS);
             //}
@@ -4732,7 +4681,7 @@ void MeleeHandle()
     }
 }
 
-void KeyMelee(char* NAME, int Down)
+void KeyMelee(const char* NAME, bool Down)
 {
     if (Down && pTarget)
     {
@@ -4742,7 +4691,7 @@ void KeyMelee(char* NAME, int Down)
     }
 }
 
-void KeyRange(char* NAME, int Down)
+void KeyRange(const char* NAME, bool Down)
 {
     if (Down && pTarget)
     {
@@ -5692,7 +5641,7 @@ PLUGIN_API void OnPulse()
 {
     if (doSKILL && Loaded && gbInZone && SpawnMe())
     {
-        if (PCHARINFO2 Me = GetCharInfo2())
+        if (CHARINFO2* Me = GetCharInfo2())
         {
             if (GetCharInfo2()->Shrouded != Shrouded)
             {
