@@ -2836,7 +2836,7 @@ public:
         TypeMember(NumHits);
         TypeMember(XTaggro);
     }
-    bool MQ2MeleeType::GetMember(MQ2VARPTR VarPtr, char* Member, char* Index, MQ2TYPEVAR& Dest) {
+    bool MQ2MeleeType::GetMember(MQVarPtr VarPtr, char* Member, char* Index, MQTypeVar& Dest) {
         auto pMember = MQ2MeleeType::FindMember(Member);
         isKill = false; if (doSKILL) if (MeleeTarg) isKill = true;
         if (pMember)
@@ -2988,26 +2988,26 @@ public:
         Dest.Ptr = &Tempos[0];
         return true;
     }
-    bool ToString(MQ2VARPTR VarPtr, char* Destination) {
+    bool ToString(MQVarPtr VarPtr, char* Destination) {
         strcpy_s(Destination, MAX_STRING, "TRUE");
         return true;
     }
-    bool FromData(MQ2VARPTR &VarPtr, MQ2TYPEVAR &Source) {
+    bool FromData(MQVarPtr &VarPtr, MQTypeVar &Source) {
         return false;
     }
-    bool FromString(MQ2VARPTR &VarPtr, char* Source) {
+    bool FromString(MQVarPtr &VarPtr, char* Source) {
         return false;
     }
     ~MQ2MeleeType() { }
 };
 
-int DataMelee(char* Index, MQ2TYPEVAR &Dest) {
+bool DataMelee(const char* Index, MQTypeVar &Dest) {
     Dest.Type = pMeleeTypes;
     Dest.DWord = 1;
     return true;
 }
 
-int datameleemvb(char* Index, MQ2TYPEVAR &Dest) {
+bool datameleemvb(const char* Index, MQTypeVar &Dest) {
     Dest.Type = pIntType;
     Dest.Int = NOID;
     Liste::iterator c;
@@ -3016,7 +3016,7 @@ int datameleemvb(char* Index, MQ2TYPEVAR &Dest) {
     return true;
 }
 
-int datameleemvi(char* Index, MQ2TYPEVAR &Dest) {
+bool datameleemvi(const char* Index, MQTypeVar &Dest) {
     Dest.Type = pIntType;
     Dest.DWord = 0;
     Liste::iterator c;
@@ -3031,7 +3031,7 @@ int datameleemvi(char* Index, MQ2TYPEVAR &Dest) {
     return true;
 }
 
-int datameleemvs(char* Index, MQ2TYPEVAR &Dest) {
+bool datameleemvs(const char* Index, MQTypeVar &Dest) {
     Dest.Type = pStringType;
     Dest.Ptr = &Workings;
     Liste::iterator c = IniListe.find(Index);
@@ -3848,7 +3848,7 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
     //PCHAR pStart;
     //PCHAR pIndex;
     CHAR szCurrent[MAX_STRING] = { 0 };
-    //MQ2TYPEVAR Result = { 0 };
+    //MQTypeVar Result = { 0 };
     do
     {
         // find this brace's end
@@ -4733,23 +4733,23 @@ void __stdcall AUTOFIREON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall CASTING(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (doSKILL && MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) MeleeCast = (unsigned long)clock();
+    if (doSKILL && MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) MeleeCast = (unsigned long)clock();
 }
 
 void __stdcall ENRAGEON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) EnrageON(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) EnrageON(NULL, "");
 }
 
 void __stdcall ENRAGEOFF(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) EnrageOFF(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) EnrageOFF(NULL, "");
 }
 
 void __stdcall INFURIATEON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) InfuriateON(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) InfuriateON(NULL, "");
 }
 
 void __stdcall INFURIATEOFF(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) InfuriateOFF(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) InfuriateOFF(NULL, "");
 }
 
 void __stdcall PETATTK(unsigned int ID, void *pData, PBLECHVALUE pValues) {
@@ -4780,7 +4780,7 @@ void __stdcall PETHOLD(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall FALLEN(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (!doSKILL || ((long)pData && _strnicmp(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
+    if (!doSKILL || ((long)pData && !ci_equals(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
     Announce(SHOW_FEIGN, "%s::\arFAILED FEIGN DEATH\ax taking action!", PLUGIN_NAME);
     EzCommand("/stand");
 }
