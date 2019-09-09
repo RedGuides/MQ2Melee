@@ -2089,7 +2089,7 @@ public:
                 if (long AAIndex = AACheck(ID)) {
                     if (PALTABILITY ability = GetAAByIdWrapper(AAIndex, level)) {
                         if (PSPELL spell = GetSpellByID(ability->SpellID)) {
-                            strcpy_s(NAME, pCDBStr->GetString(ability->nName, 1, NULL));
+                            strcpy_s(NAME, pCDBStr->GetString(ability->nName, eAltAbilityName, NULL));
                             sprintf_s(COMM, "%d|ALT", ID);
                             EFFECT = spell;
                             REUSE = pAltAdvManager->GetCalculatedTimer(pCharData, ability) * 1000 + spell->CastTime + delay * 3;
