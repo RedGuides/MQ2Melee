@@ -1570,7 +1570,7 @@ static inline int InRange(PSPAWNINFO a, PSPAWNINFO b, float d) {
 }
 
 static inline int InGame() {
-    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetCharInfo2() && GetCharInfo() && GetCharInfo()->Stunned != 3);
+    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetPcProfile() && GetCharInfo() && GetCharInfo()->Stunned != 3);
 }
 
 static inline CXWnd* XMLChild(CXWnd* window, char* screenid) {
@@ -1583,22 +1583,22 @@ static inline int XMLEnabled(CXWnd* window) {
 }
 
 static inline CONTENTS* ContAmmo() {
-    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Ammo;
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Ammo;
     return NULL;
 }
 
 static inline CONTENTS* ContPrimary() {
-    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Primary;
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Primary;
     return NULL;
 }
 
 static inline CONTENTS* ContRange() {
-    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Range;
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Range;
     return NULL;
 }
 
 static inline CONTENTS* ContSecondary() {
-    if (CHARINFO2* Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Secondary;
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Secondary;
     return NULL;
 }
 
@@ -1626,7 +1626,7 @@ unsigned long AACheck(unsigned long id) {
     }
 	if (pAltAdvManager)
 	{
-		if (CHARINFO2* Me = GetCharInfo2())
+		if (PcProfile* Me = GetPcProfile())
 		{
 			if (id)
 			{
@@ -1652,7 +1652,7 @@ unsigned long AACheck(unsigned long id) {
 unsigned long AAPoint(unsigned long index) {
 	if (index)
 	{
-		if (CHARINFO2* Me = GetCharInfo2())
+		if (PcProfile* Me = GetPcProfile())
 		{
 			for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
 			{
@@ -1715,7 +1715,7 @@ DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s) {
 }
 
 int CACheck(unsigned long id) {
-    if (CHARINFO2* Me = GetCharInfo2())
+    if (PcProfile* Me = GetPcProfile())
 		if (id)
 		{
 			for (unsigned long nCombat = 0; nCombat < NUM_COMBAT_ABILITIES; nCombat++)
@@ -1754,7 +1754,7 @@ void Command(char* zFormat, ...) {
 }
 
 int CursorEmpty() {
-    if (CHARINFO2* Me = GetCharInfo2())
+    if (PcProfile* Me = GetPcProfile())
         if (!Me->pInventoryArray->Inventory.Cursor)
             if (!Me->CursorPlat)
                 if (!Me->CursorGold)
@@ -1772,7 +1772,7 @@ long Discipline() {
 int Equipped(unsigned long id) {
     if (id)
         for (int i = 0; i < BAG_SLOT_START; i++)
-            if (CONTENTS* Cont = GetCharInfo2()->pInventoryArray->InventoryArray[i])
+            if (CONTENTS* Cont = GetPcProfile()->pInventoryArray->InventoryArray[i])
                 if (id == GetItemFromContents(Cont)->ItemNumber) return true;
     return false;
 }
@@ -1793,8 +1793,8 @@ long ItemTimer(CONTENTS* pItem) {
 }
 
 int SKCheck(unsigned long id) {
-    if (id<100 && (pSkillMgr->pSkill[id]->Activated && GetCharInfo2()->Skill[id]))     return true;
-    if (id>100 && id<128 && GetCharInfo2()->Skill[id] != 0xFF && strlen(szSkills[id])>3) return true;
+    if (id<100 && (pSkillMgr->pSkill[id]->Activated && GetPcProfile()->Skill[id]))     return true;
+    if (id>100 && id<128 && GetPcProfile()->Skill[id] != 0xFF && strlen(szSkills[id])>3) return true;
     return false;
 }
 
@@ -1829,7 +1829,7 @@ long SpawnMask(PSPAWNINFO x) {
 
 int SpellCheck(unsigned long ID) {
     if (ID)
-        if (CHARINFO2* Me = GetCharInfo2())
+        if (PcProfile* Me = GetPcProfile())
             for (unsigned long nSlot = 0; nSlot < NUM_BOOK_SLOTS; nSlot++)
                 if (ID == Me->SpellBook[nSlot])
                     return true;
@@ -1837,7 +1837,7 @@ int SpellCheck(unsigned long ID) {
 }
 
 long SpellGemID(unsigned long ID, long SlotID) {
-    if (CHARINFO2* Me = GetCharInfo2()) {
+    if (PcProfile* Me = GetPcProfile()) {
         if (SlotID != NOID && ID == Me->MemorizedSpells[SlotID]) return SlotID;
         for (long GEM = 0; GEM < GemsMax; GEM++)
             if (ID == Me->MemorizedSpells[GEM])
@@ -1848,7 +1848,7 @@ long SpellGemID(unsigned long ID, long SlotID) {
 
 int SpellReady(unsigned long ID, long SlotID) {
     if (pCastSpellWnd)
-        if (CHARINFO2* Me = GetCharInfo2()) {
+        if (PcProfile* Me = GetPcProfile()) {
             unsigned long GemID = (SlotID != NOID) ? SlotID : SpellGemID(ID);
             if (GemID < (unsigned long)GemsMax)
                 if (Me->MemorizedSpells[GemID] == ID)
@@ -1862,7 +1862,7 @@ int SpellReady(unsigned long ID, long SlotID) {
 bool HandleMoveUtils(void)
 {
     bMUPointers = false;
-    fStickCommand = (MQ2Prototypes::fEQCommand)GetPluginProc("mq2moveutils", "StickCommand");
+    fStickCommand = (fEQCommand)GetPluginProc("mq2moveutils", "StickCommand");
     pbStickOn = (bool *)GetPluginProc("mq2moveutils", "bStickOn");
     if (fStickCommand && pbStickOn)
     {
@@ -1926,7 +1926,7 @@ bool FitInPack(long Size)
     unsigned char ucSlot = 0;
     for (ucSlot = BAG_SLOT_START; ucSlot < NUM_INV_SLOTS; ucSlot++)
     {
-        if (CONTENTS* pInvSlot = GetCharInfo2()->pInventoryArray->InventoryArray[ucSlot])
+        if (CONTENTS* pInvSlot = GetPcProfile()->pInventoryArray->InventoryArray[ucSlot])
         {
             if (TypePack(pInvSlot) && GetItemFromContents(pInvSlot)->Combine != 2 && Size <= GetItemFromContents(pInvSlot)->SizeCapacity)// && (!pSLOT || GetItemFromContents(pInvSlot)->SizeCapacity < pSIZE))
             {
@@ -1963,7 +1963,7 @@ long Unequip(long SlotID)
 {
     if (SlotID < NUM_INV_SLOTS)
     {
-        CONTENTS* uCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID];
+        CONTENTS* uCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID];
         if (!uCONT) return true;
 
         CItemLocation cUnequipTo;
@@ -2001,10 +2001,10 @@ int Equip(unsigned long ID, long SlotID)
 
     // check class, level, deity and race to see if we have rights to equip this items.
     CONTENTS* fITEM = cMoveItem.pBagSlot;
-    if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetCharInfo2()->Class) - 1))))                                     return false;
-    if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetCharInfo2()->Level)                                 return false;
-    if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetCharInfo2()->Deity - 200))))  return false;
-    long MyRace = (unsigned long)GetCharInfo2()->Race;
+    if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetPcProfile()->Class) - 1))))                                     return false;
+    if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetPcProfile()->Level)                                 return false;
+    if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetPcProfile()->Deity - 200))))  return false;
+    long MyRace = (unsigned long)GetPcProfile()->Race;
     switch (MyRace)
     {
         case 128: MyRace = 12;    break;
@@ -2018,7 +2018,7 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == inv_secondary && TwohandType(ContPrimary()))           if (!Unequip(inv_primary))   return false;
 
     // if wearing something
-    if (CONTENTS* dCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID])
+    if (CONTENTS* dCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID])
     {
         if (cMoveItem.InvSlot >= NUM_INV_SLOTS) // if not a main inv slot
         {
@@ -2185,8 +2185,8 @@ public:
                 #endif
             }
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
-            if (EFFECT->EnduranceCost && GetCharInfo2()->Endurance < EFFECT->EnduranceCost)                                       return 0x0B;  // out of endurance
-            if (EFFECT->ManaCost && GetCharInfo2()->Mana < EFFECT->ManaCost)                                                      return 0x0C;  // out of mana
+            if (EFFECT->EnduranceCost && GetPcProfile()->Endurance < EFFECT->EnduranceCost)                                       return 0x0B;  // out of endurance
+            if (EFFECT->ManaCost && GetPcProfile()->Mana < EFFECT->ManaCost)                                                      return 0x0C;  // out of mana
             if (!EFFECT->SpellType)
             {
                 if (!pTarget)                                                                                                     return 0x0D;  // no target
@@ -2199,7 +2199,7 @@ public:
                 {
                     for (int s = 0; s < SongMax; s++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetCharInfo2()->ShortBuff[s].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->ShortBuff[s].SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -2210,7 +2210,7 @@ public:
                 {
                     for (int b = 0; b<BuffMax; b++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetCharInfo2()->Buff[b].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->Buff[b].SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -2919,7 +2919,7 @@ public:
                     return true;
                 case Ammunition:
                     Dest.DWord = CountItemByID(elARROWS);
-                    if (CONTENTS* r = GetCharInfo2()->pInventoryArray->Inventory.Ammo)
+                    if (CONTENTS* r = GetPcProfile()->pInventoryArray->Inventory.Ammo)
                         if (GetItemFromContents(r)->ItemNumber != elARROWS)
                             if (GetItemFromContents(r)->ItemType == 7 || GetItemFromContents(r)->ItemType == 19 || GetItemFromContents(r)->ItemType == 27)
                                 Dest.DWord = CountItemByID(GetItemFromContents(r)->ItemNumber);
@@ -3089,7 +3089,7 @@ void BashPress() {
 }
 
 void Configure() {
-    CHARINFO2* pChar2 = GetCharInfo2();
+    PcProfile* pChar2 = GetPcProfile();
     PCHARINFO pChar = GetCharInfo();
     if (!pChar2 || !pChar)
         return;
@@ -4040,7 +4040,7 @@ void MeleeHandle()
 
     // check detrimental buff that wont let ya perform melee actions.
     for (int b = 0; b < BuffMax; b++) {
-        long SpellID = GetCharInfo2()->Buff[b].SpellID;
+        long SpellID = GetPcProfile()->Buff[b].SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
@@ -4057,7 +4057,7 @@ void MeleeHandle()
 
     // check detrimental song that wont let ya perform melee actions.
     for (int s = 0; s < SongMax; s++) {
-        long SpellID = GetCharInfo2()->ShortBuff[s].SpellID;
+        long SpellID = GetPcProfile()->ShortBuff[s].SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
@@ -4287,7 +4287,7 @@ void MeleeHandle()
     // jolting times!
     if ((doJLTKICKS || doJOLT || doSTORMBLADES) && !doAGGRO && SwingHits > doJOLT)
     {
-        long MyEndu = GetCharInfo2()->Endurance * 100 / GetMaxEndurance();
+        long MyEndu = GetPcProfile()->Endurance * 100 / GetMaxEndurance();
         if (idJOLT.Ready(ifJOLT))
         {
             idJOLT.Press();
@@ -4486,7 +4486,7 @@ void MeleeHandle()
 
     // time to handle spell casting?
     if (!TargetID(MeleeTarg) || MeleeDist > 200) return;
-    long MyEndu = GetCharInfo2()->Endurance * 100 / GetMaxEndurance();
+    long MyEndu = GetPcProfile()->Endurance * 100 / GetMaxEndurance();
 
     // slap in the face needs to happen before combat starts
     if (doSLAPFACE && MyEndu > doSLAPFACE && idSLAPFACE.Ready(ifSLAPFACE)) idSLAPFACE.Press();
@@ -4542,7 +4542,7 @@ void MeleeHandle()
         }
 
         // should we use short duration melee buff?
-        if (GetCharInfo2()->Endurance > 200)
+        if (GetPcProfile()->Endurance > 200)
         {
             if (doBLOODLUST  && MyEndu > doBLOODLUST && idBLOODLUST.Ready(ifBLOODLUST) && MeleeDist < 50) idBLOODLUST.Press();
             if (doCOMMANDING && MyEndu > doCOMMANDING && idCOMMANDING.Ready(ifCOMMANDING)) idCOMMANDING.Press();
@@ -5641,9 +5641,9 @@ PLUGIN_API void OnPulse()
 {
     if (doSKILL && Loaded && gbInZone && SpawnMe())
     {
-        if (CHARINFO2* Me = GetCharInfo2())
+        if (PcProfile* Me = GetPcProfile())
         {
-            if (GetCharInfo2()->Shrouded != Shrouded)
+            if (GetPcProfile()->Shrouded != Shrouded)
             {
                 SetGameState(GAMESTATE_UNLOADING);
                 SetGameState(GAMESTATE_INGAME);
@@ -5661,7 +5661,7 @@ PLUGIN_API void OnPulse()
 				Travel	 = SpeedRun(MySpawn);
 			}
 			if (Moving = (Travel > 0.05 || Travel < -0.05 || CalcDist > 12.0f)) TimerMove = (unsigned long)clock() + delay * 7;
-			Immobile = (!(MQ2Globals::gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
+			Immobile = (!(gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
 
             if (doPETASSIST)
             {
