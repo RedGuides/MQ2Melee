@@ -84,7 +84,7 @@ enum {
 };
 
 #ifndef PLUGIN_API
-#include <MQ2Plugin.h>
+#include <mq/Plugin.h>
 PreSetup(PLUGIN_NAME);
 PLUGIN_VERSION(PLUGIN_VERS);
 #include <map>
