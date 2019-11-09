@@ -93,7 +93,7 @@ PLUGIN_VERSION(PLUGIN_VERS);
 #endif PLUGIN_API
 
 // TODO: Remove this include file, move functions in it to main
-#include "../../moveitem.h"
+#include "moveitem.h"
 
 //MoveUtils 11.x
 
