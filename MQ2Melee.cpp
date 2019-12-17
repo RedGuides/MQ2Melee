@@ -1,5 +1,5 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
-// Projet: MQ2Melee.cpp     | 2008-04-02: Updated by Wasted
+// Project: MQ2Melee.cpp    | 2008-04-02: Updated by Wasted
 // Author: s0rCieR          | 2008-11-08: Updated by Jobey
 //                          | 2008-11-26: Updated by htw
 //                          | 2009-02-21: Updated by pms (MoveUtils 9.x support)
@@ -30,6 +30,7 @@
 //						    | 2019-01-28: Updated by s0rcier down/holyflag=3 parse when no macro running. increase down/holy shits to 90. stickmode=2 (disable sticking)
 //							| 2019-02-01: Updated Immobile flags to return false for a litte after being summoned
 //							| 2019-02-07: Fixed Two Handed Bash skills... + saar zerker tbl disc...
+//							| 2019-11-14: Updated by Sic/CWTN Yaulp to default to "off"
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // SHOW_ABILITY:    0=0ff, 1=Display every ability that plugin use.
 // SHOW_ATTACKING:  0=0ff, 1=Display Attacking Target
@@ -1428,7 +1429,7 @@ DECLARE_ABILITY_OPTION(pVIGAX, "vigaxe", "[#] Endu% Above? 0=Off", "${If[${Me.Co
 DECLARE_ABILITY_OPTION(pVIGDR, "vigdagger", "[#] Endu% Above? 0=Off", "${If[${Me.CombatAbility[Vigorous Dagger-Throw]} || ${Me.CombatAbility[Vigorous Dagger-Throw Rk. II]} || ${Me.CombatAbility[Vigorous Dagger-Throw Rk. III]} || ${Me.CombatAbility[Vigorous Dagger-Strike]} || ${Me.CombatAbility[Vigorous Dagger-Strike Rk. II]} || ${Me.CombatAbility[Vigorous Dagger-Strike Rk. III]} || ${Me.CombatAbility[Energetic Dagger-Strike]} || ${Me.CombatAbility[Energetic Dagger-Strike Rk. II]} || ${Me.CombatAbility[Energetic Dagger-Strike Rk. III]} || ${Me.CombatAbility[Energetic Dagger-Throw]} || ${Me.CombatAbility[Energetic Dagger-Throw Rk. II]} || ${Me.CombatAbility[Energetic Dagger-Throw Rk. III]} || ${Me.CombatAbility[Exuberant Dagger-Throw]} || ${Me.CombatAbility[Exuberant Dagger-Throw Rk. II]} || ${Me.CombatAbility[Exuberant Dagger-Throw Rk. III]} || ${Me.CombatAbility[Forceful Dagger-Throw]} || ${Me.CombatAbility[Forceful Dagger-Throw Rk. II]} || ${Me.CombatAbility[Forceful Dagger-Throw Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[Vigorous Dagger-Throw]} || ${Me.CombatAbility[Vigorous Dagger-Throw Rk. II]} || ${Me.CombatAbility[Vigorous Dagger-Throw Rk. III]} || ${Me.CombatAbility[Vigorous Dagger-Strike]} || ${Me.CombatAbility[Vigorous Dagger-Strike Rk. II]} || ${Me.CombatAbility[Vigorous Dagger-Strike Rk. III]} || ${Me.CombatAbility[Energetic Dagger-Strike]} || ${Me.CombatAbility[Energetic Dagger-Strike Rk. II]} || ${Me.CombatAbility[Energetic Dagger-Strike Rk. III]} || ${Me.CombatAbility[Energetic Dagger-Throw]} || ${Me.CombatAbility[Energetic Dagger-Throw Rk. II]} || ${Me.CombatAbility[Energetic Dagger-Throw Rk. III]} || ${Me.CombatAbility[Exuberant Dagger-Throw]} || ${Me.CombatAbility[Exuberant Dagger-Throw Rk. II]} || ${Me.CombatAbility[Exuberant Dagger-Throw Rk. III]} || ${Me.CombatAbility[Forceful Dagger-Throw]} || ${Me.CombatAbility[Forceful Dagger-Throw Rk. II]} || ${Me.CombatAbility[Forceful Dagger-Throw Rk. III]}),1,0]}");
 DECLARE_ABILITY_OPTION(pVIGSN, "vigshuriken", "[#] Endu% Above? 0=Off", "${If[${Me.CombatAbility[Vigorous Shuriken]} || ${Me.CombatAbility[Vigorous Shuriken Rk. II]} || ${Me.CombatAbility[Vigorous Shuriken Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[Vigorous Shuriken]} || ${Me.CombatAbility[Vigorous Shuriken Rk. II]} || ${Me.CombatAbility[Vigorous Shuriken Rk. III]}),1,0]}");
 DECLARE_ABILITY_OPTION(pWITHS, "withstand", "[#] Endu% Above? 0=Off", "${If[${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.CombatAbility[withstand]} || ${Me.CombatAbility[withstand rk. ii]} || ${Me.CombatAbility[withstand rk. iii]} || ${Me.CombatAbility[defy]} || ${Me.CombatAbility[defy rk. ii]} || ${Me.CombatAbility[defy rk. iii]} || ${Me.CombatAbility[Reprove]} || ${Me.CombatAbility[Reprove rk. ii]} || ${Me.CombatAbility[Reprove rk. iii]} || ${Me.CombatAbility[Repel]} || ${Me.CombatAbility[Repel rk. ii]} || ${Me.CombatAbility[Repel rk. iii]} || ${Me.CombatAbility[Spurn]} || ${Me.CombatAbility[Spurn Rk. II]} || ${Me.CombatAbility[Spurn Rk. III]}),20,0]}", "${If[${meleemvi[plugin]} && ${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.CombatAbility[withstand]} || ${Me.CombatAbility[withstand rk. ii]} || ${Me.CombatAbility[withstand rk. iii]} || ${Me.CombatAbility[defy]} || ${Me.CombatAbility[defy rk. ii]} || ${Me.CombatAbility[defy rk. iii]} || ${Me.CombatAbility[Reprove]} || ${Me.CombatAbility[Reprove rk. ii]} || ${Me.CombatAbility[Reprove rk. iii]} || ${Me.CombatAbility[Repel]} || ${Me.CombatAbility[Repel rk. ii]} || ${Me.CombatAbility[Repel rk. iii]} || ${Me.CombatAbility[Spurn]} || ${Me.CombatAbility[Spurn Rk. II]} || ${Me.CombatAbility[Spurn Rk. III]}),1,0]}");
-DECLARE_ABILITY_OPTION(pYAULP, "yaulp", "[ON/OFF]?", "${If[${Me.AltAbility[yaulp]},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[yaulp]},1,0]}");
+DECLARE_ABILITY_OPTION(pYAULP, "yaulp", "[ON/OFF]?", "0", "${If[${meleemvi[plugin]} && ${Me.AltAbility[yaulp]},1,0]}");
 
 
 char* UI_PetBack = "back";
@@ -2175,23 +2176,28 @@ public:
             }
             if (!BardClass && IsCasting())         return 0x08;  // already casting
             if (WinState((CXWnd*)pSpellBookWnd)) return 0x09;  // spellbook open
-            if ((EFFECT->ReuseTimerIndex || EFFECT->ReuseTimerIndex == -1) && TYPE != AA)
+            if (TYPE != AA)
             {
                 //DebugSpew("EFFECT->ReuseTimerIndex Name: %s  ID: %d Type: %dVal: %d", NAME, ID, TYPE, EFFECT->ReuseTimerIndex);
                 #if !defined(ROF2EMU) && !defined(UFEMU)
-                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // dicipline timer not ready
+                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
                 #else
-                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex) - (unsigned long)time(NULL)) < 0) return 0x16; // dicipline timer not ready
-                #endif
+				int rtindex = EFFECT->ReuseTimerIndex;
+				if(rtindex >= 0 && rtindex < 20)//this matters on emu it will actually crash u if above 20
+				{
+					if (((unsigned long)pPCData->GetCombatAbilityTimer(rtindex) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
+                }
+				#endif
             }
+        	// TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
-            if (EFFECT->EnduranceCost && GetPcProfile()->Endurance < EFFECT->EnduranceCost)                                       return 0x0B;  // out of endurance
-            if (EFFECT->ManaCost && GetPcProfile()->Mana < EFFECT->ManaCost)                                                      return 0x0C;  // out of mana
+            if (EFFECT->EnduranceCost && (int)GetPcProfile()->Endurance < EFFECT->EnduranceCost)                                  return 0x0B;  // out of endurance
+            if (EFFECT->ManaCost && (int)GetPcProfile()->Mana < EFFECT->ManaCost)                                                 return 0x0C;  // out of mana
             if (!EFFECT->SpellType)
             {
                 if (!pTarget)                                                                                                     return 0x0D;  // no target
                 float SpellRange = (EFFECT->Range) ? EFFECT->Range : EFFECT->AERange;
-                if (SpellRange && !InRange(SpawnMe(), (PSPAWNINFO)pTarget, SpellRange))                                           return 0x0E;  // out of range
+                if (SpellRange && !InRange(SpawnMe(), (PSPAWNINFO)pTarget, SpellRange))                                      return 0x0E;  // out of range
             }
             else if (EFFECT->DurationCap>0)
             {
@@ -2218,7 +2224,20 @@ public:
                     }
                 }
             }
-            if (TYPE>DISC && !Evaluate("${If[${Cast.Ready[%s]},1,0]}", COMM)) return 0x11; // mq2cast not ready
+			//mq2cast
+			if (TYPE > DISC) {
+				if (FindMQ2DataType("Cast")) {
+					if (!Evaluate("${If[${Cast.Ready[%s]},1,0]}", COMM)) {
+						return 0x11; // mq2cast not ready
+					}
+				}
+				else {
+					if (!Evaluate("${Me.SpellReady}"))
+					{
+						return 0x11;
+					}
+				}
+			}
             if (TYPE == AA) {
                 if (!AAReady(INDEX))       return 0x13;  // Ability Not Ready
             }
@@ -3097,7 +3116,7 @@ void Configure() {
     long Races = pChar2->Race;
     long Level = pChar2->Level;
     int SOValue = 0;
-    sprintf_s(INIFileName, "%s\\%s_%s.ini", gszINIPath, EQADDR_SERVERNAME, pChar->Name);
+    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, EQADDR_SERVERNAME, pChar->Name);
     sprintf_s(section, "%s_%d_%s_%s", PLUGIN_NAME, Level, pEverQuest->GetRaceDesc(Races), pEverQuest->GetClassDesc(Class));
     Shrouded = pChar2->Shrouded; if (!Shrouded) section[strlen(PLUGIN_NAME)] = 0;
     BuffMax = GetCharMaxBuffSlots();
