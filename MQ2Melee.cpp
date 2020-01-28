@@ -3114,15 +3114,15 @@ public:
             {
                 case Enable:
                     Dest.DWord = doSKILL;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Combat:
                     Dest.DWord = isKill;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Casted:
                     Dest.Int = (isKill && MeleeCast) ? labs((unsigned long)clock() - MeleeCast) : 60000;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case Status:
                     Tempos[0] = 0;
@@ -3139,52 +3139,52 @@ public:
                     if (onEVENT & 0x0400) strcat_s(Tempos, "FALLING ");
                     if (onEVENT & 0x1000) strcat_s(Tempos, "STEALING ");
                     if (onEVENT & 0x2000) strcat_s(Tempos, "BEGGING ");
-                    Dest.Type = pStringType;
+                    Dest.Type = mq::datatypes::pStringType;
                     Dest.Ptr = &Tempos[0];
                     return true;
                 case Target:
                     Dest.Int = isKill ? MeleeTarg : 0;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case DiscID:
                     Dest.DWord = Discipline();
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case GotAggro:
                     Dest.DWord = (Aggroed(MeleeTarg) > 0);
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case AggroMode:
                     Dest.DWord = doAGGRO;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case MeleeMode:
                     Dest.DWord = doMELEE;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case RangeMode:
                     Dest.DWord = doRANGE;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Enrage:
                     Dest.DWord = onEVENT & 0x0001;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Infuriate:
                     Dest.DWord = onEVENT & 0x0002;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case BackAngle:
                     Dest.Float = pTarget ? AngularDistance(((PSPAWNINFO)pTarget)->Heading, SpawnMe()->Heading) : 0.0f;
-                    Dest.Type = pFloatType;
+                    Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case ViewAngle:
                     Dest.Float = pTarget ? (float)AngularHeading(SpawnMe(), (PSPAWNINFO)pTarget) : 0.0f;
-                    Dest.Type = pFloatType;
+                    Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case Immobilize:
                     Dest.DWord = Immobile;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Ammunition:
                     Dest.DWord = CountItemByID(elARROWS);
@@ -3192,28 +3192,28 @@ public:
                         if (GetItemFromContents(r)->ItemNumber != elARROWS)
                             if (GetItemFromContents(r)->ItemType == 7 || GetItemFromContents(r)->ItemType == 19 || GetItemFromContents(r)->ItemType == 27)
                                 Dest.DWord = CountItemByID(GetItemFromContents(r)->ItemNumber);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case BackStabbing:
                     Dest.DWord = doBACKSTAB;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Hidden:
                     Dest.Int = TimeSince(HiddenTimer);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case Silent:
                     Dest.Int = TimeSince(SilentTimer);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case NumHits:
                     Dest.DWord = SwingHits;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case XTaggro:
                 {
                     Dest.DWord = true;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     if (PCHARINFO pChar = GetCharInfo()) {
                         if (ExtendedTargetList *xtm = pChar->pXTargetMgr) {
                             DWORD x = 0;
@@ -3253,7 +3253,7 @@ public:
             }
         }
         strcpy_s(Tempos, "NULL");
-        Dest.Type = pStringType;
+        Dest.Type = mq::datatypes::pStringType;
         Dest.Ptr = &Tempos[0];
         return true;
     }
@@ -3277,7 +3277,7 @@ bool DataMelee(const char* Index, MQTypeVar &Dest) {
 }
 
 bool datameleemvb(const char* Index, MQTypeVar &Dest) {
-    Dest.Type = pIntType;
+    Dest.Type = mq::datatypes::pIntType;
     Dest.Int = NOID;
     Liste::iterator c;
     if (VarListe.end() != (c = VarListe.find(Index)))
@@ -3286,7 +3286,7 @@ bool datameleemvb(const char* Index, MQTypeVar &Dest) {
 }
 
 bool datameleemvi(const char* Index, MQTypeVar &Dest) {
-    Dest.Type = pIntType;
+    Dest.Type = mq::datatypes::pIntType;
     Dest.DWord = 0;
     Liste::iterator c;
     if (CmdListe.end() != (c = CmdListe.find(Index))) {
@@ -3301,7 +3301,7 @@ bool datameleemvi(const char* Index, MQTypeVar &Dest) {
 }
 
 bool datameleemvs(const char* Index, MQTypeVar &Dest) {
-    Dest.Type = pStringType;
+    Dest.Type = mq::datatypes::pStringType;
     Dest.Ptr = &Workings;
     Liste::iterator c = IniListe.find(Index);
     if (IniListe.end() != c) {
