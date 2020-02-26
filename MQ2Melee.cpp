@@ -623,7 +623,7 @@ gblade9 = { 43639  ,3 },        // disc: Lacerating Blade Rk. III
 gblade10 = { 55731  ,3 },        // disc: Wounding Blade Lv 107 Shd RoS
 gblade11 = { 55732  ,3 },        // disc: Wounding Blade Rk. II
 gblade12 = { 55733  ,3 },        // disc: Wounding Blade Rk. III
-gblade13 = { 59147  ,3 },        // disc: Rending Blade 
+gblade13 = { 59147  ,3 },        // disc: Rending Blade
 gblade14 = { 59148  ,3 },        // disc: Rending Blade Rk. II
 gblade15 = { 59149  ,3 },        // disc: Rending Blade Rk. III
 
@@ -1289,7 +1289,7 @@ vigber15 = { 45250  ,3 },        // Disc: Demolishing Axe Throw Rk. III
 vigber16 = { 57531  ,3 },        // Disc: Mangling Axe Throw    Lv 108 Ber RoS
 vigber17 = { 57532  ,3 },        // Disc: Mangling Axe Throw Rk. II
 vigber18 = { 57533  ,3 },        // Disc: Mangling Axe Throw Rk. III
-vigber19 = { 60757  ,3 },        // Disc: Vindicating Axe Throw - Level 
+vigber19 = { 60757  ,3 },        // Disc: Vindicating Axe Throw - Level
 vigber20 = { 60758  ,3 },
 vigber21 = { 60759  ,3 };
 #pragma endregion Updated to ToV
@@ -2997,7 +2997,7 @@ unsigned long     MeleeTime   = 0;            // Melee Pulse Timer
 long      MeleeTarg           = 0;            // Melee Target ID
 long      MeleeType           = 0;            // Melee Target Type
 long      MeleeFlee           = 0;            // Melee Target Fleeing?
-__int64      MeleeLife           = 0;            // Melee Target Life %
+int64_t      MeleeLife           = 0;         // Melee Target Life %
 long      MeleeCast           = 0;            // Melee Target Cast ?
 long      MeleeSize           = 0;            // Melee Name Size
 char      MeleeName[64]       = { 0 };        // Melee Name
@@ -3501,6 +3501,7 @@ void Configure() {
     AbilityFind(&idTAUNT, &staunt, 0);
     AbilityFind(&idBATTLELEAP, &btlleap, 0);
     AbilityFind(&idTHROWSTONE, &tstone, 0);
+
     AbilityFind(&idPOTHEALOVER, &potover16, &potover15, &potover14, &potover13, &potover12, &potover11, &potover10, &potover9, &potover8, &potover7, &potover6, &potover5, &potover4, &potover3, &potover2, &potover1, &potover0, 0);
     AbilityFind(&idPOTHEALFAST, &potfast16, &potfast15, &potfast14, &potfast13, &potfast12, &potfast11, &potfast10, &potfast9, &potfast8, &potfast7, &potfast6, &potfast5, &potfast4, &potfast3, &potfast2, &potfast1, &potfast0, 0);
     doSTAB = 0;
@@ -3753,7 +3754,7 @@ void PetATTK()
             pTarget = GetSpawnID(MeleeTarg);
             EzCommand("/pet attack");
             if (Current) Command("/squelch /target id %d", Current->SpawnID);
-        } 
+        }
         else
         {
             EzCommand("/pet attack");
@@ -4898,7 +4899,7 @@ void MeleeHandle()
         if (doDEFENSE     && MyEndu > doDEFENSE        && idDEFENSE.Ready(ifDEFENSE))          idDEFENSE.Press();
         if (doFCLAW       && MyEndu > doFCLAW          && idFCLAW.Ready(ifFCLAW))              idFCLAW.Press();
         if (doFIELDARM    && MyEndu > doFIELDARM       && idFIELDARM.Ready(ifFIELDARM))        idFIELDARM.Press();
-        if (doGBLADE       && MyEndu> doGBLADE         && idGBLADE.Ready(ifGBLADE))            idGBLADE.Press();         
+        if (doGBLADE       && MyEndu> doGBLADE         && idGBLADE.Ready(ifGBLADE))            idGBLADE.Press();
         if (doRAKE        && MyEndu > doRAKE           && idRAKE.Ready(ifRAKE))                idRAKE.Press();
         if (doRIGHTIND    && MyEndu > doRIGHTIND       && idRIGHTIND.Ready(ifRIGHTIND))        idRIGHTIND.Press();
         if (doTHROWSTONE  && MyEndu > doTHROWSTONE     && idTHROWSTONE.Ready(ifTHROWSTONE))    idTHROWSTONE.Press();
