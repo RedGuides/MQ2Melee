@@ -1,5 +1,5 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
-// Projet: MQ2Melee.cpp     | 2008-04-02: Updated by Wasted
+// Project: MQ2Melee.cpp    | 2008-04-02: Updated by Wasted
 // Author: s0rCieR          | 2008-11-08: Updated by Jobey
 //                          | 2008-11-26: Updated by htw
 //                          | 2009-02-21: Updated by pms (MoveUtils 9.x support)
@@ -33,7 +33,6 @@
 //							| 2019-11-14: Updated by Sic/CWTN Yaulp to default to "off"
 //							| 2019-12-29: Updated by ChatWithThisname-> Added Warrior, Berserker, Rogue discs for ToV. Rearranged information by class instead of alphabetically.
 //							| 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
-//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // SHOW_ABILITY:    0=0ff, 1=Display every ability that plugin use.
 // SHOW_ATTACKING:  0=0ff, 1=Display Attacking Target
@@ -88,19 +87,20 @@ enum {
 };
 
 #ifndef PLUGIN_API
-#include "../MQ2Plugin.h"
+#include <mq/Plugin.h>
 PreSetup(PLUGIN_NAME);
 PLUGIN_VERSION(PLUGIN_VERS);
 #include <map>
 #include <string>
-#include "../Blech/Blech.h"
+#include "../../Blech/Blech.h"
 #endif PLUGIN_API
 
-#include "../moveitem.h"
+// TODO: Remove this include file, move functions in it to main
+#include "moveitem.h"
 
-using namespace std;
 //MoveUtils 11.x
-void(*fStickCommand)(PSPAWNINFO pChar, char* szLine);
+
+fEQCommand fStickCommand;
 bool* pbStickOn;
 PLUGIN_API bool bMULoaded = false;
 bool bMUPointers = false;
@@ -119,7 +119,7 @@ long      GemsMax        = 12;              // Maximum Number of Gems
 short     PET_BUTTONS    = 14;              // Number of buttons on Pet UI window
 
 long      InvSlot        = NOID;            // slot # where item is found
-PCONTENTS InvCont        = NULL;            // slot content pointer
+CONTENTS* InvCont        = NULL;            // slot content pointer
 
 bool      Sticking       = false;           // Stick Saved State On/Off?
 char      StickArg[128]  = { 0 };           // Stick Saved Arguments
@@ -157,7 +157,6 @@ ULONGLONG PressDelay = 0;
 #define   i_taunt             73
 
 infodata
-
 //Everyone
 tstone =  { 5225   ,3 },        // disc: throw stone
 btlleap = { 611    ,4 },        // aa: battle leap
@@ -248,7 +247,7 @@ withstand18 = { 55319  ,3 },        // dics: Spurn Rk. III
 withstand19 = { 58778  ,3 },        // disc: Thwart
 withstand20 = { 58779  ,3 },        // disc: Thwart Rk. II
 withstand21 = { 58780  ,3 },        // dics: Thwart Rk. III
-#pragma endregion Pal/Shd Updated for ToV
+#pragma endregion Pal/Shd Updated for TOV
 
 #pragma region Abilities
 sbkstab = { 8      ,2 },        // skill: backstab
@@ -511,8 +510,7 @@ stunpal49 = { 55481  ,5 },        // spell: Force of the Timorous Deep Rk. III
 stunpal50 = { 58919  ,5 },        // spell: Force of the Grotto
 stunpal51 = { 55420  ,5 },        // spell: Force of the Grotto Rk. II
 stunpal52 = { 55421  ,5 },        // spell: Force of the Grotto Rk. III
-
-#pragma endregion Updated for ToV
+#pragma endregion Paladin - Class 3 Updated for ToV
 
 #pragma region Ranger - Class 4
 bladesrng1 = { 40105  ,3 },        // disc: storm of blades rk i
@@ -583,7 +581,7 @@ jltkicks27 = { 55544  ,3 },        // disc: Jolting Axe Kicks Rk. III
 
 joltrng1 = { 1741   ,5 },        // spell: jolt
 joltrng2 = { 1296   ,5 },        // spell: cinder jolt
-#pragma endregion Updated for ToV
+#pragma endregion Ranger - Class 4 Updated for ToV
 
 #pragma region ShadowKnight - Class 5
 feignid =  { 420    ,4 },        // aa: imitate death
@@ -693,7 +691,7 @@ terror31 = { 59105  ,5 },        // spell: Terror of Mirenilla
 terror32 = { 59106  ,5 },        // spell: Terror of Mirenilla Rk. II
 terror33 = { 59107  ,5 },        // spell: Terror of Mirenilla Rk. III
 
-#pragma endregion Updated for ToV
+#pragma endregion ShadowKnight - Class 5 Updated for ToV
 
 #pragma region Druid - Class 6
 #pragma endregion - Empty
@@ -774,7 +772,7 @@ vigmnk1 = { 19826  ,3 },        // disc: Vigorous Shuriken
 vigmnk2 = { 19827  ,3 },        // disc: Vigorous Shuriken Rk. II
 vigmnk3 = { 19828  ,3 },        // disc: Vigorous Shuriken Rk. III
 
-#pragma endregion Updated for ToV
+#pragma endregion Monk - Class 7 Updated for ToV
 
 #pragma region Bard - Class 8
 boastful = { 199    ,4 },        // aa: boastful bellow
@@ -953,11 +951,9 @@ twisted = { 670    ,4 },        // aa: twisted shank
 feign_n1 = { 25662  ,5 },        // spell: Scapegoat
 feign_n2 = { 25663  ,5 },        // spell: Scapegoat rk ii
 feign_n3 = { 25664  ,5 },        // spell: Scapegoat rk iii
-
 feign_n4 = { 29571  ,5 },        // spell: Unwitting Sacrifice
 feign_n5 = { 29572  ,5 },        // spell: Unwitting Sacrifice Rk. II
 feign_n6 = { 29573  ,5 },        // spell: Unwitting Sacrifice Rk. III
-
 feign_n7 = { 31616  ,5 },        // spell: Conscripted Sacrifice
 feign_n8 = { 31617  ,5 },        // spell: Conscripted Sacrifice Rk. II
 feign_n9 = { 31618  ,5 },        // spell: Conscripted Sacrifice Rk. III
@@ -1047,7 +1043,7 @@ rake25 = { 60680  ,3 },        // disc: Batter Rk. III
 joltbst1 = { 362    ,4 },        // aa: roar of thunder
 
 ravens = { 987    ,4 },        // aa: raven's claw
-#pragma endregion Updated for ToV
+#pragma endregion Beastlord - Class 15 Updated for ToV
 
 #pragma region Berserker - Class 16
 bloodlust1 =  { 22506  ,3 },        // Disc: Shared Bloodlust Lv 85 ber UF
@@ -1297,7 +1293,6 @@ vigber19 = { 60757  ,3 },        // Disc: Vindicating Axe Throw - Level
 vigber20 = { 60758  ,3 },
 vigber21 = { 60759  ,3 };
 #pragma endregion Updated to ToV
-
 
 
 #define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) char* __var[]  = {\
@@ -1560,12 +1555,9 @@ DECLARE_ABILITY_OPTION(pHOLF90, "holyflag90", "[ON/OFF] holyflag90?", "0", "${If
 
 #pragma region Paladin/Shadowknight
 DECLARE_ABILITY_OPTION(pWITHS, "withstand", "[#] Endu% Above? 0=Off", "${If[${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.CombatAbility[withstand]} || ${Me.CombatAbility[withstand rk. ii]} || ${Me.CombatAbility[withstand rk. iii]} || ${Me.CombatAbility[defy]} || ${Me.CombatAbility[defy rk. ii]} || ${Me.CombatAbility[defy rk. iii]} || ${Me.CombatAbility[Reprove]} || ${Me.CombatAbility[Reprove rk. ii]} || ${Me.CombatAbility[Reprove rk. iii]} || ${Me.CombatAbility[Repel]} || ${Me.CombatAbility[Repel rk. ii]} || ${Me.CombatAbility[Repel rk. iii]} || ${Me.CombatAbility[Spurn]} || ${Me.CombatAbility[Spurn Rk. II]} || ${Me.CombatAbility[Spurn Rk. III]} || ${Me.CombatAbility[Thwart]} || ${Me.CombatAbility[Thwart Rk. II]} || ${Me.CombatAbility[Thwart Rk. III]}),20,0]}", "${If[${meleemvi[plugin]} && ${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.CombatAbility[withstand]} || ${Me.CombatAbility[withstand rk. ii]} || ${Me.CombatAbility[withstand rk. iii]} || ${Me.CombatAbility[defy]} || ${Me.CombatAbility[defy rk. ii]} || ${Me.CombatAbility[defy rk. iii]} || ${Me.CombatAbility[Reprove]} || ${Me.CombatAbility[Reprove rk. ii]} || ${Me.CombatAbility[Reprove rk. iii]} || ${Me.CombatAbility[Repel]} || ${Me.CombatAbility[Repel rk. ii]} || ${Me.CombatAbility[Repel rk. iii]} || ${Me.CombatAbility[Spurn]} || ${Me.CombatAbility[Spurn Rk. II]} || ${Me.CombatAbility[Spurn Rk. III]} || ${Me.CombatAbility[Thwart]} || ${Me.CombatAbility[Thwart Rk. II]} || ${Me.CombatAbility[Thwart Rk. III]}),1,0]}");
-
 DECLARE_ABILITY_OPTION(pCHFOR, "challengefor", "[ON/OFF]?", "${If[${Me.Spell[Challenge for Honor].ID} || ${Me.Spell[trial for honor].ID} || ${Me.Spell[charge for honor].ID} || ${Me.Spell[challenge for power].ID} || ${Me.Spell[trial for power].ID} || ${Me.Spell[charge for honor].ID} || ${Me.Spell[confrontation for power].ID} || ${Me.Spell[confrontation for honor].ID} || ${Me.Spell[Provocation for honor].ID} || ${Me.Spell[Provocation for power].ID} || ${Me.Spell[Demand for Power].ID} || ${Me.Spell[Demand for Honor].ID} || ${Me.Spell[Impose for Power].ID} || ${Me.Spell[Impose for Honor].ID} || ${Me.Spell[Refute for Power].ID} || ${Me.Spell[Refute for Honor].ID} || ${Me.Spell[Protest for Power].ID} || ${Me.Spell[Protest for Power].ID},1,0]}", "${If[${meleemvi[plugin]} && ${meleemvi[aggro]} && (${Me.Spell[challenge for honor].ID} || ${Me.Spell[trial for honor].ID} || ${Me.Spell[charge for honor].ID} || ${Me.Spell[challenge for power].ID} || ${Me.Spell[trial for power].ID} || ${Me.Spell[charge for honor].ID} || ${Me.Spell[confrontation for power].ID} || ${Me.Spell[confrontation for honor].ID} || ${Me.Spell[Provocation for honor].ID} || ${Me.Spell[Provocation for power].ID} || ${Me.Spell[Demand for Power].ID} || ${Me.Spell[Demand for Honor].ID} || ${Me.Spell[Impose for Power].ID} || ${Me.Spell[Impose for Honor].ID} || ${Me.Spell[Refute for Power].ID} || ${Me.Spell[Refute for Honor].ID} || ${Me.Spell[Protest for Power].ID} || ${Me.Spell[Protest for Power].ID}),1,0]}");
-
 DECLARE_ABILITY_OPTION(pSTEEL, "steely", "[ON/OFF]", "${If[${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.Spell[Steely Stance].ID} || ${Me.Spell[Stubborn Stance].ID} || ${Me.Spell[Stoic Stance].ID} || ${Me.Spell[Steadfast Stance].ID} || ${Me.Spell[Staunch Stance].ID} || ${Me.Spell[Defiant Stance].ID} || ${Me.Spell[Stormwall Stance].ID}),0,0]}", "${If[${meleemvi[plugin]} && ${Select[${Me.Class.ShortName},PAL,SHD]} && (${Me.Spell[Steely Stance].ID} || ${Me.Spell[Stubborn Stance].ID} || ${Me.Spell[Stoic Stance].ID} || ${Me.Spell[Steadfast Stance].ID} || ${Me.Spell[Staunch Stance].ID} || ${Me.Spell[Defiant Stance].ID} || ${Me.Spell[Stormwall Stance].ID}),1,0]}");
-
-#pragma endregion Updated for ToV
+#pragma endregion Paladin/Shadowknight Updated for ToV
 
 #pragma region Warrior - Class 1
 DECLARE_ABILITY_OPTION(pCALLC, "callchallenge", "[ON/OFF]?", "${If[${Me.AltAbility[call of challenge]},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[call of challenge]},1,0]}");
@@ -1596,16 +1588,13 @@ DECLARE_ABILITY_OPTION(pRGHTI, "rightidg", "[#] Endu% Above? 0=Off", "0", "${If[
 
 #pragma region Ranger - Class 4
 DECLARE_ABILITY_OPTION(pSBLADES, "stormblades", "[#] Endu% Above? 0=0ff", "${If[${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]}),1,0]}");
-
 DECLARE_ABILITY_OPTION(pERKCK, "enragingkick", "[#] Life% Below? 0=0ff", "${If[${Me.CombatAbility[Enraging Crescent Kicks]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. II]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. III]} || ${Me.CombatAbility[Enraging Heel Kicks]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Cut Kicks]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. II]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. III]} || ${Me.CombatAbility[Enraging Axe Kicks]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. II]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && !${meleemvi[aggro]} && (${Me.CombatAbility[Enraging Crescent Kicks]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. II]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. III]} || ${Me.CombatAbility[Enraging Heel Kicks]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Cut Kicks]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. II]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. III]} || ${Me.CombatAbility[Enraging Axe Kicks]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. II]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. III]}),1,0]}");
-
 DECLARE_ABILITY_OPTION(pJKICK, "jltkicks", "[#] Endu% Above? 0=0ff", "${If[${Me.CombatAbility[jolting kicks]} || ${Me.CombatAbility[jolting kicks rk. ii]} || ${Me.CombatAbility[jolting kicks rk. iii]} || ${Me.CombatAbility[Jolting Snapkicks]} || ${Me.CombatAbility[Jolting Snapkicks rk. ii]} || ${Me.CombatAbility[Jolting Snapkicks rk. iii]} || ${Me.CombatAbility[Jolting Frontkicks]} || ${Me.CombatAbility[Jolting Frontkicks rk. ii]} || ${Me.CombatAbility[Jolting Frontkicks rk. iii]} || ${Me.CombatAbility[Jolting Hook kicks]} || ${Me.CombatAbility[Jolting Hook kicks rk. ii]} || ${Me.CombatAbility[Jolting Hook kicks rk. iii]} || ${Me.CombatAbility[Jolting Crescent kicks]} || ${Me.CombatAbility[Jolting Crescent kicks rk. ii]} || ${Me.CombatAbility[Jolting Crescent kicks rk. iii]} || ${Me.CombatAbility[Jolting Heel Kicks]} || ${Me.CombatAbility[Jolting Heel Kicks rk. ii]} || ${Me.CombatAbility[Jolting Heel Kicks rk. iii]} || ${Me.CombatAbility[Jolting Cut Kicks]} || ${Me.CombatAbility[Jolting Cut Kicks rk. ii]} || ${Me.CombatAbility[Jolting Cut Kicks rk. iii]} || ${Me.CombatAbility[Jolting Wheel Kicks]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. II]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. III]} || ${Me.CombatAbility[Jolting Axe Kicks]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. II]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[jolting kicks]} || ${Me.CombatAbility[jolting kicks rk. ii]} || ${Me.CombatAbility[jolting kicks rk. iii]} || ${Me.CombatAbility[Jolting Snapkicks]} || ${Me.CombatAbility[Jolting Snapkicks rk. ii]} || ${Me.CombatAbility[Jolting Snapkicks rk. iii]} || ${Me.CombatAbility[Jolting Frontkicks]} || ${Me.CombatAbility[Jolting Frontkicks rk. ii]} || ${Me.CombatAbility[Jolting Frontkicks rk. iii]} || ${Me.CombatAbility[Jolting Hook kicks]} || ${Me.CombatAbility[Jolting Hook kicks rk. ii]} || ${Me.CombatAbility[Jolting Hook kicks rk. iii]} || ${Me.CombatAbility[Jolting Crescent kicks]} || ${Me.CombatAbility[Jolting Crescent kicks rk. ii]} || ${Me.CombatAbility[Jolting Crescent kicks rk. iii]} || ${Me.CombatAbility[Jolting Heel Kicks]} || ${Me.CombatAbility[Jolting Heel Kicks rk. ii]} || ${Me.CombatAbility[Jolting Heel Kicks rk. iii]} || ${Me.CombatAbility[Jolting Cut Kicks]} || ${Me.CombatAbility[Jolting Cut Kicks rk. ii]} || ${Me.CombatAbility[Jolting Cut Kicks rk. iii]} || ${Me.CombatAbility[Jolting Wheel Kicks]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. II]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. III]} || ${Me.CombatAbility[Jolting Axe Kicks]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. II]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. III]}),1,0]}");
 
 #pragma endregion
 
 #pragma region Shadow Knight - Class 5
 DECLARE_ABILITY_OPTION(pGBLDE, "gblade", "[#] Endu% Above? 0=Off", "${If[${Me.CombatAbility[Gouging Blade]} || ${Me.CombatAbility[Gouging Blade Rk. II]} || ${Me.CombatAbility[Gouging Blade Rk. III]} || ${Me.CombatAbility[Gashing Blade]} || ${Me.CombatAbility[Gashing Blade Rk. II]} || ${Me.CombatAbility[Gashing Blade Rk. III]} || ${Me.CombatAbility[Lacerating Blade]} || ${Me.CombatAbility[Lacerating Blade Rk. II]} || ${Me.CombatAbility[Lacerating Blade Rk. III]} || ${Me.CombatAbility[Wounding Blade]} || ${Me.CombatAbility[Wounding Blade Rk. II]} || ${Me.CombatAbility[Wounding Blade Rk. III]} || ${Me.CombatAbility[Rending Blade]} || ${Me.CombatAbility[Rending Blade Rk. II]} || ${Me.CombatAbility[Rending Blade Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[Gouging Blade]} || ${Me.CombatAbility[Gouging Blade Rk. II]} || ${Me.CombatAbility[Gouging Blade Rk. III]} || ${Me.CombatAbility[Gashing Blade]} || ${Me.CombatAbility[Gashing Blade Rk. II]} || ${Me.CombatAbility[Gashing Blade Rk. III]} || ${Me.CombatAbility[Lacerating Blade]} || ${Me.CombatAbility[Lacerating Blade Rk. II]} || ${Me.CombatAbility[Lacerating Blade Rk. III]} || ${Me.CombatAbility[Wounding Blade]} || ${Me.CombatAbility[Wounding Blade Rk. II]} || ${Me.CombatAbility[Wounding Blade Rk. III]} || ${Me.CombatAbility[Rending Blade]} || ${Me.CombatAbility[Rending Blade Rk. II]} || ${Me.CombatAbility[Rending Blade Rk. III]}),1,0]}");
-
 DECLARE_ABILITY_OPTION(pHARMT, "harmtouch", "[ON/OFF]?", "${If[${Me.AltAbility[harm touch].ID},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[harm touch]} && ${Me.Class.ShortName.Equal[SHD]},1,0]}");
 //Challenge for power/honor is listed for both paladin/shadowknight
 //Where is Terror of line?
@@ -1705,35 +1694,32 @@ char* UI_PetAttk = "attack";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
-unsigned long   AACheck(unsigned long id);
-unsigned long   AAPoint(unsigned long index);
-int             AAReady(unsigned long index);
-long            Aggroed(unsigned long id);
-FLOAT           AngularDistance(float h1, float h2);
-DOUBLE          AngularHeading(PSPAWNINFO t, PSPAWNINFO s);
-int             CACheck(unsigned long id);
-int             CAPress(unsigned long id);
-int             Casting(char* command);
-int             CursorEmpty();
-long            Discipline();
-int             Equip(unsigned long ID, long SlotID);
-int             Equipped(unsigned long id);
-long            Evaluate(char* zFormat, ...);
-void            MeleeReset();
-long            OkayToEquip(long Size = NOID);
-PMQPLUGIN       Plugin(char* PluginName);
-void*           PluginEntry(char* PluginName, char* FuncName);
-int             SKCheck(unsigned long id);
-int             SKReady(unsigned long id);
-int             SKPress(unsigned long id);
-long            SpawnMask(PSPAWNINFO x);
-int             SpellCheck(unsigned long id);
-long            SpellGemID(unsigned long ID, long slotid = NOID);
-int             SpellReady(unsigned long ID, long SlotID = NOID);
-int             Stick(char* command);
-long            Unequip(long SlotID);
-//void            WinClick(CXWnd *Wnd, char* ScreenID, char* ClickNotification, unsigned long KeyState);
-PSTR            WinTexte(CXWnd *Wnd, char* ScreenID, PSTR Buffer);
+unsigned long AACheck(unsigned long id);
+unsigned long AAPoint(unsigned long index);
+int AAReady(unsigned long index);
+long Aggroed(unsigned long id);
+FLOAT AngularDistance(float h1, float h2);
+DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s);
+int CACheck(unsigned long id);
+int CAPress(unsigned long id);
+int Casting(char* command);
+int CursorEmpty();
+long Discipline();
+int Equip(unsigned long ID, long SlotID);
+int Equipped(unsigned long id);
+long Evaluate(const char* zFormat, ...);
+void MeleeReset();
+long OkayToEquip(long Size = NOID);
+int SKCheck(unsigned long id);
+int SKReady(unsigned long id);
+int SKPress(unsigned long id);
+long SpawnMask(PSPAWNINFO x);
+int SpellCheck(unsigned long id);
+long SpellGemID(unsigned long ID, long slotid = NOID);
+int SpellReady(unsigned long ID, long SlotID = NOID);
+int Stick(char* command);
+long Unequip(long SlotID);
+//void WinClick(CXWnd *Wnd, char* ScreenID, char* ClickNotification, unsigned long KeyState);
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
@@ -1742,7 +1728,7 @@ long doDEBUG;
 void Announce(unsigned long Wanted, char* Format, ...) {
     char Output[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, Format); vsprintf_s(Output, Format, vaList);
     if (Output[0]) {
-        unsigned long Result = 0; PMQPLUGIN pPlugin = pPlugins;
+        bool Result = false; auto pPlugin = pPlugins;
         while (pPlugin) {
             fMQIncomingChat Request = (fMQIncomingChat)GetProcAddress(pPlugin->hModule, "OnMeleeChat");
             if (Request) Result |= Request(Output, Wanted);
@@ -1753,23 +1739,17 @@ void Announce(unsigned long Wanted, char* Format, ...) {
 }
 
 #define GetSpawnID(spawnid) (PSPAWNINFO)GetSpawnByID(spawnid)
-#define TargetIT(X) *(PSPAWNINFO*)ppTarget=X
 
 static inline int WinState(CXWnd *Wnd) {
-    return (Wnd && ((PCSIDLWND)Wnd)->IsVisible());
-}
-
-static inline PSPAWNINFO Target() {
-    if (ppTarget) return (PSPAWNINFO)pTarget;
-    return NULL;
+    return (Wnd && Wnd->IsVisible());
 }
 
 static inline int TargetType(unsigned long mask) {
-    return (SpawnMask(Target())&mask);
+    return (SpawnMask(pTarget)&mask);
 }
 
 static inline int TargetID(unsigned long ID) {
-    if (ID && pTarget) return (ID == Target()->SpawnID);
+    if (ID && pTarget) return (ID == pTarget->SpawnID);
     return false;
 }
 
@@ -1802,11 +1782,11 @@ static inline unsigned long StandState() {
     return SpawnMe() ? SpawnMe()->StandState : 0;
 }
 
-static inline int Stackable(PCONTENTS Item) {
+static inline int Stackable(CONTENTS* Item) {
     return (Item && GetItemFromContents(Item)->Type == ITEMTYPE_NORMAL && ((EQ_Item*)Item)->IsStackable());
 }
 
-static inline long StackUnit(PCONTENTS Item) {
+static inline long StackUnit(CONTENTS* Item) {
     return (!Stackable(Item)) ? 1 : Item->StackCount;
 }
 
@@ -1841,7 +1821,7 @@ static inline int InRange(PSPAWNINFO a, PSPAWNINFO b, float d) {
 }
 
 static inline int InGame() {
-    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetCharInfo2() && GetCharInfo() && GetCharInfo()->Stunned != 3);
+    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetPcProfile() && GetCharInfo() && GetCharInfo()->Stunned != 3);
 }
 
 static inline CXWnd* XMLChild(CXWnd* window, char* screenid) {
@@ -1850,38 +1830,38 @@ static inline CXWnd* XMLChild(CXWnd* window, char* screenid) {
 }
 
 static inline int XMLEnabled(CXWnd* window) {
-    return (window && ((PCSIDLWND)window)->IsEnabled());
+    return (window && window->IsEnabled());
 }
 
-static inline PCONTENTS ContAmmo() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Ammo;
+static inline CONTENTS* ContAmmo() {
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Ammo;
     return NULL;
 }
 
-static inline PCONTENTS ContPrimary() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Primary;
+static inline CONTENTS* ContPrimary() {
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Primary;
     return NULL;
 }
 
-static inline PCONTENTS ContRange() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Range;
+static inline CONTENTS* ContRange() {
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Range;
     return NULL;
 }
 
-static inline PCONTENTS ContSecondary() {
-    if (PCHARINFO2 Me = GetCharInfo2()) return Me->pInventoryArray->Inventory.Secondary;
+static inline CONTENTS* ContSecondary() {
+    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Secondary;
     return NULL;
 }
 
-static inline int PokerType(PCONTENTS item) {
+static inline int PokerType(CONTENTS* item) {
     return (item && GetItemFromContents(item)->ItemType == 2);
 }
 
-static inline int ShieldType(PCONTENTS item) {
+static inline int ShieldType(CONTENTS* item) {
     return(item && GetItemFromContents(item)->ItemType == 8);
 }
 
-static inline int TwohandType(PCONTENTS item) {
+static inline int TwohandType(CONTENTS* item) {
     if (item) {
         if (GetItemFromContents(item)->ItemType == 1)   return true;
         if (GetItemFromContents(item)->ItemType == 4)   return true;
@@ -1897,7 +1877,7 @@ unsigned long AACheck(unsigned long id) {
     }
 	if (pAltAdvManager)
 	{
-		if (PCHARINFO2 Me = GetCharInfo2())
+		if (PcProfile* Me = GetPcProfile())
 		{
 			if (id)
 			{
@@ -1923,7 +1903,7 @@ unsigned long AACheck(unsigned long id) {
 unsigned long AAPoint(unsigned long index) {
 	if (index)
 	{
-		if (PCHARINFO2 Me = GetCharInfo2())
+		if (PcProfile* Me = GetPcProfile())
 		{
 			for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
 			{
@@ -1951,9 +1931,9 @@ int AAReady(unsigned long index) {
                 //unsigned long i = 0;
                 //i = pAltAdvManager->GetCalculatedTimer(pPCData, ability);
                 //DebugSpew("ability timer: %d", i);
-                if (pAltAdvManager->GetCalculatedTimer(pPCData, ability) > 0)
+                if (pAltAdvManager->GetCalculatedTimer((PcClient*)pPCData, ability) > 0)
                 {
-                    pAltAdvManager->IsAbilityReady(pPCData, ability, &result);
+                    pAltAdvManager->IsAbilityReady((PcClient*)pPCData, ability, &result);
                     //DebugSpew("result: %d", result);
                 }
             }
@@ -1964,7 +1944,7 @@ int AAReady(unsigned long index) {
 long Aggroed(unsigned long id) {
     if (PSPAWNINFO self = SpawnMe())
         if (PSPAWNINFO kill = GetSpawnID(id))
-            if (PSPAWNINFO targ = Target()) {
+            if (PSPAWNINFO targ = pTarget) {
                 if (targ == kill && self->SpawnID == self->TargetOfTarget)  return  1; // im on hott
                 if (fabs(AngularHeading(kill, self))<8.0f)       return  1; // it's facing me
                 if (FindSpeed(kill)>0.0f && kill->HPCurrent<20) return -1; // it's moving
@@ -1986,7 +1966,7 @@ DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s) {
 }
 
 int CACheck(unsigned long id) {
-    if (PCHARINFO2 Me = GetCharInfo2())
+    if (PcProfile* Me = GetPcProfile())
 		if (id)
 		{
 			for (unsigned long nCombat = 0; nCombat < NUM_COMBAT_ABILITIES; nCombat++)
@@ -2010,7 +1990,7 @@ int CAPress(unsigned long id) {
 
 int Casting(char* command) {
     typedef void(__cdecl *fCALL)(PSPAWNINFO, char*);
-    if (fCALL request = (fCALL)PluginEntry("mq2cast", "CastCommand")) {
+    if (auto request = (fCALL)GetPluginProc("mq2cast", "CastCommand")) {
         Announce(SHOW_CASTING, "%s::Casting [\ay%s\ax].", PLUGIN_NAME, command);
         request(NULL, command);
         return true;
@@ -2025,7 +2005,7 @@ void Command(char* zFormat, ...) {
 }
 
 int CursorEmpty() {
-    if (PCHARINFO2 Me = GetCharInfo2())
+    if (PcProfile* Me = GetPcProfile())
         if (!Me->pInventoryArray->Inventory.Cursor)
             if (!Me->CursorPlat)
                 if (!Me->CursorGold)
@@ -2036,20 +2016,19 @@ int CursorEmpty() {
 }
 
 long Discipline() {
-    char temps[MAX_STRING];
-    PSPELL spell = GetSpellByName(WinTexte((CXWnd*)pCombatAbilityWnd, "CAW_CombatEffectLabel", temps));
+    PSPELL spell = GetSpellByName(pCombatAbilityWnd->GetChildItem("CAW_CombatEffectLabel")->GetWindowText().c_str());
     return (spell) ? spell->ID : 0;
 }
 
 int Equipped(unsigned long id) {
     if (id)
         for (int i = 0; i < BAG_SLOT_START; i++)
-            if (PCONTENTS Cont = GetCharInfo2()->pInventoryArray->InventoryArray[i])
+            if (CONTENTS* Cont = GetPcProfile()->pInventoryArray->InventoryArray[i])
                 if (id == GetItemFromContents(Cont)->ItemNumber) return true;
     return false;
 }
 
-long Evaluate(char* zFormat, ...) {
+long Evaluate(const char* zFormat, ...) {
     char zOutput[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, zFormat);
     vsprintf_s(zOutput, zFormat, vaList); if (!zOutput[0]) return 1;
     //DebugSpewAlways("E[%s]",zOutput);
@@ -2058,29 +2037,15 @@ long Evaluate(char* zFormat, ...) {
     return atoi(zOutput);
 }
 
-long ItemTimer(PCONTENTS pItem) {
+long ItemTimer(CONTENTS* pItem) {
     if (GetItemFromContents(pItem)->Clicky.TimerID != 0xFFFFFFFF) return GetItemTimer(pItem);
     if (GetItemFromContents(pItem)->Clicky.SpellID != 0xFFFFFFFF) return 0;
     return 999999;
 }
 
-PMQPLUGIN Plugin(char* PluginName) {
-    long Length = strlen(PluginName) + 1;
-    PMQPLUGIN pLook = pPlugins;
-    while (pLook && _strnicmp(PluginName, pLook->szFilename, Length)) pLook = pLook->pNext;
-    return pLook;
-}
-
-void* PluginEntry(char* PluginName, char* FuncName) {
-    if (PMQPLUGIN pLook = Plugin(PluginName))
-        if (void* entry = GetProcAddress(pLook->hModule, FuncName))
-            return entry;
-    return NULL;
-}
-
 int SKCheck(unsigned long id) {
-    if (id<100 && (pSkillMgr->pSkill[id]->Activated && GetCharInfo2()->Skill[id]))     return true;
-    if (id>100 && id<128 && GetCharInfo2()->Skill[id] != 0xFF && strlen(szSkills[id])>3) return true;
+    if (id<100 && (pSkillMgr->pSkill[id]->Activated && GetPcProfile()->Skill[id]))     return true;
+    if (id>100 && id<128 && GetPcProfile()->Skill[id] != 0xFF && strlen(szSkills[id])>3) return true;
     return false;
 }
 
@@ -2095,15 +2060,9 @@ int SKReady(unsigned long id) {
 }
 
 int SKPress(unsigned long id) {
-    if (PCHARINFO pChar = GetCharInfo()) {
-#if defined(NEWCHARINFO) 
-		if (pChar->PcClient_CharacterZoneClient_vfTable) {
-#else
-		if (pChar->vtable2) {
-#endif
-            pCharData1->UseSkill((unsigned char)id, (EQPlayer*)pCharData1);
-            return true;
-        }
+    if (pCharData) {
+        pCharData->UseSkill((unsigned char)id, pCharData->me);
+        return true;
     }
     return false;
 }
@@ -2121,7 +2080,7 @@ long SpawnMask(PSPAWNINFO x) {
 
 int SpellCheck(unsigned long ID) {
     if (ID)
-        if (PCHARINFO2 Me = GetCharInfo2())
+        if (PcProfile* Me = GetPcProfile())
             for (unsigned long nSlot = 0; nSlot < NUM_BOOK_SLOTS; nSlot++)
                 if (ID == Me->SpellBook[nSlot])
                     return true;
@@ -2129,7 +2088,7 @@ int SpellCheck(unsigned long ID) {
 }
 
 long SpellGemID(unsigned long ID, long SlotID) {
-    if (PCHARINFO2 Me = GetCharInfo2()) {
+    if (PcProfile* Me = GetPcProfile()) {
         if (SlotID != NOID && ID == Me->MemorizedSpells[SlotID]) return SlotID;
         for (long GEM = 0; GEM < GemsMax; GEM++)
             if (ID == Me->MemorizedSpells[GEM])
@@ -2140,12 +2099,12 @@ long SpellGemID(unsigned long ID, long SlotID) {
 
 int SpellReady(unsigned long ID, long SlotID) {
     if (pCastSpellWnd)
-        if (PCHARINFO2 Me = GetCharInfo2()) {
+        if (PcProfile* Me = GetPcProfile()) {
             unsigned long GemID = (SlotID != NOID) ? SlotID : SpellGemID(ID);
             if (GemID < (unsigned long)GemsMax)
                 if (Me->MemorizedSpells[GemID] == ID)
-                    if ((long)((PEQCASTSPELLWINDOW)pCastSpellWnd)->SpellSlots[GemID]->spellicon != NOID)
-                        if (BardClass || (long)((PEQCASTSPELLWINDOW)pCastSpellWnd)->SpellSlots[GemID]->spellstate != 1)
+                    if (pCastSpellWnd->SpellSlots[GemID]->spellicon != NOID)
+                        if (BardClass || pCastSpellWnd->SpellSlots[GemID]->spellstate != 1)
                             return true;
         }
     return false;
@@ -2154,13 +2113,8 @@ int SpellReady(unsigned long ID, long SlotID) {
 bool HandleMoveUtils(void)
 {
     bMUPointers = false;
-    fStickCommand = NULL;
-    pbStickOn = NULL;
-    if (PMQPLUGIN pLook = Plugin("mq2moveutils"))
-    {
-        fStickCommand = (void(*)(PSPAWNINFO pChar, char* szLine))GetProcAddress(pLook->hModule, "StickCommand");
-        pbStickOn = (bool *)GetProcAddress(pLook->hModule, "bStickOn");
-    }
+    fStickCommand = (fEQCommand)GetPluginProc("mq2moveutils", "StickCommand");
+    pbStickOn = (bool *)GetPluginProc("mq2moveutils", "bStickOn");
     if (fStickCommand && pbStickOn)
     {
         bMUPointers = true;
@@ -2171,24 +2125,12 @@ bool HandleMoveUtils(void)
 
 unsigned char PetButtonEnabled(char* pszButtonName)
 {
-    int i = 0;
-	CHAR *szBuf = new CHAR[MAX_STRING];
-    for (i = 0; i < PET_BUTTONS; i++)
+    for (int i = 0; i < PET_BUTTONS; i++)
     {
-        if (((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i])
-        {
-            if (PCXSTR Str = ((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i]->Wnd.CGetWindowText())
-            {
-				GetCXStr(Str, szBuf);
-                if (!_stricmp(szBuf, pszButtonName))
-                {
-					delete szBuf;
-					return ((PEQPETINFOWINDOW)pPetInfoWnd)->pButton[i]->Wnd.IsEnabled();
-                }
-            }
-        }
+        if (auto pButton = pPetInfoWnd->pButton[i])
+			if (ci_equals(pButton->GetWindowText(), pszButtonName))
+				return pButton->IsEnabled();
     }
-	delete szBuf;
     return 0;
 }
 
@@ -2225,18 +2167,6 @@ unsigned long TimeSince(unsigned long Timer) {
     return 0;
 }
 
-PSTR WinTexte(CXWnd *Wnd, char* ScreenID, PSTR Buffer) {
-    Buffer[0] = '\0';
-	if (Wnd)
-	{
-		if (CXWnd *Child = (CXWnd*)Wnd->GetChildItem(ScreenID))
-		{
-			GetCXStr(Child->CGetWindowText(), Buffer);
-		}
-	}
-    return Buffer;
-}
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // item related
 
@@ -2247,7 +2177,7 @@ bool FitInPack(long Size)
     unsigned char ucSlot = 0;
     for (ucSlot = BAG_SLOT_START; ucSlot < NUM_INV_SLOTS; ucSlot++)
     {
-        if (PCONTENTS pInvSlot = GetCharInfo2()->pInventoryArray->InventoryArray[ucSlot])
+        if (CONTENTS* pInvSlot = GetPcProfile()->pInventoryArray->InventoryArray[ucSlot])
         {
             if (TypePack(pInvSlot) && GetItemFromContents(pInvSlot)->Combine != 2 && Size <= GetItemFromContents(pInvSlot)->SizeCapacity)// && (!pSLOT || GetItemFromContents(pInvSlot)->SizeCapacity < pSIZE))
             {
@@ -2284,7 +2214,7 @@ long Unequip(long SlotID)
 {
     if (SlotID < NUM_INV_SLOTS)
     {
-        PCONTENTS uCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID];
+        CONTENTS* uCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID];
         if (!uCONT) return true;
 
         CItemLocation cUnequipTo;
@@ -2321,11 +2251,11 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == cMoveItem.InvSlot) return true; // item already in place
 
     // check class, level, deity and race to see if we have rights to equip this items.
-    PCONTENTS fITEM = cMoveItem.pBagSlot;
-    if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetCharInfo2()->Class) - 1))))                                     return false;
-    if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetCharInfo2()->Level)                                 return false;
-    if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetCharInfo2()->Deity - 200))))  return false;
-    long MyRace = (unsigned long)GetCharInfo2()->Race;
+    CONTENTS* fITEM = cMoveItem.pBagSlot;
+    if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetPcProfile()->Class) - 1))))                                     return false;
+    if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetPcProfile()->Level)                                 return false;
+    if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetPcProfile()->Deity - 200))))  return false;
+    long MyRace = (unsigned long)GetPcProfile()->Race;
     switch (MyRace)
     {
         case 128: MyRace = 12;    break;
@@ -2339,7 +2269,7 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == inv_secondary && TwohandType(ContPrimary()))           if (!Unequip(inv_primary))   return false;
 
     // if wearing something
-    if (PCONTENTS dCONT = GetCharInfo2()->pInventoryArray->InventoryArray[SlotID])
+    if (CONTENTS* dCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID])
     {
         if (cMoveItem.InvSlot >= NUM_INV_SLOTS) // if not a main inv slot
         {
@@ -2410,10 +2340,10 @@ public:
                 if (long AAIndex = AACheck(ID)) {
                     if (PALTABILITY ability = GetAAByIdWrapper(AAIndex, level)) {
                         if (PSPELL spell = GetSpellByID(ability->SpellID)) {
-                            strcpy_s(NAME, pCDBStr->GetString(ability->nName, 1, NULL));
+                            strcpy_s(NAME, pCDBStr->GetString(ability->nName, eAltAbilityName, NULL));
                             sprintf_s(COMM, "%d|ALT", ID);
                             EFFECT = spell;
-                            REUSE = pAltAdvManager->GetCalculatedTimer(pPCData, ability) * 1000 + spell->CastTime + delay * 3;
+                            REUSE = pAltAdvManager->GetCalculatedTimer(pCharData, ability) * 1000 + spell->CastTime + delay * 3;
                             INDEX = AAIndex;
                             TYPE = AA;
                             return true;
@@ -2440,7 +2370,7 @@ public:
                 CItemLocation cFindItem;
                 if (ItemFind(&cFindItem, szTempItem))
                 {
-                    if (PCONTENTS find = cFindItem.pBagSlot)
+                    if (CONTENTS* find = cFindItem.pBagSlot)
                     {
                         INDEX = cFindItem.InvSlot;
                         strcpy_s(NAME, GetItemFromContents(find)->Name);
@@ -2465,7 +2395,7 @@ public:
         return (ID > 0 && TYPE != UNKNOWN) ? true : false;
     }
 
-    long Check(string test) {
+    long Check(const std::string& test) {
         if (!Found())                        return 0x01;  // Ability Not Found
         if ((unsigned long)clock() <= READY) return 0x02;  // Ability Not Refreshed
         if (TYPE == SKILL)
@@ -2500,23 +2430,24 @@ public:
             {
                 //DebugSpew("EFFECT->ReuseTimerIndex Name: %s  ID: %d Type: %dVal: %d", NAME, ID, TYPE, EFFECT->ReuseTimerIndex);
                 #if !defined(ROF2EMU) && !defined(UFEMU)
-                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // dicipline timer not ready
+                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
                 #else
 				int rtindex = EFFECT->ReuseTimerIndex;
 				if(rtindex >= 0 && rtindex < 20)//this matters on emu it will actually crash u if above 20
 				{
-					if (((unsigned long)pPCData->GetCombatAbilityTimer(rtindex) - (unsigned long)time(NULL)) < 0) return 0x16; // dicipline timer not ready
+					if (((unsigned long)pPCData->GetCombatAbilityTimer(rtindex) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
                 }
 				#endif
             }
+        	// TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
-            if (EFFECT->EnduranceCost && (int)GetCharInfo2()->Endurance < EFFECT->EnduranceCost)                                       return 0x0B;  // out of endurance
-            if (EFFECT->ManaCost && (int)GetCharInfo2()->Mana < EFFECT->ManaCost)                                                      return 0x0C;  // out of mana
+            if (EFFECT->EnduranceCost && (int)GetPcProfile()->Endurance < EFFECT->EnduranceCost)                                  return 0x0B;  // out of endurance
+            if (EFFECT->ManaCost && (int)GetPcProfile()->Mana < EFFECT->ManaCost)                                                 return 0x0C;  // out of mana
             if (!EFFECT->SpellType)
             {
                 if (!pTarget)                                                                                                     return 0x0D;  // no target
                 float SpellRange = (EFFECT->Range) ? EFFECT->Range : EFFECT->AERange;
-                if (SpellRange && !InRange(SpawnMe(), (PSPAWNINFO)pTarget, SpellRange))                                           return 0x0E;  // out of range
+                if (SpellRange && !InRange(SpawnMe(), (PSPAWNINFO)pTarget, SpellRange))                                      return 0x0E;  // out of range
             }
             else if (EFFECT->DurationCap>0)
             {
@@ -2524,7 +2455,7 @@ public:
                 {
                     for (int s = 0; s < SongMax; s++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetCharInfo2()->ShortBuff[s].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->ShortBuff[s].SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -2535,7 +2466,7 @@ public:
                 {
                     for (int b = 0; b<BuffMax; b++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetCharInfo2()->Buff[b].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->Buff[b].SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -2567,13 +2498,13 @@ public:
             }
             else if (TYPE == POTION || TYPE == CLICKY)
             {
-                //PCONTENTS find=ItemLocate(ID,0,NUM_INV_SLOTS,INDEX);
+                //CONTENTS* find=ItemLocate(ID,0,NUM_INV_SLOTS,INDEX);
                 char szTempItem[25] = { 0 };
                 sprintf_s(szTempItem, "%d", ID);
                 CItemLocation cFindItem;
                 if (ItemFind(&cFindItem, szTempItem))
                 {
-                    PCONTENTS find = cFindItem.pBagSlot;
+                    CONTENTS* find = cFindItem.pBagSlot;
                     INDEX = cFindItem.InvSlot;
                     //INDEX=InvSlot;
                     if (!find || !find->Charges || ItemTimer(find)) return 0x13;  // Ability Not Ready
@@ -2585,7 +2516,7 @@ public:
         return 0x00;
     }
 
-    int Ready(string test) {
+    int Ready(const std::string& test) {
         long Result = Check(test);
         if (DebugReady && Result) {
             char* Message = "";
@@ -2657,26 +2588,27 @@ public:
 
 class Option {
 public:
+	// TODO: Give these sane names and make them std::string (lose the pointers)
     char*    OptionKey;  // key?
     char*    OptionHelp;  // help?
     char*    OptionDefault;  // default?
     char*    OptionShow;  // show?
-    string  *OptionCondition;  // condition?
+    std::string  *OptionCondition;  // condition?
     Ability *OptionAbility;  // ability?
     long    *OptionValue;  // value?
     Function OptionFunction;  // function?
     int      OptionUpdate;  // update?
 
-    Option(char* k, char* h, char* d, char* s, Function f, string *c) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = c; OptionAbility = NULL; OptionValue = NULL;
+    Option(char* k, char* h, char* d, char* s, Function f, std::string *c) {
+        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = c; OptionAbility = nullptr; OptionValue = nullptr;
     }
 
     Option(char* k, char* h, char* d, char* s, Function f, Ability *a) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = NULL; OptionAbility = a; OptionValue = NULL;
+        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = nullptr; OptionAbility = a; OptionValue = nullptr;
     }
 
     Option(char* k, char* h, char* d, char* s, Function f, long *v) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = NULL; OptionAbility = NULL; OptionValue = v;
+        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = nullptr; OptionAbility = nullptr; OptionValue = v;
     }
 
     void Write() {
@@ -2684,7 +2616,7 @@ public:
             long value = (OptionAbility) ? OptionAbility->ID : (OptionValue) ? *OptionValue : 0;
             if (value > 0) WriteChatf("%s::%s (\ag%d\ax) \ay%s\ax.", PLUGIN_NAME, OptionKey, value, OptionHelp);
             else           WriteChatf("%s::%s (\ar0\ax) \ay%s\ax.", PLUGIN_NAME, OptionKey, OptionHelp);
-        }
+		}
     }
 
     void Setup(char* value) {
@@ -2694,15 +2626,15 @@ public:
             if (!_stricmp("false", value) || !_stricmp("off", value))    *OptionValue = 0;
             else if (!_stricmp("true", value) || !_stricmp("on", value)) *OptionValue = 1;
             else *OptionValue = atol(value);
-        }
-        if (OptionFunction) this->OptionFunction();
+		}
+		if (OptionFunction) this->OptionFunction();
     }
 
     void *Value() {
         if (OptionAbility) return &OptionAbility->ID;
-        else if (OptionValue) return OptionValue;
-        else if (OptionCondition) return OptionCondition;
-        return NULL;
+        if (OptionValue) return OptionValue;
+        if (OptionCondition) return OptionCondition;
+        return nullptr;
     }
 
     long Ready() {
@@ -2713,7 +2645,7 @@ public:
     void Reset() {
         if (OptionKey[0]) {
             if (OptionCondition) *OptionCondition = OptionDefault;
-            else {
+        	else {
                 strcpy_s(Reserved, OptionDefault);
                 if (Reserved[0])
                     ParseMacroData(Reserved, sizeof(Reserved));
@@ -2739,7 +2671,7 @@ public:
     }
 };
 
-typedef map<string, Option> Liste;    // declare a type so more easy to refer
+typedef std::map<std::string, Option> Liste;    // declare a type so more easy to refer
 Liste     CmdListe;                   // settings from command or ini
 Liste     IniListe;                   // settings from ini only
 Liste     VarListe;                   // settings from var liste
@@ -2868,7 +2800,7 @@ elPOKER,
 elRANGED,
 elSHIELD;
 
-string    ifASP,
+std::string    ifASP,
 ifASSAULT,
 ifBACKSTAB,
 ifBASH,
@@ -3173,8 +3105,8 @@ public:
         TypeMember(NumHits);
         TypeMember(XTaggro);
     }
-    bool MQ2MeleeType::GETMEMBER() {
-        PMQ2TYPEMEMBER pMember = MQ2MeleeType::FindMember(Member);
+    bool MQ2MeleeType::GetMember(MQVarPtr VarPtr, char* Member, char* Index, MQTypeVar& Dest) {
+        auto pMember = MQ2MeleeType::FindMember(Member);
         isKill = false; if (doSKILL) if (MeleeTarg) isKill = true;
         if (pMember)
         {
@@ -3182,15 +3114,15 @@ public:
             {
                 case Enable:
                     Dest.DWord = doSKILL;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Combat:
                     Dest.DWord = isKill;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Casted:
                     Dest.Int = (isKill && MeleeCast) ? labs((unsigned long)clock() - MeleeCast) : 60000;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case Status:
                     Tempos[0] = 0;
@@ -3207,81 +3139,81 @@ public:
                     if (onEVENT & 0x0400) strcat_s(Tempos, "FALLING ");
                     if (onEVENT & 0x1000) strcat_s(Tempos, "STEALING ");
                     if (onEVENT & 0x2000) strcat_s(Tempos, "BEGGING ");
-                    Dest.Type = pStringType;
+                    Dest.Type = mq::datatypes::pStringType;
                     Dest.Ptr = &Tempos[0];
                     return true;
                 case Target:
                     Dest.Int = isKill ? MeleeTarg : 0;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case DiscID:
                     Dest.DWord = Discipline();
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case GotAggro:
                     Dest.DWord = (Aggroed(MeleeTarg) > 0);
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case AggroMode:
                     Dest.DWord = doAGGRO;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case MeleeMode:
                     Dest.DWord = doMELEE;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case RangeMode:
                     Dest.DWord = doRANGE;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Enrage:
                     Dest.DWord = onEVENT & 0x0001;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Infuriate:
                     Dest.DWord = onEVENT & 0x0002;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case BackAngle:
                     Dest.Float = pTarget ? AngularDistance(((PSPAWNINFO)pTarget)->Heading, SpawnMe()->Heading) : 0.0f;
-                    Dest.Type = pFloatType;
+                    Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case ViewAngle:
                     Dest.Float = pTarget ? (float)AngularHeading(SpawnMe(), (PSPAWNINFO)pTarget) : 0.0f;
-                    Dest.Type = pFloatType;
+                    Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case Immobilize:
                     Dest.DWord = Immobile;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Ammunition:
                     Dest.DWord = CountItemByID(elARROWS);
-                    if (PCONTENTS r = GetCharInfo2()->pInventoryArray->Inventory.Ammo)
+                    if (CONTENTS* r = GetPcProfile()->pInventoryArray->Inventory.Ammo)
                         if (GetItemFromContents(r)->ItemNumber != elARROWS)
                             if (GetItemFromContents(r)->ItemType == 7 || GetItemFromContents(r)->ItemType == 19 || GetItemFromContents(r)->ItemType == 27)
                                 Dest.DWord = CountItemByID(GetItemFromContents(r)->ItemNumber);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case BackStabbing:
                     Dest.DWord = doBACKSTAB;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case Hidden:
                     Dest.Int = TimeSince(HiddenTimer);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case Silent:
                     Dest.Int = TimeSince(SilentTimer);
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case NumHits:
                     Dest.DWord = SwingHits;
-                    Dest.Type = pIntType;
+                    Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case XTaggro:
                 {
                     Dest.DWord = true;
-                    Dest.Type = pBoolType;
+                    Dest.Type = mq::datatypes::pBoolType;
                     if (PCHARINFO pChar = GetCharInfo()) {
                         if (ExtendedTargetList *xtm = pChar->pXTargetMgr) {
                             DWORD x = 0;
@@ -3321,31 +3253,31 @@ public:
             }
         }
         strcpy_s(Tempos, "NULL");
-        Dest.Type = pStringType;
+        Dest.Type = mq::datatypes::pStringType;
         Dest.Ptr = &Tempos[0];
         return true;
     }
-    bool ToString(MQ2VARPTR VarPtr, char* Destination) {
+    bool ToString(MQVarPtr VarPtr, char* Destination) {
         strcpy_s(Destination, MAX_STRING, "TRUE");
         return true;
     }
-    bool FromData(MQ2VARPTR &VarPtr, MQ2TYPEVAR &Source) {
+    bool FromData(MQVarPtr &VarPtr, MQTypeVar &Source) {
         return false;
     }
-    bool FromString(MQ2VARPTR &VarPtr, char* Source) {
+    bool FromString(MQVarPtr &VarPtr, char* Source) {
         return false;
     }
     ~MQ2MeleeType() { }
 };
 
-int DataMelee(char* Index, MQ2TYPEVAR &Dest) {
+bool DataMelee(const char* Index, MQTypeVar &Dest) {
     Dest.Type = pMeleeTypes;
     Dest.DWord = 1;
     return true;
 }
 
-int datameleemvb(char* Index, MQ2TYPEVAR &Dest) {
-    Dest.Type = pIntType;
+bool datameleemvb(const char* Index, MQTypeVar &Dest) {
+    Dest.Type = mq::datatypes::pIntType;
     Dest.Int = NOID;
     Liste::iterator c;
     if (VarListe.end() != (c = VarListe.find(Index)))
@@ -3353,8 +3285,8 @@ int datameleemvb(char* Index, MQ2TYPEVAR &Dest) {
     return true;
 }
 
-int datameleemvi(char* Index, MQ2TYPEVAR &Dest) {
-    Dest.Type = pIntType;
+bool datameleemvi(const char* Index, MQTypeVar &Dest) {
+    Dest.Type = mq::datatypes::pIntType;
     Dest.DWord = 0;
     Liste::iterator c;
     if (CmdListe.end() != (c = CmdListe.find(Index))) {
@@ -3368,12 +3300,12 @@ int datameleemvi(char* Index, MQ2TYPEVAR &Dest) {
     return true;
 }
 
-int datameleemvs(char* Index, MQ2TYPEVAR &Dest) {
-    Dest.Type = pStringType;
+bool datameleemvs(const char* Index, MQTypeVar &Dest) {
+    Dest.Type = mq::datatypes::pStringType;
     Dest.Ptr = &Workings;
     Liste::iterator c = IniListe.find(Index);
     if (IniListe.end() != c) {
-        if (string *OptionShow = (string*)(*c).second.Value())
+        if (std::string *OptionShow = (std::string*)(*c).second.Value())
             strcpy_s(Workings, OptionShow->c_str());
     }
     else Workings[0] = 0;
@@ -3414,11 +3346,11 @@ bool BashCheck() {
 
 void BashPress() {
     long savedpri = 0; long savedoff = 0; int got2hand = false;
-    if (PCONTENTS pri = ContPrimary()) {
+    if (CONTENTS* pri = ContPrimary()) {
         got2hand = TwohandType(pri);
         savedpri = GetItemFromContents(pri)->ItemNumber;
     }
-    if (PCONTENTS off = ContSecondary()) savedoff = GetItemFromContents(off)->ItemNumber;
+    if (CONTENTS* off = ContSecondary()) savedoff = GetItemFromContents(off)->ItemNumber;
     if (elSHIELD && CountItemByID(elSHIELD) && OkayToEquip(Giant)) Equip(elSHIELD, inv_secondary);
     if (ShieldType(ContSecondary()) || (got2hand && HaveBash)) idBASH.Press();
     if (savedoff) Equip(savedoff, inv_secondary);
@@ -3426,7 +3358,7 @@ void BashPress() {
 }
 
 void Configure() {
-    PCHARINFO2 pChar2 = GetCharInfo2();
+    PcProfile* pChar2 = GetPcProfile();
     PCHARINFO pChar = GetCharInfo();
     if (!pChar2 || !pChar)
         return;
@@ -3434,7 +3366,7 @@ void Configure() {
     long Races = pChar2->Race;
     long Level = pChar2->Level;
     int SOValue = 0;
-    sprintf_s(INIFileName, "%s\\%s_%s.ini", gszINIPath, EQADDR_SERVERNAME, pChar->Name);
+    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, EQADDR_SERVERNAME, pChar->Name);
     sprintf_s(section, "%s_%d_%s_%s", PLUGIN_NAME, Level, pEverQuest->GetRaceDesc(Races), pEverQuest->GetClassDesc(Class));
     Shrouded = pChar2->Shrouded; if (!Shrouded) section[strlen(PLUGIN_NAME)] = 0;
     BuffMax = GetCharMaxBuffSlots();
@@ -3555,7 +3487,6 @@ void Configure() {
     idWITHSTAND.Setup(0, 0);
     idYAULP.Setup(0, 0);
 
-    
     AbilityFind(&idBASH, &sbash, 0);
     AbilityFind(&idBEGGING, &sbegging, 0);
     AbilityFind(&idDISARM, &sdisarm, 0);
@@ -3589,9 +3520,8 @@ void Configure() {
         AbilityFind(&idYAULP, &yaulp, 0);
         break;
     case  Paladin: // PAL
-		AbilityFind(&idLAYHAND, &layhand, 0);
-        AbilityFind(&idCHALLENGEFOR, &honor27, &honor26, &honor25, &honor24, &honor23, &honor22, &honor21, &honor20, &honor19, &honor18, &honor17, &honor16, &honor15, &honor14, &honor13, &honor12, &honor11, &honor10, &honor9, &honor8, &honor7, &honor6, &honor5, &honor4, &honor3, &honor2, &honor1, 0);
-        AbilityFind(&idPROVOKE[0], &stunaas3, &stunaas2, &stunaas1, 0);
+        AbilityFind(&idLAYHAND, &layhand, 0);
+        AbilityFind(&idCHALLENGEFOR, &honor27, &honor26, &honor25, &honor24, &honor23, &honor22, &honor21, &honor20, &honor19, &honor18, &honor17, &honor16, &honor15, &honor14, &honor13, &honor12, &honor11, &honor10, &honor9, &honor8, &honor7, &honor6, &honor5, &honor4, &honor3, &honor2, &honor1, 0);        AbilityFind(&idPROVOKE[0], &stunaas3, &stunaas2, &stunaas1, 0);
         AbilityFind(&idPROVOKE[1], &stunpal52, &stunpal51, &stunpal50, &stunpal49, &stunpal48, &stunpal47, &stunpal46, &stunpal45, &stunpal44, &stunpal43, &stunpal42, &stunpal41, &stunpal40, &stunpal39, &stunpal38, &stunpal37, &stunpal36, &stunpal35, &stunpal34, &stunpal33, &stunpal32, &stunpal31, &stunpal30, &stunpal29, &stunpal28, &stunpal27, &stunpal26, &stunpal25, &stunpal24, &stunpal23, &stunpal22, &stunpal21, &stunpal20, &stunpal19, &stunpal18, &stunpal17, &stunpal16, &stunpal15, &stunpal14, &stunpal13, &stunpal12, &stunpal11, &stunpal10, &stunpal9, &stunpal8, &stunpal7, &stunpal6, &stunpal5, &stunpal4, &stunpal3, &stunpal2, &stunpal1, 0);
         AbilityFind(&idSTEELY, &steely21, &steely20, &steely19, &steely18, &steely17, &steely16, &steely15, &steely14, &steely13, &steely12, &steely11, &steely10, &steely9, &steely8, &steely7, &steely6, &steely5, &steely4, &steely3, &steely2, &steely1, 0);
         AbilityFind(&idSTUN[0], &stunaas3, &stunaas2, &stunaas1, 0);
@@ -3688,18 +3618,18 @@ void Configure() {
         break;
     case Berserker: // BER
         BerserkerClass = true;
-		AbilityFind(&idBLOODLUST, &bloodlust21, &bloodlust20, &bloodlust19, &bloodlust18, &bloodlust17, &bloodlust16, &bloodlust15, &bloodlust14, &bloodlust13, &bloodlust12, &bloodlust11, &bloodlust10, &bloodlust9, &bloodlust8, &bloodlust7, &bloodlust6, &bloodlust5, &bloodlust4, &bloodlust3, &bloodlust2, &bloodlust1, 0);
-		AbilityFind(&idCRIPPLE, &cripple31, &cripple30, &cripple29, &cripple28, &cripple27, &cripple26, &cripple25, &cripple24, &cripple23, &cripple22, &cripple21, &cripple20, &cripple19, &cripple18, &cripple17, &cripple16, &cripple15, &cripple14, &cripple13, &cripple12, &cripple11, &cripple10, &cripple9, &cripple8, &cripple7, &cripple6, &cripple5, &cripple4, &cripple3, &cripple2, &cripple1, 0);
-		AbilityFind(&idCRYHAVOC, &cryhavoc4, &cryhavoc3, &cryhavoc2, &cryhavoc1, 0);		
+        AbilityFind(&idBLOODLUST, &bloodlust21, &bloodlust20, &bloodlust19, &bloodlust18, &bloodlust17, &bloodlust16, &bloodlust15, &bloodlust14, &bloodlust13, &bloodlust12, &bloodlust11, &bloodlust10, &bloodlust9, &bloodlust8, &bloodlust7, &bloodlust6, &bloodlust5, &bloodlust4, &bloodlust3, &bloodlust2, &bloodlust1, 0);
+        AbilityFind(&idCRIPPLE, &cripple31, &cripple30, &cripple29, &cripple28, &cripple27, &cripple26, &cripple25, &cripple24, &cripple23, &cripple22, &cripple21, &cripple20, &cripple19, &cripple18, &cripple17, &cripple16, &cripple15, &cripple14, &cripple13, &cripple12, &cripple11, &cripple10, &cripple9, &cripple8, &cripple7, &cripple6, &cripple5, &cripple4, &cripple3, &cripple2, &cripple1, 0);
+        AbilityFind(&idCRYHAVOC, &cryhavoc4, &cryhavoc3, &cryhavoc2, &cryhavoc1, 0);
         AbilityFind(&idJOLT, &joltber31, &joltber30, &joltber29, &joltber28, &joltber27, &joltber26, &joltber25, &joltber24, &joltber23, &joltber22, &joltber21, &joltber20, &joltber19, &joltber18, &joltber17, &joltber16, &joltber15, &joltber14, &joltber13, &joltber12, &joltber11, &joltber10, &joltber9, &joltber8, &joltber7, &joltber6, &joltber5, &joltber4, &joltber3, &joltber2, &joltber1, 0);
-		AbilityFind(&idOPFRENZY, &opfrenzy21, &opfrenzy20, &opfrenzy19, &opfrenzy18, &opfrenzy17, &opfrenzy16, &opfrenzy15, &opfrenzy14, &opfrenzy13, &opfrenzy12, &opfrenzy11, &opfrenzy10, &opfrenzy9, &opfrenzy8, &opfrenzy7, &opfrenzy6, &opfrenzy5, &opfrenzy4, &opfrenzy3, &opfrenzy2, &opfrenzy1, 0);
-		AbilityFind(&idRALLOS, &rallos27, &rallos26, &rallos25, &rallos24, &rallos23, &rallos22, &rallos21, &rallos20, &rallos19, &rallos18, &rallos17, &rallos16, &rallos15, &rallos14, &rallos13, &rallos12, &rallos11, &rallos10, &rallos9, &rallos8, &rallos7, &rallos6, &rallos5, &rallos4, &rallos3, &rallos2, &rallos1, 0);
-		AbilityFind(&idSLAPFACE, &slapface18, &slapface17, &slapface16, &slapface15, &slapface14, &slapface13, &slapface12, &slapface11, &slapface10, &slapface9, &slapface8, &slapface7, &slapface6, &slapface5, &slapface4, &slapface3, &slapface2, &slapface1, 0);
-		AbilityFind(&idSTUN[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
-		AbilityFind(&idVIGAXE, &vigber21, &vigber20, &vigber19, &vigber18, &vigber17, &vigber16, &vigber15, &vigber14, &vigber13, &vigber12, &vigber11, &vigber10, &vigber9, &vigber8, &vigber7, &vigber6, &vigber5, &vigber4, &vigber3, &vigber2, &vigber1, 0);
-		AbilityFind(&idRAGEVOLLEY, &volley32, &volley31, &volley30, &volley29, &volley28, &volley27, &volley26, &volley25, &volley24, &volley23, &volley22, &volley21, &volley20, &volley19, &volley18, &volley17, &volley16, &volley15, &volley14, &volley13, &volley12, &volley11, &volley10, &volley9, &volley8, &volley7, &volley6, &volley5, &volley4, &volley3, &volley2, &volley1, 0);
-		AbilityFind(&idPROVOKE[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
-		AbilityFind(&idFRENZY, &sfrenzy, 0);
+        AbilityFind(&idOPFRENZY, &opfrenzy21, &opfrenzy20, &opfrenzy19, &opfrenzy18, &opfrenzy17, &opfrenzy16, &opfrenzy15, &opfrenzy14, &opfrenzy13, &opfrenzy12, &opfrenzy11, &opfrenzy10, &opfrenzy9, &opfrenzy8, &opfrenzy7, &opfrenzy6, &opfrenzy5, &opfrenzy4, &opfrenzy3, &opfrenzy2, &opfrenzy1, 0);
+        AbilityFind(&idRALLOS, &rallos27, &rallos26, &rallos25, &rallos24, &rallos23, &rallos22, &rallos21, &rallos20, &rallos19, &rallos18, &rallos17, &rallos16, &rallos15, &rallos14, &rallos13, &rallos12, &rallos11, &rallos10, &rallos9, &rallos8, &rallos7, &rallos6, &rallos5, &rallos4, &rallos3, &rallos2, &rallos1, 0);
+        AbilityFind(&idSLAPFACE, &slapface18, &slapface17, &slapface16, &slapface15, &slapface14, &slapface13, &slapface12, &slapface11, &slapface10, &slapface9, &slapface8, &slapface7, &slapface6, &slapface5, &slapface4, &slapface3, &slapface2, &slapface1, 0);
+        AbilityFind(&idSTUN[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
+        AbilityFind(&idVIGAXE, &vigber21, &vigber20, &vigber19, &vigber18, &vigber17, &vigber16, &vigber15, &vigber14, &vigber13, &vigber12, &vigber11, &vigber10, &vigber9, &vigber8, &vigber7, &vigber6, &vigber5, &vigber4, &vigber3, &vigber2, &vigber1, 0);
+        AbilityFind(&idRAGEVOLLEY, &volley32, &volley31, &volley30, &volley29, &volley28, &volley27, &volley26, &volley25, &volley24, &volley23, &volley22, &volley21, &volley20, &volley19, &volley18, &volley17, &volley16, &volley15, &volley14, &volley13, &volley12, &volley11, &volley10, &volley9, &volley8, &volley7, &volley6, &volley5, &volley4, &volley3, &volley2, &volley1, 0);
+        AbilityFind(&idPROVOKE[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
+        AbilityFind(&idFRENZY, &sfrenzy, 0);
         break;
     }
 
@@ -3734,7 +3664,7 @@ void Exporting() {
     for (c = CmdListe.begin(); c != e; c++) {
         output[0] = 0;
         if ((*c).second.OptionCondition)
-            if (string *OptionShow = (string*)(*c).second.Value())
+            if (std::string *OptionShow = (std::string*)(*c).second.Value())
                 strcpy_s(output, OptionShow->c_str());
         if ((*c).second.OptionAbility || (*c).second.OptionValue)
             if (long *OptionValue = (long*)(*c).second.Value())
@@ -3751,7 +3681,7 @@ void Exporting() {
     for (c = IniListe.begin(); c != e; c++) {
         output[0] = 0;
         if ((*c).second.OptionCondition)
-            if (string *OptionShow = (string*)(*c).second.Value())
+            if (std::string *OptionShow = (std::string*)(*c).second.Value())
                 strcpy_s(output, OptionShow->c_str());
         if ((*c).second.OptionAbility || (*c).second.OptionValue)
             if (long *OptionValue = (long*)(*c).second.Value())
@@ -3779,11 +3709,11 @@ void MeleeHelp()
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
     for (Liste::iterator i = CmdListe.begin(); i != CmdListe.end(); i++) (*i).second.Write();
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
-    if (NULL == PluginEntry("mq2cast", "CastCommand"))
+    if (NULL == GetPluginProc("mq2cast", "CastCommand"))
     {
         WriteChatf("%s::Required Latest [\arMQ2Cast\ax] for AA/SPELL/ITEM casting.", PLUGIN_NAME);
     }
-    if (NULL == PluginEntry("mq2moveutils", "StickCommand"))
+    if (NULL == GetPluginProc("mq2moveutils", "StickCommand"))
     {
         WriteChatf("%s::Required Latest [\arMQ2MoveUtils\ax] for MOVEMENT.", PLUGIN_NAME);
     }
@@ -3819,8 +3749,8 @@ void PetATTK()
         Announce(SHOW_CONTROL, "%s::Command [\ay%s\ax].", PLUGIN_NAME, "/pet attack");
         if (!TargetID(MeleeTarg))
         {
-            PSPAWNINFO Current = Target();
-            TargetIT(GetSpawnID(MeleeTarg));
+            PSPAWNINFO Current = pTarget;
+            pTarget = GetSpawnID(MeleeTarg);
             EzCommand("/pet attack");
             if (Current) Command("/squelch /target id %d", Current->SpawnID);
         } 
@@ -3923,7 +3853,7 @@ void StabPress() {
     sprintf_s(szTempItem, "%d", elPOKER);
     if (elPOKER && OkayToEquip(Giant) && ItemFind(&cMoveItem, szTempItem))
     {
-        if (PCONTENTS pri = ContPrimary())
+        if (CONTENTS* pri = ContPrimary())
             if (GetItemFromContents(pri)->ItemNumber != elPOKER) {
                 saveid = GetItemFromContents(pri)->ItemNumber;
                 Equip(elPOKER, inv_primary);
@@ -3951,13 +3881,13 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
         char szItemName[MAX_STRING] = { 0 };
         // test if we could do ranged with current ammo/range configuration
         long crT = 99; long crI = 0; long caT = 99; long caI = 0; long caQ = 0;
-        if (PCONTENTS r = ContRange())
+        if (CONTENTS* r = ContRange())
         {
             crI = GetItemFromContents(r)->ItemNumber;
             crT = GetItemFromContents(r)->ItemType;
             strcpy_s(szItemName, GetItemFromContents(r)->Name);
         }
-        if (PCONTENTS a = ContAmmo()) {
+        if (CONTENTS* a = ContAmmo()) {
             caI = GetItemFromContents(a)->ItemNumber;
             caT = GetItemFromContents(a)->ItemType;
             if (caT == 7 || caT == 19 || caT == 27) caQ = CountItemByID(caI);
@@ -3969,10 +3899,10 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
             // grab information about user defined range/ammunition
             long erT = 99; long eaT = 99; long eaQ = 0;
 
-            PCONTENTS r = NULL;
-            PCONTENTS a = NULL;
+            CONTENTS* r = NULL;
+            CONTENTS* a = NULL;
 
-            //if(PCONTENTS r=ItemLocate(elRANGED)) erT=GetItemFromContents(r)->ItemType;
+            //if(CONTENTS* r=ItemLocate(elRANGED)) erT=GetItemFromContents(r)->ItemType;
             sprintf_s(szTempItem, "%d", elRANGED);
             if (ItemFind(&cMoveItem, szTempItem))
             {
@@ -3980,7 +3910,7 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
                 erT = GetItemFromContents(r)->ItemType;
             }
 
-            //if(PCONTENTS a=ItemLocate(elARROWS)) {
+            //if(CONTENTS* a=ItemLocate(elARROWS)) {
             //    eaT=a->Item->ItemType;
             //    if(eaT == 7 || eaT == 19 || eaT == 27) eaQ=ItemCounts(elARROWS);
             //}
@@ -4185,7 +4115,7 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
     //PCHAR pStart;
     //PCHAR pIndex;
     CHAR szCurrent[MAX_STRING] = { 0 };
-    //MQ2TYPEVAR Result = { 0 };
+    //MQTypeVar Result = { 0 };
     do
     {
         // find this brace's end
@@ -4377,7 +4307,7 @@ void MeleeHandle()
 
     // check detrimental buff that wont let ya perform melee actions.
     for (int b = 0; b < BuffMax; b++) {
-        long SpellID = GetCharInfo2()->Buff[b].SpellID;
+        long SpellID = GetPcProfile()->Buff[b].SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
@@ -4394,7 +4324,7 @@ void MeleeHandle()
 
     // check detrimental song that wont let ya perform melee actions.
     for (int s = 0; s < SongMax; s++) {
-        long SpellID = GetCharInfo2()->ShortBuff[s].SpellID;
+        long SpellID = GetPcProfile()->ShortBuff[s].SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
@@ -4423,9 +4353,9 @@ void MeleeHandle()
         if (UseThis) {
             if (UseThis->ID == idLAYHAND.ID) {
                 PSPAWNINFO TargetSave = pTarget ? (PSPAWNINFO)pTarget : NULL;
-                *(PSPAWNINFO*)ppTarget = SpawnMe();
+                pTarget = SpawnMe();
                 idLAYHAND.Press();
-                *(PSPAWNINFO*)ppTarget = TargetSave;
+                pTarget = TargetSave;
             }
             else UseThis->Press();
         }
@@ -4624,7 +4554,7 @@ void MeleeHandle()
     // jolting times!
     if ((doJLTKICKS || doJOLT || doSTORMBLADES) && !doAGGRO && SwingHits > doJOLT)
     {
-        long MyEndu = GetCharInfo2()->Endurance * 100 / GetMaxEndurance();
+        long MyEndu = GetPcProfile()->Endurance * 100 / GetMaxEndurance();
         if (idJOLT.Ready(ifJOLT))
         {
             idJOLT.Press();
@@ -4823,7 +4753,7 @@ void MeleeHandle()
 
     // time to handle spell casting?
     if (!TargetID(MeleeTarg) || MeleeDist > 200) return;
-    long MyEndu = GetCharInfo2()->Endurance * 100 / GetMaxEndurance();
+    long MyEndu = GetPcProfile()->Endurance * 100 / GetMaxEndurance();
 
     // slap in the face needs to happen before combat starts
     if (doSLAPFACE && MyEndu > doSLAPFACE && idSLAPFACE.Ready(ifSLAPFACE)) idSLAPFACE.Press();
@@ -4879,7 +4809,7 @@ void MeleeHandle()
         }
 
         // should we use short duration melee buff?
-        if (GetCharInfo2()->Endurance > 200)
+        if (GetPcProfile()->Endurance > 200)
         {
             if (doBLOODLUST  && MyEndu > doBLOODLUST && idBLOODLUST.Ready(ifBLOODLUST) && MeleeDist < 50) idBLOODLUST.Press();
             if (doCOMMANDING && MyEndu > doCOMMANDING && idCOMMANDING.Ready(ifCOMMANDING)) idCOMMANDING.Press();
@@ -5018,7 +4948,7 @@ void MeleeHandle()
     }
 }
 
-void KeyMelee(char* NAME, int Down)
+void KeyMelee(const char* NAME, bool Down)
 {
     if (Down && pTarget)
     {
@@ -5028,7 +4958,7 @@ void KeyMelee(char* NAME, int Down)
     }
 }
 
-void KeyRange(char* NAME, int Down)
+void KeyRange(const char* NAME, bool Down)
 {
     if (Down && pTarget)
     {
@@ -5070,23 +5000,23 @@ void __stdcall AUTOFIREON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall CASTING(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (doSKILL && MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) MeleeCast = (unsigned long)clock();
+    if (doSKILL && MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) MeleeCast = (unsigned long)clock();
 }
 
 void __stdcall ENRAGEON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) EnrageON(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) EnrageON(NULL, "");
 }
 
 void __stdcall ENRAGEOFF(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) EnrageOFF(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) EnrageOFF(NULL, "");
 }
 
 void __stdcall INFURIATEON(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) InfuriateON(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) InfuriateON(NULL, "");
 }
 
 void __stdcall INFURIATEOFF(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (MeleeTarg && !_strnicmp(pValues->Value, MeleeName, MeleeSize)) InfuriateOFF(NULL, "");
+    if (MeleeTarg && ci_equals(pValues->Value, MeleeName, MeleeSize)) InfuriateOFF(NULL, "");
 }
 
 void __stdcall PETATTK(unsigned int ID, void *pData, PBLECHVALUE pValues) {
@@ -5117,7 +5047,7 @@ void __stdcall PETHOLD(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall FALLEN(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (!doSKILL || ((long)pData && _strnicmp(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
+    if (!doSKILL || ((long)pData && !ci_equals(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
     Announce(SHOW_FEIGN, "%s::\arFAILED FEIGN DEATH\ax taking action!", PLUGIN_NAME);
     EzCommand("/stand");
 }
@@ -5977,9 +5907,9 @@ PLUGIN_API void OnPulse()
 {
     if (doSKILL && Loaded && gbInZone && SpawnMe())
     {
-        if (PCHARINFO2 Me = GetCharInfo2())
+        if (PcProfile* Me = GetPcProfile())
         {
-            if (GetCharInfo2()->Shrouded != Shrouded)
+            if (GetPcProfile()->Shrouded != Shrouded)
             {
                 SetGameState(GAMESTATE_UNLOADING);
                 SetGameState(GAMESTATE_INGAME);
@@ -5997,7 +5927,7 @@ PLUGIN_API void OnPulse()
 				Travel	 = SpeedRun(MySpawn);
 			}
 			if (Moving = (Travel > 0.05 || Travel < -0.05 || CalcDist > 12.0f)) TimerMove = (unsigned long)clock() + delay * 7;
-			Immobile = (!(MQ2Globals::gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
+			Immobile = (!(gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
 
             if (doPETASSIST)
             {
