@@ -50,7 +50,6 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 #define   PLUGIN_NAME  "MQ2Melee"   // Plugin Name
 #define   PLUGIN_DATE   20190128    // Plugin Date
-#define   PLUGIN_VERS   8.802       // Plugin Version
 
 #define   SHOW_ABILITY         0
 #define   SHOW_ATTACKING       1
@@ -89,7 +88,7 @@ enum {
 #ifndef PLUGIN_API
 #include <mq/Plugin.h>
 PreSetup(PLUGIN_NAME);
-PLUGIN_VERSION(PLUGIN_VERS);
+PLUGIN_VERSION(8.802);
 #include <map>
 #include <string>
 #include "../../Blech/Blech.h"
@@ -3695,7 +3694,7 @@ void Exporting() {
                 WritePrivateProfileString(section, (*c).second.OptionKey, output, INIFileName);
         }
     }
-    sprintf_s(output, "%1.3f", PLUGIN_VERS); WritePrivateProfileString(section, "version", output, INIFileName);
+    sprintf_s(output, "%1.3f", MQ2Version); WritePrivateProfileString(section, "version", output, INIFileName);
 }
 
 void MapInsert(Liste *MyList, Option MyOption)
@@ -3706,7 +3705,7 @@ void MapInsert(Liste *MyList, Option MyOption)
 void MeleeHelp()
 {
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
-    WriteChatf("%s::Version [\ag%1.3f\ax] Loaded!", PLUGIN_NAME, PLUGIN_VERS);
+    WriteChatf("%s::Version [\ag%1.3f\ax] Loaded!", PLUGIN_NAME, MQ2Version);
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
     for (Liste::iterator i = CmdListe.begin(); i != CmdListe.end(); i++) (*i).second.Write();
     WriteChatf("%s::-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-", PLUGIN_NAME);
