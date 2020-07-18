@@ -3104,7 +3104,8 @@ public:
         TypeMember(NumHits);
         TypeMember(XTaggro);
     }
-    bool MQ2MeleeType::GetMember(MQVarPtr VarPtr, char* Member, char* Index, MQTypeVar& Dest) {
+
+    virtual bool MQ2MeleeType::GetMember(MQVarPtr VarPtr, const char* Member, char* Index, MQTypeVar& Dest) override {
         auto pMember = MQ2MeleeType::FindMember(Member);
         isKill = false; if (doSKILL) if (MeleeTarg) isKill = true;
         if (pMember)
@@ -3263,7 +3264,7 @@ public:
     bool FromData(MQVarPtr &VarPtr, MQTypeVar &Source) {
         return false;
     }
-    bool FromString(MQVarPtr &VarPtr, char* Source) {
+    virtual bool FromString(MQVarPtr &VarPtr, const char* Source) override {
         return false;
     }
     ~MQ2MeleeType() { }
