@@ -1782,7 +1782,7 @@ static inline unsigned long StandState() {
 }
 
 static inline int Stackable(CONTENTS* Item) {
-    return (Item && GetItemFromContents(Item)->Type == ITEMTYPE_NORMAL && ((EQ_Item*)Item)->IsStackable());
+    return Item && !Item->IsContainer() && Item->IsStackable();
 }
 
 static inline long StackUnit(CONTENTS* Item) {
@@ -1833,40 +1833,48 @@ static inline int XMLEnabled(CXWnd* window) {
 }
 
 static inline CONTENTS* ContAmmo() {
-    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Ammo;
-    return NULL;
+    if (PcProfile* Me = GetPcProfile())
+		return Me->GetInventorySlot(InvSlot_Ammo).get();
+    return nullptr;
 }
 
 static inline CONTENTS* ContPrimary() {
-    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Primary;
-    return NULL;
+    if (PcProfile* Me = GetPcProfile())
+		return Me->GetInventorySlot(InvSlot_Primary).get();
+    return nullptr;
 }
 
 static inline CONTENTS* ContRange() {
-    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Range;
-    return NULL;
+	if (PcProfile* Me = GetPcProfile())
+		return Me->GetInventorySlot(InvSlot_Range).get();
+    return nullptr;
 }
 
 static inline CONTENTS* ContSecondary() {
-    if (PcProfile* Me = GetPcProfile()) return Me->pInventoryArray->Inventory.Secondary;
-    return NULL;
+    if (PcProfile* Me = GetPcProfile())
+		return Me->GetInventorySlot(InvSlot_Secondary).get();
+    return nullptr;
 }
 
 static inline int PokerType(CONTENTS* item) {
-    return (item && GetItemFromContents(item)->ItemType == 2);
+    return item && item->GetItemClass() == ItemClass_Piercing;
 }
 
 static inline int ShieldType(CONTENTS* item) {
-    return(item && GetItemFromContents(item)->ItemType == 8);
+	return item && item->GetItemClass() == ItemClass_Shield;
 }
 
 static inline int TwohandType(CONTENTS* item) {
-    if (item) {
-        if (GetItemFromContents(item)->ItemType == 1)   return true;
-        if (GetItemFromContents(item)->ItemType == 4)   return true;
-        if (GetItemFromContents(item)->ItemType == 35)  return true;
-    }
-    return false;
+	if (item) {
+		switch (item->GetItemClass()) {
+		case ItemClass_2HSlashing:
+		case ItemClass_2HBlunt:
+		case ItemClass_2HPiercing:
+			return true;
+		default: break;
+		}
+	}
+	return false;
 }
 
 unsigned long AACheck(unsigned long id) {
@@ -2005,7 +2013,7 @@ void Command(char* zFormat, ...) {
 
 int CursorEmpty() {
     if (PcProfile* Me = GetPcProfile())
-        if (!Me->pInventoryArray->Inventory.Cursor)
+        if (!Me->GetInventorySlot(InvSlot_Cursor))
             if (!Me->CursorPlat)
                 if (!Me->CursorGold)
                     if (!Me->CursorSilver)
@@ -2021,8 +2029,8 @@ long Discipline() {
 
 int Equipped(unsigned long id) {
     if (id)
-        for (int i = 0; i < BAG_SLOT_START; i++)
-            if (CONTENTS* Cont = GetPcProfile()->pInventoryArray->InventoryArray[i])
+        for (int i = 0; i < InvSlot_FirstBagSlot; i++)
+            if (CONTENTS* Cont = GetPcProfile()->GetInventorySlot(i))
                 if (id == GetItemFromContents(Cont)->ItemNumber) return true;
     return false;
 }
@@ -2174,32 +2182,24 @@ bool FitInPack(long Size)
     //long pSIZE = 20;
     //long pSLOT = 0;
     unsigned char ucSlot = 0;
-    for (ucSlot = BAG_SLOT_START; ucSlot < NUM_INV_SLOTS; ucSlot++)
+    for (ucSlot = InvSlot_FirstBagSlot; ucSlot <= GetHighestAvailableBagSlot(); ucSlot++)
     {
-        if (CONTENTS* pInvSlot = GetPcProfile()->pInventoryArray->InventoryArray[ucSlot])
+        if (CONTENTS* pInvSlot = GetPcProfile()->GetInventorySlot(ucSlot))
         {
-            if (TypePack(pInvSlot) && GetItemFromContents(pInvSlot)->Combine != 2 && Size <= GetItemFromContents(pInvSlot)->SizeCapacity)// && (!pSLOT || GetItemFromContents(pInvSlot)->SizeCapacity < pSIZE))
+            if (TypePack(pInvSlot) && GetItemFromContents(pInvSlot)->Combine != ContainerType_Quiver
+                && Size <= GetItemFromContents(pInvSlot)->SizeCapacity)// && (!pSLOT || GetItemFromContents(pInvSlot)->SizeCapacity < pSIZE))
             {
-                if (!pInvSlot->Contents.ContainedItems.pItems)
-                    return TRUE;
-                unsigned char ucPack = 0;
-                for (ucPack = 0; ucPack < GetItemFromContents(pInvSlot)->Slots; ucPack++)
+                if (pInvSlot->GetHeldItems().IsEmpty())
+                    return true;
+                for (const ItemPtr& pItem : pInvSlot->GetHeldItems())
                 {
-                    if (!pInvSlot->Contents.ContainedItems.pItems->Item[ucPack])
-                    {
-                        //pSIZE = cSlot->Item->SizeCapacity;
-                        //break;
-                        return TRUE;
-                    }
+                    if (!pItem)
+                        return true;
                 }
             }
         }
-        //else
-        //{
-        //    return ucSlot;
-        //}
     }
-    return FALSE;
+    return false;
 }
 
 long OkayToEquip(long Size)
@@ -2211,9 +2211,9 @@ long OkayToEquip(long Size)
 
 long Unequip(long SlotID)
 {
-    if (SlotID < NUM_INV_SLOTS)
+    if (SlotID < InvSlot_NumInvSlots)
     {
-        CONTENTS* uCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID];
+        CONTENTS* uCONT = GetPcProfile()->GetInventorySlot(SlotID);
         if (!uCONT) return true;
 
         CItemLocation cUnequipTo;
@@ -2232,7 +2232,7 @@ long Unequip(long SlotID)
 
 int Equip(unsigned long ID, long SlotID)
 {
-    if (!(SlotID < NUM_INV_SLOTS)) return false;                   // invalid destination slot id for equipping item to
+    if (!(SlotID < InvSlot_NumInvSlots)) return false;                   // invalid destination slot id for equipping item to
     if (!OkayToEquip())      return false;                         // can't equip item right casting or cursor not free
 
     char szTempItem[25] = { 0 };
@@ -2240,9 +2240,9 @@ int Equip(unsigned long ID, long SlotID)
     CItemLocation cMoveItem;
     CItemLocation cUnequipTo;
 
-    if (!ItemFind(&cMoveItem, szTempItem, BAG_SLOT_START, NUM_INV_SLOTS)) // assume that equipping item is in a backpack first
+    if (!ItemFind(&cMoveItem, szTempItem, InvSlot_FirstBagSlot, GetHighestAvailableBagSlot() + 1)) // assume that equipping item is in a backpack first
     {
-        if (!ItemFind(&cMoveItem, szTempItem, 0, BAG_SLOT_START)) // wasnt found, check if already equipped somewhere
+        if (!ItemFind(&cMoveItem, szTempItem, 0, InvSlot_FirstBagSlot)) // wasnt found, check if already equipped somewhere
         {
             return false; // wasnt found, can't equip something we dont have
         }
@@ -3188,10 +3188,10 @@ public:
                     return true;
                 case Ammunition:
                     Dest.DWord = CountItemByID(elARROWS);
-                    if (CONTENTS* r = GetPcProfile()->pInventoryArray->Inventory.Ammo)
-                        if (GetItemFromContents(r)->ItemNumber != elARROWS)
-                            if (GetItemFromContents(r)->ItemType == 7 || GetItemFromContents(r)->ItemType == 19 || GetItemFromContents(r)->ItemType == 27)
-                                Dest.DWord = CountItemByID(GetItemFromContents(r)->ItemNumber);
+                    if (CONTENTS* r = GetPcProfile()->GetInventorySlot(InvSlot_Ammo))
+                        if (r->GetID() != elARROWS)
+                            if (r->GetItemClass() == ItemClass_Thrown || r->GetItemClass() == ItemClass_Ammo || r->GetItemClass() == ItemClass_Arrow)
+                                Dest.DWord = CountItemByID(r->GetID());
                     Dest.Type = mq::datatypes::pIntType;
                     return true;
                 case BackStabbing:
