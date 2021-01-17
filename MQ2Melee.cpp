@@ -78,13 +78,6 @@ enum {
     st_p          =0x0001,    // SpawnType: PLAYER
 };
 
-enum {
-    inv_range         =11,    // Inventory.Range      Slot ID
-    inv_primary       =13,    // Inventory.Primary    Slot ID
-    inv_secondary     =14,    // Inventory.Secondary  Slot ID
-    inv_ammo          =22,    // Inventory.Ammo       Slot ID
-};
-
 #ifndef PLUGIN_API
 #include <mq/Plugin.h>
 PreSetup(PLUGIN_NAME);
@@ -518,19 +511,19 @@ bladesrng3 = { 40107  ,3 },        // disc: storm of blades rk iii
 bladesrng4 = { 40108  ,3 },        // disc: focused storm of blades rk i
 bladesrng5 = { 40109  ,3 },        // disc: focused storm of blades rk ii
 bladesrng6 = { 40110  ,3 },        // disc: focused storm of blades rk iii
-bladesrng7 = { 43457  ,3 },        // disc: Squall of Blades 
+bladesrng7 = { 43457  ,3 },        // disc: Squall of Blades
 bladesrng8 = { 43458  ,3 },        // disc: Squall of Blades Rk. II
 bladesrng9 = { 43459  ,3 },        // disc: Squall of Blades Rk. III
-bladesrng10 = { 50083  ,3 },        // disc: Focused Squall of Blades 
+bladesrng10 = { 50083  ,3 },        // disc: Focused Squall of Blades
 bladesrng11 = { 50084  ,3 },        // disc: Focused Squall of Blades Rk. II
 bladesrng12 = { 50085  ,3 },        // disc: Focused Squall of Blades Rk. III
-bladesrng13 = { 55527  ,3 },        // disc: Gale of Blades 
+bladesrng13 = { 55527  ,3 },        // disc: Gale of Blades
 bladesrng14 = { 55528  ,3 },        // disc: Gale of Blades Rk. II
 bladesrng15 = { 55529  ,3 },        // disc: Gale of Blades Rk. III
-bladesrng16 = { 57918  ,3 },        // disc: Focused Gale of Blades 
+bladesrng16 = { 57918  ,3 },        // disc: Focused Gale of Blades
 bladesrng17 = { 57919  ,3 },        // disc: Focused Gale of Blades Rk. II
 bladesrng18 = { 57920  ,3 },        // disc: Focused Gale of Blades Rk. III
-bladesrng19 = { 58958  ,3 },        // disc: Blizzard of Blades 
+bladesrng19 = { 58958  ,3 },        // disc: Blizzard of Blades
 bladesrng20 = { 58959  ,3 },        // disc: Blizzard of Blades Rk. II
 bladesrng21 = { 58960  ,3 },        // disc: Blizzard of Blades Rk. III
 
@@ -1101,7 +1094,7 @@ cripple31 = { 60732  ,3 },
 
 cryhavoc1 = { 8003   ,3 },        // Disc: cry havoc
 cryhavoc2 = { 36556  ,3 },        // Disc: Cry Carnage lev 98 Rof
-cryhavoc3 = { 36557  ,3 },        // Disc: Cry Carnage Rk. II 
+cryhavoc3 = { 36557  ,3 },        // Disc: Cry Carnage Rk. II
 cryhavoc4 = { 36558  ,3 },        // Disc: Cry Carnage Rk. III
 
 joltber1 =  { 4934   ,3 },        // Disc: diversive strike
@@ -2264,11 +2257,11 @@ int Equip(unsigned long ID, long SlotID)
         default:  MyRace--;
     }
     if (!(GetItemFromContents(fITEM)->Races&(1 << MyRace))) return false;
-    if (SlotID == inv_primary && TwohandType(fITEM) && ContSecondary())  if (!Unequip(inv_secondary)) return false;
-    if (SlotID == inv_secondary && TwohandType(ContPrimary()))           if (!Unequip(inv_primary))   return false;
+    if (SlotID == InvSlot_Primary && TwohandType(fITEM) && ContSecondary())  if (!Unequip(InvSlot_Secondary)) return false;
+    if (SlotID == InvSlot_Secondary && TwohandType(ContPrimary()))           if (!Unequip(InvSlot_Primary))   return false;
 
     // if wearing something
-    if (CONTENTS* dCONT = GetPcProfile()->pInventoryArray->InventoryArray[SlotID])
+    if (auto dCONT = GetPcProfile()->GetInventorySlot(SlotID))
     {
         if (cMoveItem.InvSlot >= NUM_INV_SLOTS) // if not a main inv slot
         {
@@ -3351,10 +3344,10 @@ void BashPress() {
         savedpri = GetItemFromContents(pri)->ItemNumber;
     }
     if (CONTENTS* off = ContSecondary()) savedoff = GetItemFromContents(off)->ItemNumber;
-    if (elSHIELD && CountItemByID(elSHIELD) && OkayToEquip(Giant)) Equip(elSHIELD, inv_secondary);
+    if (elSHIELD && CountItemByID(elSHIELD) && OkayToEquip(Giant)) Equip(elSHIELD, InvSlot_Secondary);
     if (ShieldType(ContSecondary()) || (got2hand && HaveBash)) idBASH.Press();
-    if (savedoff) Equip(savedoff, inv_secondary);
-    if (savedpri) Equip(savedpri, inv_primary);
+    if (savedoff) Equip(savedoff, InvSlot_Secondary);
+    if (savedpri) Equip(savedpri, InvSlot_Primary);
 }
 
 void Configure() {
@@ -3819,8 +3812,8 @@ void AggroReset()
 
     if (doMELEE)
     {
-        if (long PW = (IsGrouped() && doAGGRO) ? elAGGROPRI : elMELEEPRI) Equip(PW, inv_primary);
-        if (long SW = (IsGrouped() && doAGGRO) ? elAGGROSEC : elMELEESEC) Equip(SW, inv_secondary);
+        if (long PW = (IsGrouped() && doAGGRO) ? elAGGROPRI : elMELEEPRI) Equip(PW, InvSlot_Primary);
+        if (long SW = (IsGrouped() && doAGGRO) ? elAGGROSEC : elMELEESEC) Equip(SW, InvSlot_Secondary);
     }
 }
 
@@ -3857,14 +3850,14 @@ void StabPress() {
         if (CONTENTS* pri = ContPrimary())
             if (GetItemFromContents(pri)->ItemNumber != elPOKER) {
                 saveid = GetItemFromContents(pri)->ItemNumber;
-                Equip(elPOKER, inv_primary);
+                Equip(elPOKER, InvSlot_Primary);
             }
     }
     if (PokerType(ContPrimary())) {
         idBACKSTAB.Press();
         SwingHits++;
     }
-    if (saveid) Equip(saveid, inv_primary);
+    if (saveid) Equip(saveid, InvSlot_Primary);
 }
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
@@ -3939,8 +3932,8 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
 
             // load equipping scenario found!
             if (EquipRangeID && EquipArrowID) {
-                if (crI != EquipRangeID) Equip(EquipRangeID, inv_range);
-                if (caI != EquipArrowID) Equip(EquipArrowID, inv_ammo);
+                if (crI != EquipRangeID) Equip(EquipRangeID, InvSlot_Range);
+                if (caI != EquipArrowID) Equip(EquipArrowID, InvSlot_Ammo);
                 if (EquipArrowID == EquipRangeID && !ContRange()) { // Reloads thrown weapons
                     EzCommand("/ctrlkey /itemnotify ammo leftmouseup");
                     EzCommand("/shiftkey /itemnotify ranged leftmouseup");
