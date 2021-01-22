@@ -2245,9 +2245,9 @@ int Equip(unsigned long ID, long SlotID)
     // check class, level, deity and race to see if we have rights to equip this items.
     CONTENTS* fITEM = cMoveItem.pBagSlot;
     if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetPcProfile()->Class) - 1))))                                     return false;
-    if ((unsigned int)GetItemFromContents(fITEM)->RequiredLevel > GetPcProfile()->Level)                                 return false;
+    if (GetItemFromContents(fITEM)->RequiredLevel > GetPcProfile()->Level)                                               return false;
     if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetPcProfile()->Deity - 200))))  return false;
-    long MyRace = (unsigned long)GetPcProfile()->Race;
+    int MyRace = GetPcProfile()->Race;
     switch (MyRace)
     {
         case 128: MyRace = 12;    break;
