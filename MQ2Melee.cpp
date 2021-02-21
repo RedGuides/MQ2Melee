@@ -33,6 +33,8 @@
 //							| 2019-11-14: Updated by Sic/CWTN Yaulp to default to "off"
 //							| 2019-12-29: Updated by ChatWithThisname-> Added Warrior, Berserker, Rogue discs for ToV. Rearranged information by class instead of alphabetically.
 //							| 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
+//							| 2021-02-13: Updated by BigDorf - fix knights 2H Bash, Nov 2019 AA name change, "Two-Handed Bash" to "Improved Bash"
+//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // SHOW_ABILITY:    0=0ff, 1=Display every ability that plugin use.
 // SHOW_ATTACKING:  0=0ff, 1=Display Attacking Target
@@ -2228,6 +2230,13 @@ int Equip(unsigned long ID, long SlotID)
     if (!(SlotID < InvSlot_NumInvSlots)) return false;                   // invalid destination slot id for equipping item to
     if (!OkayToEquip())      return false;                         // can't equip item right casting or cursor not free
 
+    auto dCONT = GetPcProfile()->GetInventorySlot(SlotID);
+
+    // if the ID requested to equip has the same ID in the target slot, no action to take, objective already met.
+    if (dCONT != nullptr && GetItemFromContents(dCONT)->ItemNumber == ID) {
+        return true;
+    }
+
     char szTempItem[25] = { 0 };
     sprintf_s(szTempItem, "%d", ID);
     CItemLocation cMoveItem;
@@ -2261,11 +2270,12 @@ int Equip(unsigned long ID, long SlotID)
     if (SlotID == InvSlot_Secondary && TwohandType(ContPrimary()))           if (!Unequip(InvSlot_Primary))   return false;
 
     // if wearing something
-    if (auto dCONT = GetPcProfile()->GetInventorySlot(SlotID))
+    if (dCONT != nullptr && cMoveItem.InvSlot >= NUM_INV_SLOTS)
     {
-        if (cMoveItem.InvSlot >= NUM_INV_SLOTS) // if not a main inv slot
+        // search bags, if bags cant fit it, return false
+        if (!PackFind(&cUnequipTo, dCONT))
         {
-            if (!PackFind(&cUnequipTo, dCONT)) return false; // search bags, if bags cant fit it, return false
+            return false;
         }
     }
 
@@ -3374,9 +3384,9 @@ void Configure() {
         }
     }
 	#if !defined(ROF2EMU) && !defined(UFEMU)
-		HaveBash = GetAAIndexByName("Two-Handed Bash") ? true : false;
+		HaveBash = GetAAIndexByName("Improved Bash")  != 0  || GetAAIndexByName("Two-Handed Bash") != 0;
 	#else
-		HaveBash = GetAAIndexByName("2 Hand Bash") ? true : false;
+		HaveBash = GetAAIndexByName("2 Hand Bash");
 	#endif
     BardClass = false;
     BerserkerClass = false;
