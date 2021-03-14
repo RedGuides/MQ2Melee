@@ -2055,7 +2055,7 @@ int SKCheck(unsigned long id) {
 int SKReady(unsigned long id) {
     if (id < 100 || id == 111 || id == 114 || id == 115 || id == 116)
     {
-        return pCSkillMgr->IsAvailable(id);
+        return pSkillMgr->IsAvailable(id);
     }
     if (id == 105 || id == 107) return LoH_HT_Ready();
     return false;
@@ -3056,7 +3056,6 @@ unsigned long     SilentTimer = 0;            // Last TimeStamp for Sneak
 
 class MQ2MeleeType *pMeleeTypes = 0;
 class MQ2MeleeType : public MQ2Type {
-private:
     long isKill;
     char Tempos[MAX_STRING];
 public:
@@ -3260,17 +3259,10 @@ public:
         Dest.Ptr = &Tempos[0];
         return true;
     }
-    bool ToString(MQVarPtr VarPtr, char* Destination) {
+    bool ToString(MQVarPtr VarPtr, char* Destination) override {
         strcpy_s(Destination, MAX_STRING, "TRUE");
         return true;
     }
-    bool FromData(MQVarPtr &VarPtr, MQTypeVar &Source) {
-        return false;
-    }
-    virtual bool FromString(MQVarPtr &VarPtr, const char* Source) override {
-        return false;
-    }
-    ~MQ2MeleeType() { }
 };
 
 bool DataMelee(const char* Index, MQTypeVar &Dest) {
