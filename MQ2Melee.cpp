@@ -2987,6 +2987,7 @@ bool      Loaded              = false;        // Loaded?
 bool      Moving              = false;        // Moving?
 bool      Immobile            = false;        // Immobilized?
 bool      AutoFire            = false;        // True when autofire is on.
+bool      ClassCan2HBash      = false;        // True for PAL SHD and WAR
 bool      HaveBash            = false;        // Have Two Hand Bash?
 bool      HaveHold            = false;        // Have Pet Hold?
 bool      HaveGHold           = false;        // Have Pet GHold?
@@ -3334,8 +3335,21 @@ void AttackOFF() {
 }
 
 bool BashCheck() {
-    if (ShieldType(ContSecondary())) return true;
-    if (TwohandType(ContPrimary()))  return HaveBash;
+    if (ShieldType(ContSecondary()))
+        return true;
+
+    if (ClassCan2HBash) {                                 // class is Pal/Shd/War?
+        PCONTENTS pContPri = ContPrimary();
+        if (pContPri  && TwohandType(pContPri) ) {        // Primary is a 2H?
+            if (HaveBash)                                 // Have the 2H bash aa?
+                return true;
+
+            PITEMINFO pItem = GetItemFromContents(pContPri);
+            if ( pItem && pItem->Worn.SpellID == 2835 )   // Knights epic1.0 have worn spell effect: Two-Hand Bash, ID 2835
+                return true;
+        }
+    }
+
     return (elSHIELD && CountItemByID(elSHIELD) && OkayToEquip(Giant));
 }
 
@@ -3390,10 +3404,12 @@ void Configure() {
     if (Class == Warrior)
     {
         HaveBash = isAAPurchased("Two-Handed Bash");
+        ClassCan2HBash = true;
     }
     else if (Class == Paladin || Class == Shadowknight)
     {
         HaveBash = isAAPurchased("Improved Bash");
+        ClassCan2HBash = true;
     }
 
     BardClass = false;
