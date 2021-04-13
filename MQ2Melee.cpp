@@ -3222,7 +3222,7 @@ public:
                             DWORD x = 0;
                             for (int n = 0; n < xtm->XTargetSlots.Count; n++)
                             {
-                                XTARGETSLOT xts = xtm->XTargetSlots[n];
+                                ExtendedTargetSlot xts = xtm->XTargetSlots[n];
                                 if (xts.xTargetType == XTARGET_AUTO_HATER && xts.XTargetSlotStatus)
                                 {
                                     x++;
@@ -3231,7 +3231,7 @@ public:
                             if (x > 1) {
                                 if (pAggroInfo) {
                                     for (int i = 0; i < xtm->XTargetSlots.Count; i++) {
-                                        XTARGETSLOT xts = xtm->XTargetSlots[i];
+                                        ExtendedTargetSlot xts = xtm->XTargetSlots[i];
                                         if (DWORD spID = xts.SpawnID) {
                                             if (PSPAWNINFO pSpawn = (PSPAWNINFO)GetSpawnByID(spID)) {
                                                 if (pTarget && ((PSPAWNINFO)pTarget)->SpawnID == pSpawn->SpawnID)
