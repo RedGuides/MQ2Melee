@@ -2255,7 +2255,7 @@ int Equip(unsigned long ID, long SlotID)
     CONTENTS* fITEM = cMoveItem.pBagSlot;
     if (!(GetItemFromContents(fITEM)->Classes&(1 << ((GetPcProfile()->Class) - 1))))                                     return false;
     if (GetItemFromContents(fITEM)->RequiredLevel > GetPcProfile()->Level)                                               return false;
-    if (GetItemFromContents(fITEM)->Diety && !(GetItemFromContents(fITEM)->Diety&(1 << (GetPcProfile()->Deity - 200))))  return false;
+    if (GetItemFromContents(fITEM)->Deity && !(GetItemFromContents(fITEM)->Deity&(1 << (GetPcProfile()->Deity - 200))))  return false;
     int MyRace = GetPcProfile()->Race;
     switch (MyRace)
     {
