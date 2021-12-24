@@ -219,6 +219,9 @@ steely18 = { 55322  ,5 },        // spell: Defiant Stance Rk. III
 steely19 = { 58781  ,5 },        // spell: Stormwall Stance
 steely20 = { 58782  ,5 },        // spell: Stormwall Stance Rk. II
 steely21 = { 58783  ,5 },        // spell: Stormwall Stance Rk. III
+steely22 = { 62293  ,5 },        // spell: Adamant Stance Lv 119 Pal/Shd ToL
+steely23 = { 62294  ,5 },        // spell: Adamant Stance Rk. II
+steely24 = { 62295  ,5 },        // spell: Adamant Stance Rk. III
 
 withstand1 = { 19131  ,3 },        // disc: Withstand Lv 83 pal/sk UF
 withstand2 = { 19132  ,3 },        // disc: Withstand Rk. II
@@ -241,7 +244,10 @@ withstand18 = { 55319  ,3 },        // dics: Spurn Rk. III
 withstand19 = { 58778  ,3 },        // disc: Thwart
 withstand20 = { 58779  ,3 },        // disc: Thwart Rk. II
 withstand21 = { 58780  ,3 },        // dics: Thwart Rk. III
-#pragma endregion Pal/Shd Updated for TOV
+withstand22 = { 62290  ,3 },        // dics: Repudiate Lv 118 Pal/Sk ToL
+withstand23 = { 62291  ,3 },        // dics: Repudiate Rk. II
+withstand24 = { 62292  ,3 },        // dics: Repudiate Rk. III
+#pragma endregion Pal/Shd Updated for ToL
 
 #pragma region Abilities
 sbkstab = { 8      ,2 },        // skill: backstab
@@ -293,6 +299,9 @@ defense18 = { 55059  ,3 },        // disc: Resolute Defense Rk. III
 defense19 = { 58557  ,3 },        // Disc: Courageous Defense - Level 115 - ToV
 defense20 = { 58558  ,3 },
 defense21 = { 58559  ,3 },
+defense22 = { 62060  ,3 },        // Disc: Primal Defense Lv 120 War ToL
+defense23 = { 62061  ,3 },        // Disc: Primal Defense Rk. II
+defense24 = { 62062  ,3 },        // Disc: Primal Defense Rk. III
 
 fieldarm1 =  { 19917  ,3 },        // disc: Field Armorer Lv 85 war UF
 fieldarm2 =  { 19918  ,3 },        // disc: Field Armorer Rk. II
@@ -315,6 +324,9 @@ fieldarm18 = { 55056  ,3 },        // disc: Field Champion Rk. III
 fieldarm19 = { 58554  ,3 },        // Disc: Paragon Champion - Level 115 - ToV
 fieldarm20 = { 58555  ,3 },
 fieldarm21 = { 58556  ,3 },
+fieldarm22 = { 62057  ,3 },        // disc: Full Moon's Champion Lv 120 War ToL
+fieldarm23 = { 62058  ,3 },        // disc: Full Moon's Champion Rk. II
+fieldarm24 = { 62059  ,3 },        // disc: Full Moon's Champion Rk. III
 
 gutpunch = { 3732   ,4 },        // aa: gut punch
 
@@ -372,6 +384,9 @@ prowar49 = { 55011  ,3 },        // disc: Kluzen's Roar Rk. III
 prowar50 = { 58509  ,3 },        // Disc: Kragek's Roar - Level 111 - ToV
 prowar51 = { 58510  ,3 },
 prowar52 = { 58511  ,3 },
+prowar53 = { 62012  ,3 },        // disc: Namdrows' Roar Lv 116 war ToL
+prowar54 = { 62013  ,3 },        // disc: Namdrows' Roar Rk II
+prowar55 = { 62014  ,3 },        // disc: Namdrows' Roar Rk III
 
 opstrke1 =  { 15375  ,3 },        // disc: Opportunistic Strike Lv 78 war
 opstrke2 =  { 15376  ,3 },        // disc: Opportunistic Strike rk ii
@@ -391,11 +406,14 @@ opstrke15 = { 55047  ,3 },        // disc: Cunning Strike Rk. III
 opstrke16 = { 58545  ,3 },        // Disc: Precision Strike - Level 114 - ToV
 opstrke17 = { 58546  ,3 },
 opstrke18 = { 58547  ,3 },
+opstrke19 = { 62051  ,3 },        // disc: Exploitive Strike Lv 119 War ToL
+opstrke20 = { 62052  ,3 },        // disc: Exploitive Strike Rk. II
+opstrke21 = { 62053  ,3 },        // disc: Exploitive Strike Rk. III
 
 throat1 = { 10968  ,3 },        // disc: throat jab
 throat2 = { 10969  ,3 },        // disc: throat jab rk ii
 throat3 = { 10970  ,3 },        // disc: throat jab rk iii
-#pragma endregion Updated to ToV
+#pragma endregion Updated to ToL
 
 #pragma region Cleric - Class 2
 yaulp = { 489    ,4 },        // aa: yaulp
@@ -429,6 +447,9 @@ honor24 = { 55355  ,5 },        // spell: Refute for Honor Rk. III
 honor25 = { 58811  ,5 },		// spell: Protest for Honor
 honor26 = { 58812  ,5 },		// spell: Protest for Honor Rk. II
 honor27 = { 58813  ,5 },		// spell: Protest for Honor Rk. III
+honor28 = { 62325  ,5 },        // spell: Parlay for Honor Lv 117 Pal ToL
+honor29 = { 62326  ,5 },        // spell: Parlay for Honor Rk. II
+honor30 = { 62327  ,5 },        // spell: Parlay for Honor Rk. III
 
 layhand = { 6001   ,4 },        // aa: lay on hands
 
@@ -447,6 +468,9 @@ rightidg12 = { 55391  ,3 },        // disc: Righteous Condemnation Rk. III
 rightidg13 = { 58838  ,3 },		   // disc: Righteous Antipathy
 rightidg14 = { 58839  ,3 },		   // disc: Righteous Antipathy Rk. II
 rightidg15 = { 58840  ,3 },		   // disc: Righteous Antipathy Rk. III
+rightidg16 = { 62358  ,3 },        // disc: Righteous Censure Lv 118 pal ToL
+rightidg17 = { 62359  ,3 },        // disc: Righteous Censure Rk. II
+rightidg18 = { 62360  ,3 },        // disc: Righteous Censure Rk. III
 
 stunaas1 = { 73     ,4 },        // aa: divine stun
 stunaas2 = { 702    ,4 },        // aa: hand of disruption
@@ -504,7 +528,10 @@ stunpal49 = { 55481  ,5 },        // spell: Force of the Timorous Deep Rk. III
 stunpal50 = { 58919  ,5 },        // spell: Force of the Grotto
 stunpal51 = { 55420  ,5 },        // spell: Force of the Grotto Rk. II
 stunpal52 = { 55421  ,5 },        // spell: Force of the Grotto Rk. III
-#pragma endregion Paladin - Class 3 Updated for ToV
+stunpal53 = { 62450  ,5 },        // spell: Force of the Umbra Lv 120 Pal ToL
+stunpal54 = { 62451  ,5 },        // spell: Force of the Umbra Rk. II
+stunpal55 = { 62452  ,5 },        // spell: Force of the Umbra Rk. III
+#pragma endregion Paladin - Class 3 Updated for ToL
 
 #pragma region Ranger - Class 4
 bladesrng1 = { 40105  ,3 },        // disc: storm of blades rk i
@@ -528,6 +555,12 @@ bladesrng18 = { 57920  ,3 },        // disc: Focused Gale of Blades Rk. III
 bladesrng19 = { 58958  ,3 },        // disc: Blizzard of Blades
 bladesrng20 = { 58959  ,3 },        // disc: Blizzard of Blades Rk. II
 bladesrng21 = { 58960  ,3 },        // disc: Blizzard of Blades Rk. III
+bladesrng22 = { 61155  ,3 },        // disc: Focused Blizzard of Blades
+bladesrng23 = { 61156  ,3 },        // disc: Focused Blizzard of Blades Rk. II
+bladesrng24 = { 61157  ,3 },        // disc: Focused Blizzard of Blades Rk. III
+bladesrng25 = { 62475  ,3 },        // disc: Tempest of Blades Lv 116 Rng ToL
+bladesrng26 = { 62476  ,3 },        // disc: Tempest of Blades Rk. II
+bladesrng27 = { 62477  ,3 },        // disc: Tempest of Blades Rk. III
 
 enragingkick1 =  { 28506  ,3 },        // disc: Enraging Crescent lv 92 Voa rng
 enragingkick2 =  { 28507  ,3 },        // disc: Enraging Crescent Kicks Rk. III
@@ -544,6 +577,9 @@ enragingkick12 = { 55541  ,3 },        // disc: Enraging Wheel Kicks Rk. III
 enragingkick13 = { 58970  ,3 },        // disc: Enraging Axe Kicks
 enragingkick14 = { 58971  ,3 },        // disc: Enraging Axe Kicks Rk. II
 enragingkick15 = { 58972  ,3 },        // disc: Enraging Axe Kicks Rk. III
+enragingkick16 = { 62485  ,3 },        // disc: Enraging Roundhouse Kicks Lv 117 Rng ToL
+enragingkick17 = { 62486  ,3 },        // disc: Enraging Roundhouse Rk. II
+enragingkick18 = { 62487  ,3 },        // disc: Enraging Roundhouse Rk. III
 
 jltkicks1 = { 10086  ,3 },        // disc: jolting kicks
 jltkicks2 = { 10087  ,3 },        // disc: jolting kicks rk ii
@@ -572,10 +608,13 @@ jltkicks24 = { 55544  ,3 },        // disc: Jolting Wheel Kicks Rk. III
 jltkicks25 = { 55542  ,3 },        // disc: Jolting Axe Kicks
 jltkicks26 = { 55543  ,3 },        // disc: Jolting Axe Kicks Rk. II
 jltkicks27 = { 55544  ,3 },        // disc: Jolting Axe Kicks Rk. III
+jltkicks28 = { 62482  ,3 },        // disc: Jolting Roundhouse Kicks Lv 117 Rng ToL
+jltkicks29 = { 62483  ,3 },        // disc: Jolting Roundhouse Kicks Rk. II
+jltkicks30 = { 62484  ,3 },        // disc: Jolting Roundhouse Kicks Rk. III
 
 joltrng1 = { 1741   ,5 },        // spell: jolt
 joltrng2 = { 1296   ,5 },        // spell: cinder jolt
-#pragma endregion Ranger - Class 4 Updated for ToV
+#pragma endregion Ranger - Class 4 Updated for ToL
 
 #pragma region ShadowKnight - Class 5
 feignid =  { 420    ,4 },        // aa: imitate death
@@ -620,6 +659,9 @@ gblade12 = { 55733  ,3 },        // disc: Wounding Blade Rk. III
 gblade13 = { 59147  ,3 },        // disc: Rending Blade
 gblade14 = { 59148  ,3 },        // disc: Rending Blade Rk. II
 gblade15 = { 59149  ,3 },        // disc: Rending Blade Rk. III
+gblade16 = { 62625  ,3 },        // disc: Grisly Blade Lv 117 Shd ToL
+gblade17 = { 62626  ,3 },        // disc: Grisly Blade Rk. II
+gblade18 = { 62627  ,3 },        // disc: Grisly Blade Rk. III
 
 harmtouch = { 6000   ,4 },        // aa: harmtouch
 
@@ -650,6 +692,9 @@ power24 = { 55715  ,5 },        // spell: Refute for Power Rk. III
 power25 = { 59129  ,5 },        // spell: Protest for Power
 power26 = { 59130  ,5 },        // spell: Protest for Power Rk. II
 power27 = { 59131  ,5 },        // spell: Protest for Power Rk. III
+power28 = { 62634  ,5 },        // spell: Parlay for Power Lv 117 Shd ToL
+power29 = { 62635  ,5 },        // spell: Parlay for Power Rk. II
+power30 = { 62636  ,5 },        // spell: Parlay for Power Rk. III
 
 terror1 = { 1221   ,5 },        // spell: terror of darkness
 terror2 = { 1222   ,5 },        // spell: terror of shadows
@@ -684,8 +729,11 @@ terror30 = { 55691  ,5 },        // spell: Terror of Kra'Du Rk. III
 terror31 = { 59105  ,5 },        // spell: Terror of Mirenilla
 terror32 = { 59106  ,5 },        // spell: Terror of Mirenilla Rk. II
 terror33 = { 59107  ,5 },        // spell: Terror of Mirenilla Rk. III
+terror34 = { 62592  ,5 },        // spell: Terror of Ander Lv 116 Sk ToL
+terror35 = { 62593  ,5 },        // spell: Terror of Ander Rk. II
+terror36 = { 62594  ,5 },        // spell: Terror of Ander Rk. III
 
-#pragma endregion ShadowKnight - Class 5 Updated for ToV
+#pragma endregion ShadowKnight - Class 5 Updated for ToL
 
 #pragma region Druid - Class 6
 #pragma endregion - Empty
@@ -700,6 +748,9 @@ cloud6 = { 40231  ,3 },        // disc: Phantom Partisan rk. iii
 cloud7 = { 50183  ,3 },        // disc: Phantom Pummeling
 cloud8 = { 50184  ,3 },        // disc: Phantom Pummeling Rk. II
 cloud9 = { 50185  ,3 },        // disc: Phantom Pummeling Rk. III
+cloud10 = { 61271  ,3 },        // disc: Phantom Fisticuffs Lv 115 mnk CoV
+cloud11 = { 61272  ,3 },        // disc: Phantom Fisticuffs Rk. II
+cloud12 = { 61273  ,3 },        // disc: Phantom Fisticuffs Rk. III
 
 fistswu = { 8002   ,3 },        // disc: fists of wu
 
@@ -732,6 +783,9 @@ leop26 = { 56101  ,3 },        // disc: Firestorm of Fists Rk. III
 leop27 = { 59454  ,3 },        // disc: Barrage of Fists
 leop28 = { 59455  ,3 },        // disc: Barrage of Fists Rk. II
 leop29 = { 59456  ,3 },        // disc: Barrage of Fists Rk. III
+leop30 = { 62964  ,3 },        // disc: Buffeting of Fists Lv 120 Mnk ToL
+leop31 = { 62965  ,3 },        // disc: Buffeting of Fists Rk. II
+leop32 = { 62966  ,3 },        // disc: Buffeting of Fists Rk. III
 
 monkey1 = { 22525  ,3 },        // disc: Drunken Monkey Style Lv 85 mnk UF
 monkey2 = { 22526  ,3 },        // disc: Drunken Monkey Style rk .ii
@@ -761,12 +815,15 @@ synergy18 = { 56060  ,3 },        // disc: Firewalker's Synergy Rk. III
 synergy19 = { 59428  ,3 },        // disc: Icewalker's Synergy
 synergy20 = { 59429  ,3 },        // disc: Icewalker's Synergy Rk. II
 synergy21 = { 59430  ,3 },        // disc: Icewalker's Synergy Rk. III
+synergy22 = { 62920  ,3 },        // disc: Bloodwalker's Synergy Lv 116 Mnk ToL
+synergy23 = { 62921  ,3 },        // disc: Bloodwalker's Synergy Rk. II
+synergy24 = { 62922  ,3 },        // disc: Bloodwalker's Synergy Rk. III
 
 vigmnk1 = { 19826  ,3 },        // disc: Vigorous Shuriken
 vigmnk2 = { 19827  ,3 },        // disc: Vigorous Shuriken Rk. II
 vigmnk3 = { 19828  ,3 },        // disc: Vigorous Shuriken Rk. III
 
-#pragma endregion Monk - Class 7 Updated for ToV
+#pragma endregion Monk - Class 7 Updated for ToL
 
 #pragma region Bard - Class 8
 boastful = { 199    ,4 },        // aa: boastful bellow
@@ -797,6 +854,9 @@ assault18 = { 56326  ,3 },        // disc: Fellstrike Rk. III
 assault19 = { 59646  ,3 },		  // Disc: Blitzstrike - Level 115 - TOV
 assault20 = { 59647  ,3 },
 assault21 = { 59648  ,3 },
+assault22 = { 63170  ,3 },		  // Disc: Shadowstrike Lv 120 rog ToL
+assault23 = { 63171  ,3 },		  // Disc: Shadowstrike Rk. II
+assault24 = { 63172  ,3 },		  // Disc: Shadowstrike Rk. III
 
 bleed1 =  { 19247  ,3 },        // disc: bleed Lv 83 rog UF
 bleed2 =  { 19248  ,3 },        // disc: bleed Rk. II
@@ -819,6 +879,9 @@ bleed18 = { 56305  ,3 },        // disc: Slice Rk. III
 bleed19 = { 59625  ,3 },        // Disc: Slash - Level 113 - TOV
 bleed20 = { 59626  ,3 },
 bleed21 = { 59627  ,3 },
+bleed22 = { 63132  ,3 },        // disc: Lance Lv 118 rog ToL
+bleed23 = { 63133  ,3 },        // disc: Lance Rk. II
+bleed24 = { 63134  ,3 },        // disc: Lance Rk. III
 
 escape = { 102    ,4 },        // aa: escape
 
@@ -846,6 +909,9 @@ jugular21 = { 56287  ,3 },        // disc: Jugular Strike Rk. III
 jugular22 = { 59607  ,3 },        // Disc: Jugular Cut - Level 112 - ToV
 jugular23 = { 59608  ,3 },
 jugular24 = { 59609  ,3 },
+jugular25 = { 63120  ,3 },        // disc: Jugular Rend Lv 117 Rog ToL
+jugular26 = { 63121  ,3 },        // disc: Jugular Rend Rk. II
+jugular27 = { 63122  ,3 },        // disc: Jugular Rend Rk. III
 
 knifeplay1 = { 40297  ,3 },        // disc: Knifeplay Discipline rog 97 Rof
 knifeplay2 = { 40298  ,3 },        // disc: Knifeplay Disciplinen Rk. II
@@ -934,9 +1000,12 @@ vigrog18 = { 56302  ,3 },        // disc: Forceful Dagger-Throw Rk. III
 vigrog19 = { 59622  ,3 },		 // Disc: Powerful Dagger-Throw - Level 113 - ToV
 vigrog20 = { 59622  ,3 },
 vigrog21 = { 59622  ,3 },
+vigrog22 = { 63135  ,3 },        // disc: Precise Dagger-Throw 118 Rog ToL
+vigrog23 = { 63136  ,3 },        // disc: Precise Dagger-Throw Rk. II
+vigrog24 = { 63137  ,3 },        // disc: Precise Dagger-Throw Rk. III
 
 twisted = { 670    ,4 },        // aa: twisted shank
-#pragma endregion Updated to ToV
+#pragma endregion Updated to ToL
 
 #pragma region Shaman - Class 10
 #pragma endregion - Empty
@@ -977,6 +1046,9 @@ bvivi9 =  { 36321  ,3 },        // disc: Bestial Evulsing Rk. III
 bvivi10 = { 57335  ,3 },        // disc: Bestial Savagery Lv 106 Bst RoS
 bvivi11 = { 57336  ,3 },        // disc: Bestial Savagery Rk. II
 bvivi12 = { 57337  ,3 },        // disc: Bestial Savagery Rk. III
+bvivi13 = { 64068  ,3 },        // disc: Bestial Fierceness Lv 116 Bst ToL
+bvivi14 = { 64069  ,3 },        // disc: Bestial Fierceness Rk. II
+bvivi15 = { 64070  ,3 },        // disc: Bestial Fierceness Rk. III
 
 cstrike = { 11080  ,4 },        // aa: Chameleon Strike
 
@@ -1005,6 +1077,9 @@ fclaw18 = { 57388  ,3 },        // disc: Storm of Claws Rk. III
 fclaw19 = { 60616  ,3 },        // disc: Maelstrom of Claws
 fclaw20 = { 60617  ,3 },        // disc: Maelstrom of Claws Rk. II
 fclaw21 = { 60618  ,3 },        // disc: Maelstrom of Claws Rk. III
+fclaw22 = { 64111  ,3 },        // disc: Eruption of Claws Lv 117 Bst ToL
+fclaw23 = { 64112  ,3 },        // disc: Eruption of Claws Rk. II
+fclaw24 = { 64113  ,3 },        // disc: Eruption of Claws Rk. III
 
 gorillasmash = { 988    ,4 },        // aa: gorilla smash
 
@@ -1033,11 +1108,14 @@ rake22 = { 57452  ,3 },        // disc: Mangle Rk. III
 rake23 = { 60678  ,3 },        // disc: Batter
 rake24 = { 60679  ,3 },        // disc: Batter Rk. II
 rake25 = { 60680  ,3 },        // disc: Batter Rk. III
+rake26 = { 64151  ,3 },        // disc: Clobber Lv 119 Bst ToL
+rake27 = { 64152  ,3 },        // disc: Clobber Rk. II
+rake28 = { 64153  ,3 },        // disc: Clobber Rk. III
 
 joltbst1 = { 362    ,4 },        // aa: roar of thunder
 
 ravens = { 987    ,4 },        // aa: raven's claw
-#pragma endregion Beastlord - Class 15 Updated for ToV
+#pragma endregion Beastlord - Class 15 Updated for ToL
 
 #pragma region Berserker - Class 16
 bloodlust1 =  { 22506  ,3 },        // Disc: Shared Bloodlust Lv 85 ber UF
@@ -1061,6 +1139,9 @@ bloodlust18 = { 57560  ,3 },        // Disc: Shared Ruthlessness Rk. III
 bloodlust19 = { 60781  ,3 },        //Disc: Shared Svagery - Level 115 - TOV
 bloodlust20 = { 60782  ,3 },
 bloodlust21 = { 60783  ,3 },
+bloodlust22 = { 64268  ,3 },        // Disc: Shared Violence Lv 120 Ber ToL
+bloodlust23 = { 64269  ,3 },        // Disc: Shared Violence Rk. II
+bloodlust24 = { 64270  ,3 },        // Disc: Shared Violence Rk. III
 
 cripple1 =  { 4928   ,3 },        // Disc: leg strike
 cripple2 =  { 4929   ,3 },        // Disc: leg cut
@@ -1093,6 +1174,9 @@ cripple28 = { 57518  ,3 },        // Disc: Tendon Rupture Rk. III
 cripple29 = { 60730  ,3 },	      // Disc: Tendon Rip - Level 111 - TOV
 cripple30 = { 60731  ,3 },
 cripple31 = { 60732  ,3 },
+cripple32 = { 64205  ,3 },        // Disc: Tendon Shred Lv 116 Ber ToL
+cripple33 = { 64206  ,3 },        // Disc: Tendon Shred Lv 116 Ber ToL
+cripple34 = { 64207  ,3 },        // Disc: Tendon Shred Lv 116 Ber ToL
 
 cryhavoc1 = { 8003   ,3 },        // Disc: cry havoc
 cryhavoc2 = { 36556  ,3 },        // Disc: Cry Carnage lev 98 Rof
@@ -1130,6 +1214,9 @@ joltber28 = { 57551  ,3 },        // Disc: Jarring Jolt Rk. III
 joltber29 = { 60772  ,3 },        // Disc: Jarring Strike - Level 114 - TOV
 joltber30 = { 60773  ,3 },
 joltber31 = { 60774  ,3 },
+joltber32 = { 64250  ,3 },        // Disc: Jarring Impact Lv 119 Ber ToL
+joltber33 = { 64251  ,3 },        // Disc: Jarring Impact Rk. II
+joltber34 = { 64252  ,3 },        // Disc: Jarring Impact Rk. III
 
 opfrenzy1 =  { 16918  ,3 },        // Disc: Overpowering Frenzy lv 81 ber UF
 opfrenzy2 =  { 16919  ,3 },        // Disc: Overpowering Frenzy Rk. II
@@ -1152,6 +1239,9 @@ opfrenzy18 = { 57515  ,3 },        // Disc: Mangling Frenzy Rk. III
 opfrenzy19 = { 60727  ,3 },        // Disc: Vindicating Frenzy - Level 111 - ToV
 opfrenzy20 = { 60728  ,3 },
 opfrenzy21 = { 60729  ,3 },
+opfrenzy22 = { 64214  ,3 },        // Disc: Oppressing Frenzy Lv 116 Ber ToL
+opfrenzy23 = { 64215  ,3 },        // Disc: Oppressing Frenzy Rk. II
+opfrenzy24 = { 64216  ,3 },        // Disc: Oppressing Frenzy Rk. III
 
 rallos1 =  { 19741  ,3 },        // Disc: Axe of Rallos Lv 85 ber UF
 rallos2 =  { 19742  ,3 },        // Disc: Axe of Rallos Rk. II
@@ -1180,6 +1270,9 @@ rallos24 = { 57566  ,3 },        // Disc: Axe of Rekatok Rk. III
 rallos25 = { 60787  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
 rallos26 = { 60788  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
 rallos27 = { 60789  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
+rallos28 = { 64274  ,3 },        // Disc: Axe of Xin Diabo Lv 120 Ber ToL
+rallos29 = { 64275  ,3 },        // Disc: Axe of Xin Diabo Rk. II
+rallos30 = { 64276  ,3 },        // Disc: Axe of Xin Diabo Rk. III
 
 slapface1 =  { 27269  ,3 },        // Disc: slap in the face Lv 87 ber HoT
 slapface2 =  { 27270  ,3 },        // Disc: slap in the face rk. ii
@@ -1199,6 +1292,9 @@ slapface15 = { 57521  ,3 },        // Disc: Sucker Punch Rk. III
 slapface16 = { 60734  ,3 },		   // Disc: Rabbit Punch - Level 112 - ToV
 slapface17 = { 60735  ,3 },
 slapface18 = { 60736  ,3 },
+slapface19 = { 64220  ,3 },        // Disc: Swift Punch Lv 117 Ber ToL
+slapface20 = { 64221  ,3 },        // Disc: Swift Punch Rk. II
+slapface21 = { 64222  ,3 },        // Disc: Swift Punch Rk. III
 
 stunber1 = { 4931   ,3 },        // Disc: head strike
 stunber2 = { 4932   ,3 },        // Disc: head pummel
@@ -1231,6 +1327,9 @@ stunber28 = { 57536  ,3 },        // Disc: Temple Slam Rk. III
 stunber29 = { 60760  ,3 },        // Disc: Temple Crack - Level 113 - TOV
 stunber30 = { 60761  ,3 },
 stunber31 = { 60762  ,3 },
+stunber32 = { 64244  ,3 },        // Disc: Temple Shatter Lv 118 Ber ToL
+stunber33 = { 64245  ,3 },        // Disc: Temple Shatter Rk. II
+stunber34 = { 64246  ,3 },        // Disc: Temple Shatter Rk. II
 
 volley1 = { 6754   ,3 },        // Disc: rage volley
 volley2 = { 6729   ,3 },        // Disc: destroyer's volley
@@ -1264,6 +1363,9 @@ volley29 = { 57548  ,3 },        // Disc: Mangling Volley Rk. III
 volley30 = { 60769  ,3 },        // Disc: Vindicating Volley - Level 114 - ToV
 volley31 = { 60770  ,3 },
 volley32 = { 60771  ,3 },
+volley33 = { 64253  ,3 },        // Disc: Pulverizing Volley Lv 119 Ber ToL
+volley34 = { 64254  ,3 },        // Disc: Pulverizing Volley Rk. II
+volley35 = { 64255  ,3 },        // Disc: Pulverizing Volley Rk. III
 
 vigber1 = { 19753  ,3 },        // Disc: Vigorous Axe Throw Lv 83 ber UF
 vigber2 = { 19754  ,3 },        // Disc: Vigorous Axe Throw Rk. II
@@ -1285,8 +1387,11 @@ vigber17 = { 57532  ,3 },        // Disc: Mangling Axe Throw Rk. II
 vigber18 = { 57533  ,3 },        // Disc: Mangling Axe Throw Rk. III
 vigber19 = { 60757  ,3 },        // Disc: Vindicating Axe Throw - Level
 vigber20 = { 60758  ,3 },
-vigber21 = { 60759  ,3 };
-#pragma endregion Updated to ToV
+vigber21 = { 60759  ,3 },
+vigber22 = { 64247  ,3 },        // Disc: Maiming Axe Throw  Lv 118 Ber ToL
+vigber23 = { 64248  ,3 },        // Disc: Maiming Axe Throw  Rk. II
+vigber24 = { 64249  ,3 };        // Disc: Maiming Axe Throw  Rk. II
+#pragma endregion Updated to ToL
 
 
 #define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) char* __var[]  = {\
@@ -3531,10 +3636,10 @@ void Configure() {
     doSTAB = 0;
     switch (Class) {
     case  Warrior: // WAR
-        AbilityFind(&idPROVOKE[1], &prowar52, &prowar51, &prowar50, &prowar49, &prowar48, &prowar47, &prowar46, &prowar45, &prowar44, &prowar43, &prowar42, &prowar41, &prowar40, &prowar39, &prowar38, &prowar37, &prowar36, &prowar35, &prowar34, &prowar33, &prowar32, &prowar31, &prowar30, &prowar29, &prowar28, &prowar27, &prowar26, &prowar25, &prowar24, &prowar23, &prowar22, &prowar21, &prowar20, &prowar19, &prowar18, &prowar17, &prowar16, &prowar15, &prowar14, &prowar13, &prowar12, &prowar11, &prowar10, &prowar9, &prowar8, &prowar7, &prowar6, &prowar5, &prowar4, &prowar3, &prowar2, &prowar1, 0);
-        AbilityFind(&idOPPORTUNISTICSTRIKE, &opstrke18, &opstrke17, &opstrke16, &opstrke15, &opstrke14, &opstrke13, &opstrke12, &opstrke11, &opstrke10, &opstrke9, &opstrke8, &opstrke7, &opstrke6, &opstrke5, &opstrke4, &opstrke3, &opstrke2, &opstrke1, 0);
-        AbilityFind(&idFIELDARM, &fieldarm21, &fieldarm20, &fieldarm19, &fieldarm18, &fieldarm17, &fieldarm16, &fieldarm15, &fieldarm14, &fieldarm13, &fieldarm12, &fieldarm11, &fieldarm10, &fieldarm9, &fieldarm8, &fieldarm7, &fieldarm6, &fieldarm5, &fieldarm4, &fieldarm3, &fieldarm2, &fieldarm1, 0);
-        AbilityFind(&idDEFENSE, &defense21, &defense20, &defense19, &defense18, &defense17, &defense16, &defense15, &defense14, &defense13, &defense12, &defense11, &defense10, &defense9, &defense8, &defense7, &defense6, &defense5, &defense4, &defense3, &defense2, &defense1, 0);
+        AbilityFind(&idPROVOKE[1], &prowar55, &prowar54, &prowar53, &prowar52, &prowar51, &prowar50, &prowar49, &prowar48, &prowar47, &prowar46, &prowar45, &prowar44, &prowar43, &prowar42, &prowar41, &prowar40, &prowar39, &prowar38, &prowar37, &prowar36, &prowar35, &prowar34, &prowar33, &prowar32, &prowar31, &prowar30, &prowar29, &prowar28, &prowar27, &prowar26, &prowar25, &prowar24, &prowar23, &prowar22, &prowar21, &prowar20, &prowar19, &prowar18, &prowar17, &prowar16, &prowar15, &prowar14, &prowar13, &prowar12, &prowar11, &prowar10, &prowar9, &prowar8, &prowar7, &prowar6, &prowar5, &prowar4, &prowar3, &prowar2, &prowar1, 0);
+        AbilityFind(&idOPPORTUNISTICSTRIKE, &opstrke21, &opstrke20, &opstrke19, &opstrke18, &opstrke17, &opstrke16, &opstrke15, &opstrke14, &opstrke13, &opstrke12, &opstrke11, &opstrke10, &opstrke9, &opstrke8, &opstrke7, &opstrke6, &opstrke5, &opstrke4, &opstrke3, &opstrke2, &opstrke1, 0);
+        AbilityFind(&idFIELDARM, &fieldarm24, &fieldarm23, &fieldarm22, &fieldarm21, &fieldarm20, &fieldarm19, &fieldarm18, &fieldarm17, &fieldarm16, &fieldarm15, &fieldarm14, &fieldarm13, &fieldarm12, &fieldarm11, &fieldarm10, &fieldarm9, &fieldarm8, &fieldarm7, &fieldarm6, &fieldarm5, &fieldarm4, &fieldarm3, &fieldarm2, &fieldarm1, 0);
+        AbilityFind(&idDEFENSE, &defense24, &defense23, &defense22, &defense21, &defense20, &defense19, &defense18, &defense17, &defense16, &defense15, &defense14, &defense13, &defense12, &defense11, &defense10, &defense9, &defense8, &defense7, &defense6, &defense5, &defense4, &defense3, &defense2, &defense1, 0);
         AbilityFind(&idTHROATJAB, &throat3, &throat2, &throat1, 0);
         AbilityFind(&idKNEESTRIKE, &kneestrike, 0);
         AbilityFind(&idGUTPUNCH, &gutpunch, 0);
@@ -3546,37 +3651,37 @@ void Configure() {
         break;
     case  Paladin: // PAL
         AbilityFind(&idLAYHAND, &layhand, 0);
-        AbilityFind(&idCHALLENGEFOR, &honor27, &honor26, &honor25, &honor24, &honor23, &honor22, &honor21, &honor20, &honor19, &honor18, &honor17, &honor16, &honor15, &honor14, &honor13, &honor12, &honor11, &honor10, &honor9, &honor8, &honor7, &honor6, &honor5, &honor4, &honor3, &honor2, &honor1, 0);        AbilityFind(&idPROVOKE[0], &stunaas3, &stunaas2, &stunaas1, 0);
+        AbilityFind(&idCHALLENGEFOR, &honor30, &honor29, &honor28, &honor27, &honor26, &honor25, &honor24, &honor23, &honor22, &honor21, &honor20, &honor19, &honor18, &honor17, &honor16, &honor15, &honor14, &honor13, &honor12, &honor11, &honor10, &honor9, &honor8, &honor7, &honor6, &honor5, &honor4, &honor3, &honor2, &honor1, 0);        AbilityFind(&idPROVOKE[0], &stunaas3, &stunaas2, &stunaas1, 0);
         AbilityFind(&idPROVOKE[1], &stunpal52, &stunpal51, &stunpal50, &stunpal49, &stunpal48, &stunpal47, &stunpal46, &stunpal45, &stunpal44, &stunpal43, &stunpal42, &stunpal41, &stunpal40, &stunpal39, &stunpal38, &stunpal37, &stunpal36, &stunpal35, &stunpal34, &stunpal33, &stunpal32, &stunpal31, &stunpal30, &stunpal29, &stunpal28, &stunpal27, &stunpal26, &stunpal25, &stunpal24, &stunpal23, &stunpal22, &stunpal21, &stunpal20, &stunpal19, &stunpal18, &stunpal17, &stunpal16, &stunpal15, &stunpal14, &stunpal13, &stunpal12, &stunpal11, &stunpal10, &stunpal9, &stunpal8, &stunpal7, &stunpal6, &stunpal5, &stunpal4, &stunpal3, &stunpal2, &stunpal1, 0);
-        AbilityFind(&idSTEELY, &steely21, &steely20, &steely19, &steely18, &steely17, &steely16, &steely15, &steely14, &steely13, &steely12, &steely11, &steely10, &steely9, &steely8, &steely7, &steely6, &steely5, &steely4, &steely3, &steely2, &steely1, 0);
+        AbilityFind(&idSTEELY, &steely24, &steely23, &steely22, &steely21, &steely20, &steely19, &steely18, &steely17, &steely16, &steely15, &steely14, &steely13, &steely12, &steely11, &steely10, &steely9, &steely8, &steely7, &steely6, &steely5, &steely4, &steely3, &steely2, &steely1, 0);
         AbilityFind(&idSTUN[0], &stunaas3, &stunaas2, &stunaas1, 0);
-        AbilityFind(&idSTUN[1], &stunpal52, &stunpal51, &stunpal50, &stunpal49, &stunpal48, &stunpal47, &stunpal46, &stunpal45, &stunpal44, &stunpal43, &stunpal42, &stunpal41, &stunpal40, &stunpal39, &stunpal38, &stunpal37, &stunpal36, &stunpal35, &stunpal34, &stunpal33, &stunpal32, &stunpal31, &stunpal30, &stunpal29, &stunpal28, &stunpal27, &stunpal26, &stunpal25, &stunpal24, &stunpal23, &stunpal22, &stunpal21, &stunpal20, &stunpal19, &stunpal18, &stunpal17, &stunpal16, &stunpal15, &stunpal14, &stunpal13, &stunpal12, &stunpal11, &stunpal10, &stunpal9, &stunpal8, &stunpal7, &stunpal6, &stunpal5, &stunpal4, &stunpal3, &stunpal2, &stunpal1, 0);
-        AbilityFind(&idWITHSTAND, &withstand21, &withstand20, &withstand19, &withstand18, &withstand17, &withstand16, &withstand15, &withstand14, &withstand13, &withstand12, &withstand11, &withstand10, &withstand9, &withstand8, &withstand7, &withstand6, &withstand5, &withstand4, &withstand3, &withstand2, &withstand1, 0);
-        AbilityFind(&idRIGHTIND, &rightidg15, &rightidg14, &rightidg13, &rightidg12, &rightidg11, &rightidg10, &rightidg9, &rightidg8, &rightidg7, &rightidg6, &rightidg5, &rightidg4, &rightidg3, &rightidg2, &rightidg1, 0);
+        AbilityFind(&idSTUN[1], &stunpal55, &stunpal54, &stunpal53, &stunpal52, &stunpal51, &stunpal50, &stunpal49, &stunpal48, &stunpal47, &stunpal46, &stunpal45, &stunpal44, &stunpal43, &stunpal42, &stunpal41, &stunpal40, &stunpal39, &stunpal38, &stunpal37, &stunpal36, &stunpal35, &stunpal34, &stunpal33, &stunpal32, &stunpal31, &stunpal30, &stunpal29, &stunpal28, &stunpal27, &stunpal26, &stunpal25, &stunpal24, &stunpal23, &stunpal22, &stunpal21, &stunpal20, &stunpal19, &stunpal18, &stunpal17, &stunpal16, &stunpal15, &stunpal14, &stunpal13, &stunpal12, &stunpal11, &stunpal10, &stunpal9, &stunpal8, &stunpal7, &stunpal6, &stunpal5, &stunpal4, &stunpal3, &stunpal2, &stunpal1, 0);
+        AbilityFind(&idWITHSTAND, &withstand24, &withstand23, &withstand22, &withstand21, &withstand20, &withstand19, &withstand18, &withstand17, &withstand16, &withstand15, &withstand14, &withstand13, &withstand12, &withstand11, &withstand10, &withstand9, &withstand8, &withstand7, &withstand6, &withstand5, &withstand4, &withstand3, &withstand2, &withstand1, 0);
+        AbilityFind(&idRIGHTIND, &rightidg18, &rightidg17, &rightidg16, &rightidg15, &rightidg14, &rightidg13, &rightidg12, &rightidg11, &rightidg10, &rightidg9, &rightidg8, &rightidg7, &rightidg6, &rightidg5, &rightidg4, &rightidg3, &rightidg2, &rightidg1, 0);
         break;
     case  Ranger: // RNG
         AbilityFind(&idJOLT, &joltrng2, &joltrng1, 0);
-        AbilityFind(&idJLTKICKS, &jltkicks27, &jltkicks26, &jltkicks25, &jltkicks24, &jltkicks23, &jltkicks22, &jltkicks21, &jltkicks20, &jltkicks19, &jltkicks18, &jltkicks17, &jltkicks16, &jltkicks15, &jltkicks14, &jltkicks13, &jltkicks12, &jltkicks11, &jltkicks10, &jltkicks9, &jltkicks8, &jltkicks7, &jltkicks6, &jltkicks5, &jltkicks4, &jltkicks3, &jltkicks2, &jltkicks1, 0);
-        AbilityFind(&idENRAGINGKICK, &enragingkick15, &enragingkick14, &enragingkick13, &enragingkick12, &enragingkick11, &enragingkick10, &enragingkick9, &enragingkick8, &enragingkick7, &enragingkick6, &enragingkick5, &enragingkick4, &enragingkick3, &enragingkick2, &enragingkick1, 0);
-        AbilityFind(&idSTORMBLADES, &bladesrng21, &bladesrng20, &bladesrng19, &bladesrng18, &bladesrng17, &bladesrng16, &bladesrng15, &bladesrng14, &bladesrng13, &bladesrng12, &bladesrng11, &bladesrng10, &bladesrng9, &bladesrng8, &bladesrng7, &bladesrng6, &bladesrng5, &bladesrng4, &bladesrng3, &bladesrng2, &bladesrng1, 0);
+        AbilityFind(&idJLTKICKS, &jltkicks30, &jltkicks29, &jltkicks28, &jltkicks27, &jltkicks26, &jltkicks25, &jltkicks24, &jltkicks23, &jltkicks22, &jltkicks21, &jltkicks20, &jltkicks19, &jltkicks18, &jltkicks17, &jltkicks16, &jltkicks15, &jltkicks14, &jltkicks13, &jltkicks12, &jltkicks11, &jltkicks10, &jltkicks9, &jltkicks8, &jltkicks7, &jltkicks6, &jltkicks5, &jltkicks4, &jltkicks3, &jltkicks2, &jltkicks1, 0);
+        AbilityFind(&idENRAGINGKICK, &enragingkick18, &enragingkick17, &enragingkick16, &enragingkick15, &enragingkick14, &enragingkick13, &enragingkick12, &enragingkick11, &enragingkick10, &enragingkick9, &enragingkick8, &enragingkick7, &enragingkick6, &enragingkick5, &enragingkick4, &enragingkick3, &enragingkick2, &enragingkick1, 0);
+        AbilityFind(&idSTORMBLADES, &bladesrng27, &bladesrng26, &bladesrng25, &bladesrng24, &bladesrng23, &bladesrng22, &bladesrng21, &bladesrng20, &bladesrng19, &bladesrng18, &bladesrng17, &bladesrng16, &bladesrng15, &bladesrng14, &bladesrng13, &bladesrng12, &bladesrng11, &bladesrng10, &bladesrng9, &bladesrng8, &bladesrng7, &bladesrng6, &bladesrng5, &bladesrng4, &bladesrng3, &bladesrng2, &bladesrng1, 0);
         //AbilityFind(&idFEROCIOUSKICK, &ferociouskick, 0);
         break;
     case  Shadowknight: // SHD
         AbilityFind(&idFEIGN[0], &feigns24, &feigns23, &feigns22, &feigns21, &feigns20, &feigns19, &feigns18, &feigns17, &feigns16, &feigns15, &feigns14, &feigns13, &feigns12, &feigns11, &feigns10, &feigns9, &feigns8, &feigns7, &feigns6, &feigns5, &feigns4, &feigns3, &feigns2, &feigns1, 0);
         AbilityFind(&idFEIGN[1], &feigndp, 0);
         AbilityFind(&idHARMTOUCH, &harmtouch, 0);
-        AbilityFind(&idGBLADE, &gblade15, &gblade14, &gblade13, &gblade12, &gblade11, &gblade10, &gblade9, &gblade8, &gblade7, &gblade6, &gblade5, &gblade4, &gblade3, &gblade2, &gblade1, 0);
-        AbilityFind(&idPROVOKE[1], &terror33, &terror32, &terror31, &terror30, &terror29, &terror28, &terror27, &terror26, &terror25, &terror24, &terror23, &terror22, &terror21, &terror20, &terror19, &terror18, &terror17, &terror16, &terror15, &terror14, &terror13, &terror12, &terror11, &terror10, &terror9, &terror8, &terror7, &terror6, &terror5, &terror4, &terror3, &terror2, &terror1, 0);
-        AbilityFind(&idCHALLENGEFOR, &power27, &power26, &power25, &power24, &power23, &power22, &power21, &power20, &power19, &power18, &power17, &power16, &power15, &power14, &power13, &power12, &power11, &power10, &power9, &power8, &power7, &power6, &power5, &power4, &power3, &power2, &power1, 0);
-        AbilityFind(&idSTEELY, &steely21, &steely20, &steely19, &steely18, &steely17, &steely16, &steely15, &steely14, &steely13, &steely12, &steely11, &steely10, &steely9, &steely8, &steely7, &steely6, &steely5, &steely4, &steely3, &steely2, &steely1, 0);
-        AbilityFind(&idWITHSTAND, &withstand21, &withstand20, &withstand19, &withstand18, &withstand17, &withstand16, &withstand15, &withstand14, &withstand13, &withstand12, &withstand11, &withstand10, &withstand9, &withstand8, &withstand7, &withstand6, &withstand5, &withstand4, &withstand3, &withstand2, &withstand1, 0);
+        AbilityFind(&idGBLADE, &gblade18, &gblade17, &gblade16, &gblade15, &gblade14, &gblade13, &gblade12, &gblade11, &gblade10, &gblade9, &gblade8, &gblade7, &gblade6, &gblade5, &gblade4, &gblade3, &gblade2, &gblade1, 0);
+        AbilityFind(&idPROVOKE[1], &terror36, &terror35, &terror34, &terror33, &terror32, &terror31, &terror30, &terror29, &terror28, &terror27, &terror26, &terror25, &terror24, &terror23, &terror22, &terror21, &terror20, &terror19, &terror18, &terror17, &terror16, &terror15, &terror14, &terror13, &terror12, &terror11, &terror10, &terror9, &terror8, &terror7, &terror6, &terror5, &terror4, &terror3, &terror2, &terror1, 0);
+        AbilityFind(&idCHALLENGEFOR, &power30, &power29, &power28, &power27, &power26, &power25, &power24, &power23, &power22, &power21, &power20, &power19, &power18, &power17, &power16, &power15, &power14, &power13, &power12, &power11, &power10, &power9, &power8, &power7, &power6, &power5, &power4, &power3, &power2, &power1, 0);
+        AbilityFind(&idSTEELY, &steely24, &steely23, &steely22, &steely21, &steely20, &steely19, &steely18, &steely17, &steely16, &steely15, &steely14, &steely13, &steely12, &steely11, &steely10, &steely9, &steely8, &steely7, &steely6, &steely5, &steely4, &steely3, &steely2, &steely1, 0);
+        AbilityFind(&idWITHSTAND, &withstand24, &withstand23, &withstand22, &withstand21, &withstand20, &withstand19, &withstand18, &withstand17, &withstand16, &withstand15, &withstand14, &withstand13, &withstand12, &withstand11, &withstand10, &withstand9, &withstand8, &withstand7, &withstand6, &withstand5, &withstand4, &withstand3, &withstand2, &withstand1, 0);
         break;
     case  Monk: // MNK
         MonkClass = true;
         AbilityFind(&idFISTSOFWU, &fistswu, 0);
         AbilityFind(&idDRAGONPUNCH, &sdrpunch, 0);
         AbilityFind(&idEAGLESTRIKE, &sestrike, 0);
-        AbilityFind(&idLEOPARDCLAW, &leop29, &leop28, &leop27, &leop26, &leop25, &leop24, &leop23, &leop22, &leop21, &leop20, &leop19, &leop18, &leop17, &leop16, &leop15, &leop14, &leop13, &leop12, &leop11, &leop10, &leop9, &leop8, &leop7, &leop6, &leop5, &leop4, &leop3, &leop2, &leop1, 0);
+        AbilityFind(&idLEOPARDCLAW, &leop32, &leop31, &leop30, &leop29, &leop28, &leop27, &leop26, &leop25, &leop24, &leop23, &leop22, &leop21, &leop20, &leop19, &leop18, &leop17, &leop16, &leop15, &leop14, &leop13, &leop12, &leop11, &leop10, &leop9, &leop8, &leop7, &leop6, &leop5, &leop4, &leop3, &leop2, &leop1, 0);
         AbilityFind(&idTIGERCLAW, &stigclaw, 0);
         AbilityFind(&idROUNDKICK, &srndkick, 0);
         AbilityFind(&idFLYINGKICK, &sflykick, 0);
@@ -3584,9 +3689,9 @@ void Configure() {
         AbilityFind(&idFEIGN[1], &feignid, 0);
         AbilityFind(&idPROVOKE[0], &stunmnk2, &stunmnk1, 0);
         AbilityFind(&idSTUN[0], &stunmnk2, &stunmnk1, 0);
-        AbilityFind(&idSYNERGY, &synergy21, &synergy20, &synergy19, &synergy18, &synergy17, &synergy16, &synergy15, &synergy14, &synergy13, &synergy12, &synergy11, &synergy10, &synergy9, &synergy8, &synergy7, &synergy6, &synergy5, &synergy4, &synergy3, &synergy2, &synergy1, 0);
+        AbilityFind(&idSYNERGY, &synergy24, &synergy23, &synergy22, &synergy21, &synergy20, &synergy19, &synergy18, &synergy17, &synergy16, &synergy15, &synergy14, &synergy13, &synergy12, &synergy11, &synergy10, &synergy9, &synergy8, &synergy7, &synergy6, &synergy5, &synergy4, &synergy3, &synergy2, &synergy1, 0);
         AbilityFind(&idVIGSHURIKEN, &vigmnk3, &vigmnk2, &vigmnk1, 0);
-        AbilityFind(&idCLOUD, &cloud9, &cloud8, &cloud7, &cloud6, &cloud5, &cloud5, &cloud4, &cloud3, &cloud2, &cloud1, 0);
+        AbilityFind(&idCLOUD, &cloud12, &cloud11, &cloud10, &cloud9, &cloud8, &cloud7, &cloud6, &cloud5, &cloud5, &cloud4, &cloud3, &cloud2, &cloud1, 0);
         AbilityFind(&idMONKEY, &monkey3, &monkey2, &monkey1, 0);
         break;
     case  Bard: // BRD
@@ -3598,11 +3703,11 @@ void Configure() {
         AbilityFind(&idTHIEFEYE, &thiefeye4, &thiefeye3, &thiefeye2, &thiefeye1, 0);
         AbilityFind(&idSTRIKE, &strike31, &strike30, &strike29, &strike28, &strike27, &strike26, &strike25, &strike24, &strike23, &strike22, &strike21, &strike20, &strike19, &strike18, &strike17, &strike16, &strike15, &strike14, &strike13, &strike12, &strike11, &strike10, &strike9, &strike8, &strike7, &strike6, &strike5, &strike4, &strike3, &strike2, &strike1, 0);
         AbilityFind(&idKNIFEPLAY, &knifeplay3, &knifeplay2, &knifeplay1, 0);
-        AbilityFind(&idBLEED, &bleed21, &bleed20, &bleed19, &bleed18, &bleed17, &bleed16, &bleed15, &bleed14, &bleed13, &bleed12, &bleed11, &bleed10, &bleed9, &bleed8, &bleed7, &bleed6, &bleed5, &bleed4, &bleed3, &bleed2, &bleed1, 0);
-        AbilityFind(&idVIGDAGGER, &vigrog21, &vigrog20, &vigrog19, &vigrog18, &vigrog17, &vigrog16, &vigrog15, &vigrog14, &vigrog13, &vigrog12, &vigrog11, &vigrog10, &vigrog9, &vigrog8, &vigrog7, &vigrog6, &vigrog5, &vigrog4, &vigrog3, &vigrog2, &vigrog1, 0);
-        AbilityFind(&idASSAULT, &assault21, &assault20, &assault19, &assault18, &assault17, &assault16, &assault15, &assault14, &assault13, &assault12, &assault11, &assault10, &assault9, &assault8, &assault7, &assault6, &assault5, &assault4, &assault3, &assault2, &assault1, 0);
+        AbilityFind(&idBLEED, &bleed24, &bleed23, &bleed22, &bleed21, &bleed20, &bleed19, &bleed18, &bleed17, &bleed16, &bleed15, &bleed14, &bleed13, &bleed12, &bleed11, &bleed10, &bleed9, &bleed8, &bleed7, &bleed6, &bleed5, &bleed4, &bleed3, &bleed2, &bleed1, 0);
+        AbilityFind(&idVIGDAGGER, &vigrog24, &vigrog23, &vigrog22, &vigrog21, &vigrog20, &vigrog19, &vigrog18, &vigrog17, &vigrog16, &vigrog15, &vigrog14, &vigrog13, &vigrog12, &vigrog11, &vigrog10, &vigrog9, &vigrog8, &vigrog7, &vigrog6, &vigrog5, &vigrog4, &vigrog3, &vigrog2, &vigrog1, 0);
+        AbilityFind(&idASSAULT, &assault24, &assault23, &assault22, &assault21, &assault20, &assault19, &assault18, &assault17, &assault16, &assault15, &assault14, &assault13, &assault12, &assault11, &assault10, &assault9, &assault8, &assault7, &assault6, &assault5, &assault4, &assault3, &assault2, &assault1, 0);
         AbilityFind(&idPINPOINT, &pinpoint24, &pinpoint23, &pinpoint22, &pinpoint21, &pinpoint20, &pinpoint19, &pinpoint18, &pinpoint17, &pinpoint16, &pinpoint15, &pinpoint14, &pinpoint13, &pinpoint12, &pinpoint11, &pinpoint10, &pinpoint9, &pinpoint8, &pinpoint7, &pinpoint6, &pinpoint5, &pinpoint4, &pinpoint3, &pinpoint2, &pinpoint1, 0);
-        AbilityFind(&idJUGULAR, &jugular24, &jugular23, &jugular22, &jugular21, &jugular20, &jugular19, &jugular18, &jugular17, &jugular16, &jugular15, &jugular14, &jugular13, &jugular12, &jugular11, &jugular10, &jugular9, &jugular8, &jugular7, &jugular6, &jugular5, &jugular4, &jugular3, &jugular2, &jugular1, 0);
+        AbilityFind(&idJUGULAR, &jugular27, &jugular26, &jugular25, &jugular24, &jugular23, &jugular22, &jugular21, &jugular20, &jugular19, &jugular18, &jugular17, &jugular16, &jugular15, &jugular14, &jugular13, &jugular12, &jugular11, &jugular10, &jugular9, &jugular8, &jugular7, &jugular6, &jugular5, &jugular4, &jugular3, &jugular2, &jugular1, 0);
         AbilityFind(&idESCAPE, &escape, 0);
         AbilityFind(&idTWISTEDSHANK, &twisted, 0);
 		AbilityFind(&idBACKSTAB, &sbkstab, 0);
@@ -3629,7 +3734,7 @@ void Configure() {
         AbilityFind(&idPETMEND, &mendpet2, &mendpet1, 0);
         break;
     case Beastlord: // BST
-        AbilityFind(&idRAKE, &rake25, &rake24, &rake23, &rake22, &rake21, &rake20, &rake19, &rake18, &rake17, &rake16, &rake15, &rake14, &rake13, &rake12, &rake11, &rake10, &rake9, &rake8, &rake7, &rake6, &rake5, &rake4, &rake3, &rake2, &rake1, 0);
+        AbilityFind(&idRAKE, &rake28, &rake27, &rake26, &rake25, &rake24, &rake23, &rake22, &rake21, &rake20, &rake19, &rake18, &rake17, &rake16, &rake15, &rake14, &rake13, &rake12, &rake11, &rake10, &rake9, &rake8, &rake7, &rake6, &rake5, &rake4, &rake3, &rake2, &rake1, 0);
         AbilityFind(&idFERALSWIPE, &feral1, 0);
         AbilityFind(&idPETMEND, &mendpet1, &mendpet2, 0);
         AbilityFind(&idJOLT, &joltbst1, 0);
@@ -3637,23 +3742,23 @@ void Configure() {
         AbilityFind(&idASP, &asp, 0);
         AbilityFind(&idCSTRIKE, &cstrike, 0);
         AbilityFind(&idRAVENS, &ravens, 0);
-        AbilityFind(&idFCLAW, &fclaw21, &fclaw20, &fclaw19, &fclaw18, &fclaw17, &fclaw16, &fclaw15, &fclaw14, &fclaw13, &fclaw12, &fclaw11, &fclaw10, &fclaw9, &fclaw8, &fclaw7, &fclaw6, &fclaw5, &fclaw4, &fclaw3, &fclaw2, &fclaw1, 0);
-        AbilityFind(&idBVIVI, &bvivi12, &bvivi11, &bvivi10, &bvivi9, &bvivi8, &bvivi7, &bvivi6, &bvivi5, &bvivi4, &bvivi3, &bvivi2, &bvivi1, 0);
+        AbilityFind(&idFCLAW, &fclaw24, &fclaw23, &fclaw22, &fclaw21, &fclaw20, &fclaw19, &fclaw18, &fclaw17, &fclaw16, &fclaw15, &fclaw14, &fclaw13, &fclaw12, &fclaw11, &fclaw10, &fclaw9, &fclaw8, &fclaw7, &fclaw6, &fclaw5, &fclaw4, &fclaw3, &fclaw2, &fclaw1, 0);
+        AbilityFind(&idBVIVI, &bvivi15, &bvivi14, &bvivi13, &bvivi12, &bvivi11, &bvivi10, &bvivi9, &bvivi8, &bvivi7, &bvivi6, &bvivi5, &bvivi4, &bvivi3, &bvivi2, &bvivi1, 0);
         AbilityFind(&idGORILLASMASH, &gorillasmash, 0);
         break;
     case Berserker: // BER
         BerserkerClass = true;
-        AbilityFind(&idBLOODLUST, &bloodlust21, &bloodlust20, &bloodlust19, &bloodlust18, &bloodlust17, &bloodlust16, &bloodlust15, &bloodlust14, &bloodlust13, &bloodlust12, &bloodlust11, &bloodlust10, &bloodlust9, &bloodlust8, &bloodlust7, &bloodlust6, &bloodlust5, &bloodlust4, &bloodlust3, &bloodlust2, &bloodlust1, 0);
-        AbilityFind(&idCRIPPLE, &cripple31, &cripple30, &cripple29, &cripple28, &cripple27, &cripple26, &cripple25, &cripple24, &cripple23, &cripple22, &cripple21, &cripple20, &cripple19, &cripple18, &cripple17, &cripple16, &cripple15, &cripple14, &cripple13, &cripple12, &cripple11, &cripple10, &cripple9, &cripple8, &cripple7, &cripple6, &cripple5, &cripple4, &cripple3, &cripple2, &cripple1, 0);
+        AbilityFind(&idBLOODLUST, &bloodlust24, &bloodlust23, &bloodlust22, &bloodlust21, &bloodlust20, &bloodlust19, &bloodlust18, &bloodlust17, &bloodlust16, &bloodlust15, &bloodlust14, &bloodlust13, &bloodlust12, &bloodlust11, &bloodlust10, &bloodlust9, &bloodlust8, &bloodlust7, &bloodlust6, &bloodlust5, &bloodlust4, &bloodlust3, &bloodlust2, &bloodlust1, 0);
+        AbilityFind(&idCRIPPLE, &cripple34, &cripple33, &cripple32, &cripple31, &cripple30, &cripple29, &cripple28, &cripple27, &cripple26, &cripple25, &cripple24, &cripple23, &cripple22, &cripple21, &cripple20, &cripple19, &cripple18, &cripple17, &cripple16, &cripple15, &cripple14, &cripple13, &cripple12, &cripple11, &cripple10, &cripple9, &cripple8, &cripple7, &cripple6, &cripple5, &cripple4, &cripple3, &cripple2, &cripple1, 0);
         AbilityFind(&idCRYHAVOC, &cryhavoc4, &cryhavoc3, &cryhavoc2, &cryhavoc1, 0);
-        AbilityFind(&idJOLT, &joltber31, &joltber30, &joltber29, &joltber28, &joltber27, &joltber26, &joltber25, &joltber24, &joltber23, &joltber22, &joltber21, &joltber20, &joltber19, &joltber18, &joltber17, &joltber16, &joltber15, &joltber14, &joltber13, &joltber12, &joltber11, &joltber10, &joltber9, &joltber8, &joltber7, &joltber6, &joltber5, &joltber4, &joltber3, &joltber2, &joltber1, 0);
-        AbilityFind(&idOPFRENZY, &opfrenzy21, &opfrenzy20, &opfrenzy19, &opfrenzy18, &opfrenzy17, &opfrenzy16, &opfrenzy15, &opfrenzy14, &opfrenzy13, &opfrenzy12, &opfrenzy11, &opfrenzy10, &opfrenzy9, &opfrenzy8, &opfrenzy7, &opfrenzy6, &opfrenzy5, &opfrenzy4, &opfrenzy3, &opfrenzy2, &opfrenzy1, 0);
-        AbilityFind(&idRALLOS, &rallos27, &rallos26, &rallos25, &rallos24, &rallos23, &rallos22, &rallos21, &rallos20, &rallos19, &rallos18, &rallos17, &rallos16, &rallos15, &rallos14, &rallos13, &rallos12, &rallos11, &rallos10, &rallos9, &rallos8, &rallos7, &rallos6, &rallos5, &rallos4, &rallos3, &rallos2, &rallos1, 0);
-        AbilityFind(&idSLAPFACE, &slapface18, &slapface17, &slapface16, &slapface15, &slapface14, &slapface13, &slapface12, &slapface11, &slapface10, &slapface9, &slapface8, &slapface7, &slapface6, &slapface5, &slapface4, &slapface3, &slapface2, &slapface1, 0);
+        AbilityFind(&idJOLT, &joltber34, &joltber33, &joltber32, &joltber31, &joltber30, &joltber29, &joltber28, &joltber27, &joltber26, &joltber25, &joltber24, &joltber23, &joltber22, &joltber21, &joltber20, &joltber19, &joltber18, &joltber17, &joltber16, &joltber15, &joltber14, &joltber13, &joltber12, &joltber11, &joltber10, &joltber9, &joltber8, &joltber7, &joltber6, &joltber5, &joltber4, &joltber3, &joltber2, &joltber1, 0);
+        AbilityFind(&idOPFRENZY, &opfrenzy24, &opfrenzy23, &opfrenzy22, &opfrenzy21, &opfrenzy20, &opfrenzy19, &opfrenzy18, &opfrenzy17, &opfrenzy16, &opfrenzy15, &opfrenzy14, &opfrenzy13, &opfrenzy12, &opfrenzy11, &opfrenzy10, &opfrenzy9, &opfrenzy8, &opfrenzy7, &opfrenzy6, &opfrenzy5, &opfrenzy4, &opfrenzy3, &opfrenzy2, &opfrenzy1, 0);
+        AbilityFind(&idRALLOS, &rallos30, &rallos29, &rallos28, &rallos27, &rallos26, &rallos25, &rallos24, &rallos23, &rallos22, &rallos21, &rallos20, &rallos19, &rallos18, &rallos17, &rallos16, &rallos15, &rallos14, &rallos13, &rallos12, &rallos11, &rallos10, &rallos9, &rallos8, &rallos7, &rallos6, &rallos5, &rallos4, &rallos3, &rallos2, &rallos1, 0);
+        AbilityFind(&idSLAPFACE, &slapface21, &slapface20, &slapface19, &slapface18, &slapface17, &slapface16, &slapface15, &slapface14, &slapface13, &slapface12, &slapface11, &slapface10, &slapface9, &slapface8, &slapface7, &slapface6, &slapface5, &slapface4, &slapface3, &slapface2, &slapface1, 0);
         AbilityFind(&idSTUN[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
-        AbilityFind(&idVIGAXE, &vigber21, &vigber20, &vigber19, &vigber18, &vigber17, &vigber16, &vigber15, &vigber14, &vigber13, &vigber12, &vigber11, &vigber10, &vigber9, &vigber8, &vigber7, &vigber6, &vigber5, &vigber4, &vigber3, &vigber2, &vigber1, 0);
-        AbilityFind(&idRAGEVOLLEY, &volley32, &volley31, &volley30, &volley29, &volley28, &volley27, &volley26, &volley25, &volley24, &volley23, &volley22, &volley21, &volley20, &volley19, &volley18, &volley17, &volley16, &volley15, &volley14, &volley13, &volley12, &volley11, &volley10, &volley9, &volley8, &volley7, &volley6, &volley5, &volley4, &volley3, &volley2, &volley1, 0);
-        AbilityFind(&idPROVOKE[1], &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
+        AbilityFind(&idVIGAXE, &vigber24, &vigber23, &vigber22, &vigber21, &vigber20, &vigber19, &vigber18, &vigber17, &vigber16, &vigber15, &vigber14, &vigber13, &vigber12, &vigber11, &vigber10, &vigber9, &vigber8, &vigber7, &vigber6, &vigber5, &vigber4, &vigber3, &vigber2, &vigber1, 0);
+        AbilityFind(&idRAGEVOLLEY, &volley35, &volley34, &volley33, &volley32, &volley31, &volley30, &volley29, &volley28, &volley27, &volley26, &volley25, &volley24, &volley23, &volley22, &volley21, &volley20, &volley19, &volley18, &volley17, &volley16, &volley15, &volley14, &volley13, &volley12, &volley11, &volley10, &volley9, &volley8, &volley7, &volley6, &volley5, &volley4, &volley3, &volley2, &volley1, 0);
+        AbilityFind(&idPROVOKE[1], &stunber34, &stunber33, &stunber32, &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
         AbilityFind(&idFRENZY, &sfrenzy, 0);
         break;
     }
