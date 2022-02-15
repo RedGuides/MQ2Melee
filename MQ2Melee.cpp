@@ -4172,7 +4172,7 @@ PLUGIN_API void KillThis(PSPAWNINFO pChar, char* Cmd)
         AggroReset();
         MeleeTarg = ((PSPAWNINFO)pTarget)->SpawnID;
         strcpy_s(MeleeName, ((PSPAWNINFO)pTarget)->DisplayedName);
-        MeleeSize = strlen(MeleeName) + 1;
+        MeleeSize = (long)strlen(MeleeName) + 1;
         MeleeType = SpawnMask((PSPAWNINFO)pTarget);
         if (doMELEE) {
             onEVENT |= 0x0008;
@@ -4302,7 +4302,7 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
         }
         if (ParseMacroLine(szCurrent, sizeof(szCurrent),out))
         {
-            unsigned long NewLength = strlen(szCurrent);
+            unsigned long NewLength = (unsigned long)strlen(szCurrent);
             memmove(&pBrace[NewLength + 1], &pEnd[1], strlen(&pEnd[1]) + 1);
             int addrlen = (int)(pBrace - szOriginal);
             memcpy_s(pBrace, BufferSize - addrlen, szCurrent, NewLength);
@@ -4312,7 +4312,7 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
         if(!strchr(szCurrent,'[') && !strchr(szCurrent,'.'))
             out.push_back(szCurrent);
 
-        NewLength = strlen(szCurrent);
+        NewLength = (unsigned long)strlen(szCurrent);
         memmove(&pBrace[NewLength], &pEnd[1], strlen(&pEnd[1]) + 1);
         int addrlen = (int)(pBrace - szOriginal);
         memcpy_s(pBrace, BufferSize - addrlen, szCurrent, NewLength);
@@ -5177,7 +5177,7 @@ void __stdcall PETHOLD(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall FALLEN(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (!doSKILL || ((long)pData && !ci_equals(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
+    if (!doSKILL || ((long)(uintptr_t)pData && !ci_equals(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
     Announce(SHOW_FEIGN, "%s::\arFAILED FEIGN DEATH\ax taking action!", PLUGIN_NAME);
     EzCommand("/stand");
 }
