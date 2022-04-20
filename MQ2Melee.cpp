@@ -2559,7 +2559,7 @@ public:
                 {
                     for (int s = 0; s < SongMax; s++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetPcProfile()->ShortBuff[s].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->GetTempEffect(s).SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -2570,7 +2570,7 @@ public:
                 {
                     for (int b = 0; b<BuffMax; b++)
                     {
-                        if (PSPELL buff = GetSpellByID(GetPcProfile()->Buff[b].SpellID))
+                        if (PSPELL buff = GetSpellByID(GetPcProfile()->GetEffect(b).SpellID))
                         {
                             if (EFFECT->ID == buff->ID)        return 0x0F; // already have
                             if (!BuffStackTest(EFFECT, buff)) return 0x10; // not stacking
@@ -4437,7 +4437,7 @@ void MeleeHandle()
 
     // check detrimental buff that wont let ya perform melee actions.
     for (int b = 0; b < BuffMax; b++) {
-        long SpellID = GetPcProfile()->Buff[b].SpellID;
+        long SpellID = GetPcProfile()->GetEffect(b).SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
@@ -4454,7 +4454,7 @@ void MeleeHandle()
 
     // check detrimental song that wont let ya perform melee actions.
     for (int s = 0; s < SongMax; s++) {
-        long SpellID = GetPcProfile()->ShortBuff[s].SpellID;
+        long SpellID = GetPcProfile()->GetTempEffect(s).SpellID;
         if (SpellID < 1) continue;
         if (PSPELL spell = GetSpellByID(SpellID)) {
             for (int a = 0; a < GetSpellNumEffects(spell); a++) {
