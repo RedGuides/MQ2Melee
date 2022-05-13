@@ -3233,7 +3233,7 @@ public:
                     Tempos[0] = 0;
                     if (isKill) strcat_s(Tempos, "ENGAGED ");
                     else strcat_s(Tempos, "WAITING ");
-                    if (*EQADDR_ATTACK) strcat_s(Tempos, "MELEE ");
+                    if (pEverQuestInfo->bAutoAttack) strcat_s(Tempos, "MELEE ");
                     else if (onEVENT & 0x8000) strcat_s(Tempos, "RANGE ");
                     if (onEVENT & 0x0001) strcat_s(Tempos, "ENRAGE ");
                     if (onEVENT & 0x0002) strcat_s(Tempos, "INFURIATE ");
@@ -3427,13 +3427,13 @@ void AbilityFind(Ability *thisone, infodata *first, ...) {
 }
 
 void AttackON() {
-    if (*EQADDR_ATTACK || onEVENT & 0xFFF7 || IsFeigning() || !doMELEE || !TargetID(MeleeTarg)) return;
+    if (pEverQuestInfo->bAutoAttack || onEVENT & 0xFFF7 || IsFeigning() || !doMELEE || !TargetID(MeleeTarg)) return;
     EzCommand("/attack on");
     TimerAttk = (unsigned long)clock();
 }
 
 void AttackOFF() {
-    if (*EQADDR_ATTACK) EzCommand("/attack off");
+    if (pEverQuestInfo->bAutoAttack) EzCommand("/attack off");
 }
 
 bool BashCheck() {
@@ -3488,7 +3488,7 @@ void Configure() {
     long Races = pChar2->Race;
     long Level = pChar2->Level;
     int SOValue = 0;
-    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, EQADDR_SERVERNAME, pChar->Name);
+    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, GetServerShortName(), pChar->Name);
     sprintf_s(section, "%s_%d_%s_%s", PLUGIN_NAME, Level, pEverQuest->GetRaceDesc(Races), pEverQuest->GetClassDesc(Class));
     Shrouded = pChar2->Shrouded; if (!Shrouded) section[strlen(PLUGIN_NAME)] = 0;
     BuffMax = GetCharMaxBuffSlots();
@@ -3930,7 +3930,7 @@ void OtherReset()
 
 void MeleeReset()
 {
-    if (!doMELEE && *EQADDR_ATTACK)
+    if (!doMELEE && pEverQuestInfo->bAutoAttack)
     {
         MeleeTarg = 0;
         if (onEVENT & 0x0008) onEVENT |= 0x0008;
@@ -4000,10 +4000,10 @@ void StabPress() {
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
 PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
-    if (gbRangedAttackReady && pTarget && TargetType(NPC_TYPE) &&
-        !InRange(SpawnMe(), (PSPAWNINFO)pTarget, 35) &&
-        fabs(AngularHeading(SpawnMe(), (PSPAWNINFO)pTarget)) < 50 &&
-        LineOfSight(SpawnMe(), (PSPAWNINFO)pTarget)) {
+    if (pEverQuestInfo->PrimaryAttackReady && pTarget && TargetType(NPC_TYPE) &&
+        !InRange(SpawnMe(), pTarget, 35) &&
+        fabs(AngularHeading(SpawnMe(), pTarget)) < 50 &&
+        LineOfSight(SpawnMe(), pTarget)) {
 
         unsigned long ulSlot = 0;
         char szTempItem[25] = { 0 };
@@ -4190,7 +4190,7 @@ PLUGIN_API void EnrageON(PSPAWNINFO pChar, char* Cmd) {
             onEVENT |= 0x0001;
             Announce(SHOW_ENRAGING, "MQ2Melee::\arENRAGE\ax detected, taking action!");
         }
-        if (*EQADDR_ATTACK && onEVENT & 0x0003 && SpawnType(KillTarg, NPC_TYPE)) {
+        if (pEverQuestInfo->bAutoAttack && onEVENT & 0x0003 && SpawnType(KillTarg, NPC_TYPE)) {
             double Back = fabs(AngularDistance(KillTarg->Heading, SpawnMe()->Heading));
             double View = fabs(AngularHeading(SpawnMe(), KillTarg));
             if (Back > 92 || View > 60 || onEVENT & 0x0002) {
@@ -4218,7 +4218,7 @@ PLUGIN_API void InfuriateON(PSPAWNINFO pChar, char* Cmd) {
             onEVENT |= 0x0002;
             Announce(SHOW_ENRAGING, "MQ2Melee::\arINFURIATE\ax detected, taking action!");
         }
-        if (*EQADDR_ATTACK) {
+        if (pEverQuestInfo->bAutoAttack) {
             AttackOFF();
             onEVENT |= 0x0008;
         }
@@ -4495,7 +4495,7 @@ void MeleeHandle()
     if (IsStunned()) return;
 
     // check if we still have a killing target or we acquiring a new one
-    if ((pTarget && TargetType(NPC_TYPE)) && (*EQADDR_ATTACK || onEVENT & 0x8000))
+    if ((pTarget && TargetType(NPC_TYPE)) && (pEverQuestInfo->bAutoAttack || onEVENT & 0x8000))
     {
         if (!MeleeTarg)
         {
@@ -4542,7 +4542,7 @@ void MeleeHandle()
         bool bTime = (doBACKOFF    && Health <= doBACKOFF);
 
         if (fTime || eTime || bTime) {
-            if (*EQADDR_ATTACK) {
+            if (pEverQuestInfo->bAutoAttack) {
                 onEVENT |= 0x0008;
                 AttackOFF();
             }
@@ -4602,7 +4602,7 @@ void MeleeHandle()
     // hold on?
     if (!MeleeTarg || !TargetID(MeleeTarg) || !IsStanding() || onEVENT & 0x0FF2) // this event is never referenced elsewhere
     {
-        if (*EQADDR_ATTACK) AttackOFF();
+        if (pEverQuestInfo->bAutoAttack) AttackOFF();
         if (onEVENT & 0x0008) onEVENT |= 0x0008;
         return;
     }
@@ -4639,7 +4639,7 @@ void MeleeHandle()
     }
 
     // scripted rogue sequence striking/assassination codes
-    if (doASSASSINATE && doBACKSTAB && doMELEE && onSTICK>0 && !SwingHits && !TakenHits && MeleeSpeed<2.0f && !*EQADDR_ATTACK && StabCheck())
+    if (doASSASSINATE && doBACKSTAB && doMELEE && onSTICK>0 && !SwingHits && !TakenHits && MeleeSpeed<2.0f && !pEverQuestInfo->bAutoAttack && StabCheck())
     {
         if (!Moving && Immobile)
         {
@@ -4707,7 +4707,7 @@ void MeleeHandle()
     // handle melee
     if (doMELEE && !(onEVENT & 0x8000))
     {
-        if (onEVENT & 0x0008 && !(onEVENT & 0xF007) && !*EQADDR_ATTACK) AttackON();
+        if (onEVENT & 0x0008 && !(onEVENT & 0xF007) && !pEverQuestInfo->bAutoAttack) AttackON();
 
         // start stick processing
         if (onSTICK)      // would have value if StickReset called, or set by itself
@@ -4754,7 +4754,7 @@ void MeleeHandle()
         // end stick processing
 
         // not behind enraged/infuriated target?
-        if (onEVENT & 0x0003 && *EQADDR_ATTACK)
+        if (onEVENT & 0x0003 && pEverQuestInfo->bAutoAttack)
         {
             long haveAggro = Aggroed(MeleeTarg); // set to 1 if cases acceptable to attack (on hott, within range)
             if ((MeleeBack > 92 || onEVENT & 0x0002) && (haveAggro < 1))
@@ -4770,7 +4770,7 @@ void MeleeHandle()
         if (MeleeDist < MeleeKill)
         {
             // attack is off, good time for stealing/begging or evading?
-            if (!*EQADDR_ATTACK)
+            if (!pEverQuestInfo->bAutoAttack)
             {
                 onEVENT &= 0xBFFF;
                 if (!MeleeFlee)
@@ -4812,7 +4812,7 @@ void MeleeHandle()
                 if (doFRENZY && idFRENZY.Ready(ifFRENZY)) idFRENZY.Press();
                 if (doKICK && idKICK.Ready(ifKICK)) idKICK.Press();
                 if (doEVADE && !doAGGRO && !IsInvisible() && idHIDE.Ready(ifEVADE)) idHIDE.Press();
-                if (!disc && !IsInvisible() && !MeleeFlee && onEVENT & 0x4000 && *EQADDR_ATTACK)  AttackOFF();
+                if (!disc && !IsInvisible() && !MeleeFlee && onEVENT & 0x4000 && pEverQuestInfo->bAutoAttack)  AttackOFF();
                 if (!disc && Immobile && !IsInvisible() && !MeleeFlee)
                 {
                     if (MeleeDist < 10 && doPICKPOCKET   && idPICKPOCKET.Ready(ifPICKPOCKET))                    onEVENT |= 0x4008;
@@ -4821,7 +4821,7 @@ void MeleeHandle()
                     if (doFALLS        && !doAGGRO && FeignDeath && FeignDeath->Ready(ifFALLS))              onEVENT |= 0x4008;
                     // Hide/evade no longer requires attack be turned off
                     // if (doEVADE        && !(doAGGRO || !IsGrouped()) && idHIDE.Ready(ifEVADE)) onEVENT |= 0x4008;
-                    // if (onEVENT & 0x4000 && *EQADDR_ATTACK) AttackOFF();
+                    // if (onEVENT & 0x4000 && pEverQuestInfo->bAutoAttack) AttackOFF();
                 }
 
                 if (MeleeDist < 15)
@@ -4851,8 +4851,8 @@ void MeleeHandle()
         // are we in good ranged for ranged?
         if (MeleeDist<(doRANGE ? doRANGE : 250) && MeleeDist>35 && MeleeDist > MeleeKill + 20)
         {
-            if (!AutoFire && gbRangedAttackReady) ThrowIT(NULL, "");
-            if (*EQADDR_ATTACK)
+            if (!AutoFire && pEverQuestInfo->PrimaryAttackReady) ThrowIT(NULL, "");
+            if (pEverQuestInfo->bAutoAttack)
             {
                 if (Sticking) Stick("");
                 onEVENT |= 0x8000;
@@ -4860,7 +4860,7 @@ void MeleeHandle()
                 Announce(SHOW_SWITCHING, "%s::Switching [\ayRange\ax].", PLUGIN_NAME);
             }
         }
-        else if (!*EQADDR_ATTACK) // target too close? or too far?
+        else if (!pEverQuestInfo->bAutoAttack) // target too close? or too far?
         {
             if (AutoFire)
             {
