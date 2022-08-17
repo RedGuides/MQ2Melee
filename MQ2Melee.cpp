@@ -2533,15 +2533,7 @@ public:
             if (TYPE != AA)
             {
                 //DebugSpew("EFFECT->ReuseTimerIndex Name: %s  ID: %d Type: %dVal: %d", NAME, ID, TYPE, EFFECT->ReuseTimerIndex);
-                #if !defined(ROF2EMU) && !defined(UFEMU)
                 if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
-                #else
-				int rtindex = EFFECT->ReuseTimerIndex;
-				if(rtindex >= 0 && rtindex < 20)//this matters on emu it will actually crash u if above 20
-				{
-					if (((unsigned long)pPCData->GetCombatAbilityTimer(rtindex) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
-                }
-				#endif
             }
         	// TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
