@@ -4765,7 +4765,7 @@ void MeleeHandle()
             if (!pEverQuestInfo->bAutoAttack)
             {
 #if !IS_CLIENT_DATE(20140402)
-				if (doEVADE && !doAGGRO && !IsInvisible() && idHIDE.Ready(ifEVADE)) idHIDE.Press();
+                if (doEVADE && !doAGGRO && !IsInvisible() && idHIDE.Ready(ifEVADE)) idHIDE.Press();
 #endif                
                 onEVENT &= 0xBFFF;
                 if (!MeleeFlee)
@@ -4818,13 +4818,13 @@ void MeleeHandle()
                     // if (onEVENT & 0x4000 && pEverQuestInfo->bAutoAttack) AttackOFF();
                 }
 
-				if (doEVADE && !doAGGRO && !IsInvisible() && idHIDE.Ready(ifEVADE)) {
+                if (doEVADE && !doAGGRO && !IsInvisible() && idHIDE.Ready(ifEVADE)) {
 #if !IS_CLIENT_DATE(20140402)
-					AttackOFF();
+                    AttackOFF();
 #else
-					idHIDE.Press(); // On clients newer than 2014, attack doesn't have to be turned off to evade
+                    idHIDE.Press(); // On clients newer than 2014, attack doesn't have to be turned off to evade
 #endif
-				}
+                }
                 if (MeleeDist < 15)
                 {
                     if (doDISARM && idDISARM.Ready(ifDISARM)) idDISARM.Press();
