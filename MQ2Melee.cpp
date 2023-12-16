@@ -35,7 +35,7 @@
 //							| 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
 //							| 2021-02-13: Updated by BigDorf - fix knights 2H Bash, Nov 2019 AA name change, "Two-Handed Bash" to "Improved Bash"
 //							| 2023-12-12: Updated by razorh - Added Warrior discs for LS
-//                          | 2023-12-15: Updated by FelisMalum - Added ramaining spells/discs for LS, updated potion list, corected some older spell/disc entries
+//                          | 2023-12-15: Updated by FelisMalum - Added remaining spells/discs for LS, updated potion list, corrected some older spell/disc entries
 //
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // SHOW_ABILITY:    0=0ff, 1=Display every ability that plugin use.
