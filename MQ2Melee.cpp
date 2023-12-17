@@ -576,39 +576,40 @@ stunpal58 = { 66304  ,5 },        // spell: Force of the Wayunder Rk. III
 #pragma endregion Paladin - Class 3 Updated for LS
 
 #pragma region Ranger - Class 4
-bladesrng1 = { 40105  ,3 },        // disc: storm of blades rk i lv 96
-bladesrng2 = { 40106  ,3 },        // disc: storm of blades rk ii
-bladesrng3 = { 40107  ,3 },        // disc: storm of blades rk iii
-bladesrng4 = { 40108  ,3 },        // disc: focused storm of blades rk i lv 97
-bladesrng5 = { 40109  ,3 },        // disc: focused storm of blades rk ii
-bladesrng6 = { 40110  ,3 },        // disc: focused storm of blades rk iii
-bladesrng7 = { 43457  ,3 },        // disc: Squall of Blades lv 101
-bladesrng8 = { 43458  ,3 },        // disc: Squall of Blades Rk. II
-bladesrng9 = { 43459  ,3 },        // disc: Squall of Blades Rk. III
-bladesrng10 = { 50083  ,3 },        // disc: Focused Squall of Blades lv 103
-bladesrng11 = { 50084  ,3 },        // disc: Focused Squall of Blades Rk. II
-bladesrng12 = { 50085  ,3 },        // disc: Focused Squall of Blades Rk. III
-bladesrng13 = { 55527  ,3 },        // disc: Gale of Blades lv 106
-bladesrng14 = { 55528  ,3 },        // disc: Gale of Blades Rk. II
-bladesrng15 = { 55529  ,3 },        // disc: Gale of Blades Rk. III
-bladesrng16 = { 57918  ,3 },        // disc: Focused Gale of Blades lv 109
-bladesrng17 = { 57919  ,3 },        // disc: Focused Gale of Blades Rk. II
-bladesrng18 = { 57920  ,3 },        // disc: Focused Gale of Blades Rk. III
-bladesrng19 = { 58958  ,3 },        // disc: Blizzard of Blades lv 111
-bladesrng20 = { 58959  ,3 },        // disc: Blizzard of Blades Rk. II
-bladesrng21 = { 58960  ,3 },        // disc: Blizzard of Blades Rk. III
-bladesrng22 = { 61155  ,3 },        // disc: Focused Blizzard of Blades lv 114
-bladesrng23 = { 61156  ,3 },        // disc: Focused Blizzard of Blades Rk. II
-bladesrng24 = { 61157  ,3 },        // disc: Focused Blizzard of Blades Rk. III
-bladesrng25 = { 62475  ,3 },        // disc: Tempest of Blades Lv 116 Rng ToL
-bladesrng26 = { 62476  ,3 },        // disc: Tempest of Blades Rk. II
-bladesrng27 = { 62477  ,3 },        // disc: Tempest of Blades Rk. III
-bladesrng28 = { 65155  ,3 },        // disc: Focused Tempest of Blades Lv 119 Rng NoS
-bladesrng29 = { 65156  ,3 },        // disc: Focused Tempest of Blades Rk. II
-bladesrng30 = { 65157  ,3 },        // disc: Focused Tempest of Blades Rk. III
-bladesrng31 = { 66439  ,3 },        // disc: Maelstrom of Blades Lv 121 Rng LS
-bladesrng32 = { 66440  ,3 },        // disc: Maelstrom of Blades Rk. II
-bladesrng33 = { 66441  ,3 },        // disc: Maelstorm of Blades Rk. III
+bladesrng1 = { 40108  ,3 },        // disc: focused storm of blades rk i lv 97
+bladesrng2 = { 40109  ,3 },        // disc: focused storm of blades rk ii
+bladesrng3 = { 40110  ,3 },        // disc: focused storm of blades rk iii
+bladesrng4 = { 50083  ,3 },        // disc: Focused Squall of Blades lv 103
+bladesrng5 = { 50084  ,3 },        // disc: Focused Squall of Blades Rk. II
+bladesrng6 = { 50085  ,3 },        // disc: Focused Squall of Blades Rk. III
+bladesrng7 = { 57918  ,3 },        // disc: Focused Gale of Blades lv 109
+bladesrng8 = { 57919  ,3 },        // disc: Focused Gale of Blades Rk. II
+bladesrng9 = { 57920  ,3 },        // disc: Focused Gale of Blades Rk. III
+bladesrng10 = { 61155  ,3 },        // disc: Focused Blizzard of Blades lv 114
+bladesrng11 = { 61156  ,3 },        // disc: Focused Blizzard of Blades Rk. II
+bladesrng12 = { 61157  ,3 },        // disc: Focused Blizzard of Blades Rk. III
+bladesrng13 = { 65155  ,3 },        // disc: Focused Tempest of Blades Lv 119 Rng NoS
+bladesrng14 = { 65156  ,3 },        // disc: Focused Tempest of Blades Rk. II
+bladesrng15 = { 65157  ,3 },        // disc: Focused Tempest of Blades Rk. III
+
+bladesrngaoe1 = { 40105  ,3 },        // disc: storm of blades rk i lv 96
+bladesrngaoe2 = { 40106  ,3 },        // disc: storm of blades rk ii
+bladesrngaoe3 = { 40107  ,3 },        // disc: storm of blades rk iii
+bladesrngaoe4 = { 43457  ,3 },        // disc: Squall of Blades lv 101
+bladesrngaoe5 = { 43458  ,3 },        // disc: Squall of Blades Rk. II
+bladesrngaoe6 = { 43459  ,3 },        // disc: Squall of Blades Rk. III
+bladesrngaoe7 = { 55527  ,3 },        // disc: Gale of Blades lv 106
+bladesrngaoe8 = { 55528  ,3 },        // disc: Gale of Blades Rk. II
+bladesrngaoe9 = { 55529  ,3 },        // disc: Gale of Blades Rk. III
+bladesrngaoe10 = { 58958  ,3 },        // disc: Blizzard of Blades lv 111
+bladesrngaoe11 = { 58959  ,3 },        // disc: Blizzard of Blades Rk. II
+bladesrngaoe12 = { 58960  ,3 },        // disc: Blizzard of Blades Rk. III
+bladesrngaoe13 = { 62475  ,3 },        // disc: Tempest of Blades Lv 116 Rng ToL
+bladesrngaoe14 = { 62476  ,3 },        // disc: Tempest of Blades Rk. II
+bladesrngaoe15 = { 62477  ,3 },        // disc: Tempest of Blades Rk. III
+bladesrngaoe16 = { 66439  ,3 },        // disc: Maelstrom of Blades Lv 121 Rng LS
+bladesrngaoe17 = { 66440  ,3 },        // disc: Maelstrom of Blades Rk. II
+bladesrngaoe18 = { 66441  ,3 },        // disc: Maelstorm of Blades Rk. III
 
 enragingkick1 =  { 28506  ,3 },        // disc: Enraging Crescent lv 92 Voa rng
 enragingkick2 =  { 28507  ,3 },        // disc: Enraging Crescent Kicks Rk. III
@@ -1152,24 +1153,25 @@ fclaw6 =  { 30273  ,3 },        // disc: Tumult of claws rk. iii
 fclaw7 =  { 36346  ,3 },        // disc: Clamor of Claws lv 97 BST Rof
 fclaw8 =  { 36347  ,3 },        // disc: Clamor of Claws rk. ii
 fclaw9 =  { 36348  ,3 },        // disc: Clamor of Claws rk. iii
-fclaw10 = { 40516  ,3 },        // disc: Focused Clamor of Claws lv 98 BST Rof
-fclaw11 = { 40517  ,3 },        // disc: Focused Clamor of Claws rk. ii
-fclaw12 = { 40518  ,3 },        // disc: Focused Clamor of Claws rk. iii
-fclaw13 = { 45103  ,3 },        // disc: Tempest of Claws lv 102 BST TDS
-fclaw14 = { 45104  ,3 },        // disc: Tempest of Claws rk. ii
-fclaw15 = { 45105  ,3 },        // disc: Tempest of Claws rk. iii
-fclaw16 = { 57386  ,3 },        // disc: Storm of Claws Lv 107 Bst RoS
-fclaw17 = { 57387  ,3 },        // disc: Storm of Claws Rk. II
-fclaw18 = { 57388  ,3 },        // disc: Storm of Claws Rk. III
-fclaw19 = { 60616  ,3 },        // disc: Maelstrom of Claws
-fclaw20 = { 60617  ,3 },        // disc: Maelstrom of Claws Rk. II
-fclaw21 = { 60618  ,3 },        // disc: Maelstrom of Claws Rk. III
-fclaw22 = { 64111  ,3 },        // disc: Eruption of Claws Lv 117 Bst ToL
-fclaw23 = { 64112  ,3 },        // disc: Eruption of Claws Rk. II
-fclaw24 = { 64113  ,3 },        // disc: Eruption of Claws Rk. III
-fclaw25 = { 68094  ,3 },        // disc: Barrage of Claws Lv 122 Bst LS
-fclaw26 = { 68095  ,3 },        // disc: Barrage of Claws Rk. II
-fclaw27 = { 68096  ,3 },        // disc: Barrage of Claws Rk. III
+fclaw10 = { 45103  ,3 },        // disc: Tempest of Claws lv 102 BST TDS
+fclaw11 = { 45104  ,3 },        // disc: Tempest of Claws rk. ii
+fclaw12 = { 45105  ,3 },        // disc: Tempest of Claws rk. iii
+fclaw13 = { 57386  ,3 },        // disc: Storm of Claws Lv 107 Bst RoS
+fclaw14 = { 57387  ,3 },        // disc: Storm of Claws Rk. II
+fclaw15 = { 57388  ,3 },        // disc: Storm of Claws Rk. III
+fclaw16 = { 60616  ,3 },        // disc: Maelstrom of Claws
+fclaw17 = { 60617  ,3 },        // disc: Maelstrom of Claws Rk. II
+fclaw18 = { 60618  ,3 },        // disc: Maelstrom of Claws Rk. III
+fclaw19 = { 64111  ,3 },        // disc: Eruption of Claws Lv 117 Bst ToL
+fclaw20 = { 64112  ,3 },        // disc: Eruption of Claws Rk. II
+fclaw21 = { 64113  ,3 },        // disc: Eruption of Claws Rk. III
+fclaw22 = { 68094  ,3 },        // disc: Barrage of Claws Lv 122 Bst LS
+fclaw23 = { 68095  ,3 },        // disc: Barrage of Claws Rk. II
+fclaw24 = { 68096  ,3 },        // disc: Barrage of Claws Rk. III
+
+fclawst1 = { 40516  ,3 },        // disc: Focused Clamor of Claws lv 98 BST Rof
+fclawst2 = { 40517  ,3 },        // disc: Focused Clamor of Claws rk. ii
+fclawst3 = { 40518  ,3 },        // disc: Focused Clamor of Claws rk. iii
 
 gorillasmash = { 988    ,4 },        // aa: gorilla smash
 
@@ -1803,7 +1805,8 @@ DECLARE_ABILITY_OPTION(pRGHTI, "rightidg", "[#] Endu% Above? 0=Off", "0", "${If[
 #pragma endregion
 
 #pragma region Ranger - Class 4
-DECLARE_ABILITY_OPTION(pSBLADES, "stormblades", "[#] Endu% Above? 0=0ff", "${If[${Me.CombatAbility[storm of blades]} || ${Me.CombatAbility[storm of blades rk. ii]} || ${Me.CombatAbility[storm of blades rk. iii]} || ${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Focused Blizzard of Blades]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Tempest of Blades]} || ${Me.CombatAbility[Tempest of Blades Rk. II]} || ${Me.CombatAbility[Tempest of Blades Rk. III]} || ${Me.CombatAbility[Focused Tempest of Blades]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. II]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. III]} || ${Me.CombatAbility[Maelstrom of Blades]} || ${Me.CombatAbility[Maelstrom of Blades Rk. II]} || ${Me.CombatAbility[Maelstrom of Blades Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[storm of blades]} || ${Me.CombatAbility[storm of blades rk. ii]} || ${Me.CombatAbility[storm of blades rk. iii]} || ${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Focused Blizzard of Blades]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Tempest of Blades]} || ${Me.CombatAbility[Tempest of Blades Rk. II]} || ${Me.CombatAbility[Tempest of Blades Rk. III]}),1,0]} || ${Me.CombatAbility[Focused Tempest of Blades]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. II]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. III]} || ${Me.CombatAbility[Maelstrom of Blades]} || ${Me.CombatAbility[Maelstrom of Blades Rk. II]} || ${Me.CombatAbility[Maelstrom of Blades Rk. III]}");
+DECLARE_ABILITY_OPTION(pSBLADES, "stormblades", "[#] Endu% Above? 0=0ff", "${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Blizzard of Blades]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Focused Tempest of Blades]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. II]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[focused storm of blades]} || ${Me.CombatAbility[focused storm of blades rk. ii]} || ${Me.CombatAbility[focused storm of blades rk. iii]} || ${Me.CombatAbility[Focused Squall of Blades]} || ${Me.CombatAbility[Focused Squall of Blades Rk. II]} || ${Me.CombatAbility[Focused Squall of Blades Rk. III]} || ${Me.CombatAbility[Focused Gale of Blades]} || ${Me.CombatAbility[Focused Gale of Blades Rk. II]} || ${Me.CombatAbility[Focused Gale of Blades Rk. III]} || ${Me.CombatAbility[Focused Blizzard of Blades]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Focused Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Focused Tempest of Blades]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. II]} || ${Me.CombatAbility[Focused Tempest of Blades Rk. III]}");
+//DECLARE_ABILITY_OPTION(pSBLADESAOE, "stormbladesaoe", ${If[${Me.CombatAbility[storm of blades]} || ${Me.CombatAbility[storm of blades rk. ii]} || ${Me.CombatAbility[storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Tempest of Blades]} || ${Me.CombatAbility[Tempest of Blades Rk. II]} || ${Me.CombatAbility[Tempest of Blades Rk. III]} || ${Me.CombatAbility[Maelstrom of Blades]} || ${Me.CombatAbility[Maelstrom of Blades Rk. II]} || ${Me.CombatAbility[Maelstrom of Blades Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${If[${Me.CombatAbility[storm of blades]} || ${Me.CombatAbility[storm of blades rk. ii]} || ${Me.CombatAbility[storm of blades rk. iii]} || ${Me.CombatAbility[Squall of Blades]} || ${Me.CombatAbility[Squall of Blades Rk. II]} || ${Me.CombatAbility[Squall of Blades Rk. III]} || ${Me.CombatAbility[Gale of Blades]} || ${Me.CombatAbility[Gale of Blades Rk. II]} || ${Me.CombatAbility[Gale of Blades Rk. III]} || ${Me.CombatAbility[Blizzard of Blades]} || ${Me.CombatAbility[Blizzard of Blades Rk. II]} || ${Me.CombatAbility[Blizzard of Blades Rk. III]} || ${Me.CombatAbility[Tempest of Blades]} || ${Me.CombatAbility[Tempest of Blades Rk. II]} || ${Me.CombatAbility[Tempest of Blades Rk. III]} || ${Me.CombatAbility[Maelstrom of Blades]} || ${Me.CombatAbility[Maelstrom of Blades Rk. II]} || ${Me.CombatAbility[Maelstrom of Blades Rk. III]}");
 DECLARE_ABILITY_OPTION(pERKCK, "enragingkick", "[#] Life% Below? 0=0ff", "${If[${Me.CombatAbility[Enraging Crescent Kicks]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. II]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. III]} || ${Me.CombatAbility[Enraging Heel Kicks]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Cut Kicks]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. II]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. III]} || ${Me.CombatAbility[Enraging Wheel Kicks]} || ${Me.CombatAbility[Enraging Wheel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Wheel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Axe Kicks]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. II]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. III]} || ${Me.CombatAbility[Enraging Roundhouse Kicks]} || ${Me.CombatAbility[Enraging Roundhouse Kicks Rk. II]} || ${Me.CombatAbility[Enraging Roundhouse Kicks Rk. III]} || ${Me.CombatAbility[Enraging Drop Kicks]} || ${Me.CombatAbility[Enraging Drop Kicks Rk. II]} || ${Me.CombatAbility[Enraging Drop Kicks Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && !${meleemvi[aggro]} && (${Me.CombatAbility[Enraging Crescent Kicks]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. II]} || ${Me.CombatAbility[Enraging Crescent Kicks Rk. III]} || ${Me.CombatAbility[Enraging Heel Kicks]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Heel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Cut Kicks]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. II]} || ${Me.CombatAbility[Enraging Cut Kicks Rk. III]} || ${Me.CombatAbility[Enraging Wheel Kicks]} || ${Me.CombatAbility[Enraging Wheel Kicks Rk. II]} || ${Me.CombatAbility[Enraging Wheel Kicks Rk. III]} || ${Me.CombatAbility[Enraging Axe Kicks]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. II]} || ${Me.CombatAbility[Enraging Axe Kicks Rk. III]} || ${Me.CombatAbility[Enraging Roundhouse Kicks]} || ${Me.CombatAbility[Enraging Roundhouse Kicks Rk. II]} || ${Me.CombatAbility[Enraging Roundhouse Kicks Rk. III]} || ${Me.C|| ${Me.CombatAbility[Enraging Drop Kicks]} || ${Me.CombatAbility[Enraging Drop Kicks Rk. II]} || ${Me.CombatAbility[Enraging Drop Kicks Rk. III]}),1,0]}");
 DECLARE_ABILITY_OPTION(pJKICK, "jltkicks", "[#] Endu% Above? 0=0ff", "${If[${Me.CombatAbility[jolting kicks]} || ${Me.CombatAbility[jolting kicks rk. ii]} || ${Me.CombatAbility[jolting kicks rk. iii]} || ${Me.CombatAbility[Jolting Snapkicks]} || ${Me.CombatAbility[Jolting Snapkicks rk. ii]} || ${Me.CombatAbility[Jolting Snapkicks rk. iii]} || ${Me.CombatAbility[Jolting Frontkicks]} || ${Me.CombatAbility[Jolting Frontkicks rk. ii]} || ${Me.CombatAbility[Jolting Frontkicks rk. iii]} || ${Me.CombatAbility[Jolting Hook kicks]} || ${Me.CombatAbility[Jolting Hook kicks rk. ii]} || ${Me.CombatAbility[Jolting Hook kicks rk. iii]} || ${Me.CombatAbility[Jolting Crescent kicks]} || ${Me.CombatAbility[Jolting Crescent kicks rk. ii]} || ${Me.CombatAbility[Jolting Crescent kicks rk. iii]} || ${Me.CombatAbility[Jolting Heel Kicks]} || ${Me.CombatAbility[Jolting Heel Kicks rk. ii]} || ${Me.CombatAbility[Jolting Heel Kicks rk. iii]} || ${Me.CombatAbility[Jolting Cut Kicks]} || ${Me.CombatAbility[Jolting Cut Kicks rk. ii]} || ${Me.CombatAbility[Jolting Cut Kicks rk. iii]} || ${Me.CombatAbility[Jolting Wheel Kicks]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. II]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. III]} || ${Me.CombatAbility[Jolting Axe Kicks]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. II]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. III]} || ${Me.CombatAbility[Jolting Roundhouse Kicks]} || ${Me.CombatAbility[Jolting Roundhouse Kicks Rk. II]} || ${Me.CombatAbility[Jolting Roundhouse Kicks Rk. III]} || ${Me.CombatAbility[Jolting Drop Kicks]} || ${Me.CombatAbility[Jolting Drop Kicks Rk. II]} || ${Me.CombatAbility[Jolting Drop Kicks Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[jolting kicks]} || ${Me.CombatAbility[jolting kicks rk. ii]} || ${Me.CombatAbility[jolting kicks rk. iii]} || ${Me.CombatAbility[Jolting Snapkicks]} || ${Me.CombatAbility[Jolting Snapkicks rk. ii]} || ${Me.CombatAbility[Jolting Snapkicks rk. iii]} || ${Me.CombatAbility[Jolting Frontkicks]} || ${Me.CombatAbility[Jolting Frontkicks rk. ii]} || ${Me.CombatAbility[Jolting Frontkicks rk. iii]} || ${Me.CombatAbility[Jolting Hook kicks]} || ${Me.CombatAbility[Jolting Hook kicks rk. ii]} || ${Me.CombatAbility[Jolting Hook kicks rk. iii]} || ${Me.CombatAbility[Jolting Crescent kicks]} || ${Me.CombatAbility[Jolting Crescent kicks rk. ii]} || ${Me.CombatAbility[Jolting Crescent kicks rk. iii]} || ${Me.CombatAbility[Jolting Heel Kicks]} || ${Me.CombatAbility[Jolting Heel Kicks rk. ii]} || ${Me.CombatAbility[Jolting Heel Kicks rk. iii]} || ${Me.CombatAbility[Jolting Cut Kicks]} || ${Me.CombatAbility[Jolting Cut Kicks rk. ii]} || ${Me.CombatAbility[Jolting Cut Kicks rk. iii]} || ${Me.CombatAbility[Jolting Wheel Kicks]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. II]} || ${Me.CombatAbility[Jolting Wheel Kicks Rk. III]} || ${Me.CombatAbility[Jolting Axe Kicks]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. II]} || ${Me.CombatAbility[Jolting Axe Kicks Rk. III]} || ${Me.CombatAbility[Jolting Roundhouse Kicks]} || ${Me.CombatAbility[Jolting Roundhouse Kicks Rk. II]} || ${Me.CombatAbility[Jolting Roundhouse Kicks Rk. III]} || ${Me.CombatAbility[Jolting Drop Kicks]} || ${Me.CombatAbility[Jolting Drop Kicks Rk. II]} || ${Me.CombatAbility[Jolting Drop Kicks Rk. III]}),1,0]}");
 
@@ -1884,6 +1887,7 @@ DECLARE_ABILITY_OPTION(pCHAMS, "cstrike", "[ON/OFF]?", "${If[${Me.AltAbility[Cha
 //Feign Beast?? Where for art thou Feign Beast?
 DECLARE_ABILITY_OPTION(pFERAL, "feralswipe", "[ON/OFF]?", "${If[${Me.AltAbility[feral swipe]},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[feral swipe]},1,0]}");
 DECLARE_ABILITY_OPTION(pFCLAW, "fclaw", "[#] Endu% Above? 0=0ff", "${If[${Me.CombatAbility[flurry of claws]} || ${Me.CombatAbility[flurry of claws rk. ii]} || ${Me.CombatAbility[flurry of claws rk. iii]} || ${Me.CombatAbility[tumult of claws]} || ${Me.CombatAbility[tumult of claws rk. ii]} || ${Me.CombatAbility[tumult of claws rk. iii]} || ${Me.CombatAbility[clamor of claws]} || ${Me.CombatAbility[clamor of claws rk. ii]} || ${Me.CombatAbility[clamor of claws rk. iii]} || ${Me.CombatAbility[tempest of claws]} || ${Me.CombatAbility[tempest of claws rk. ii]} || ${Me.CombatAbility[tempest of claws rk. iii]} || ${Me.CombatAbility[Storm of claws]} || ${Me.CombatAbility[Storm of claws Rk. II]} || ${Me.CombatAbility[Storm of claws Rk. III]} || ${Me.CombatAbility[Maelstrom of Claws]} || ${Me.CombatAbility[Maelstrom of Claws Rk. II]} || ${Me.CombatAbility[Maelstrom of Claws Rk. III]} || ${Me.CombatAbility[Eruption of Claws]} || ${Me.CombatAbility[Eruption of Claws Rk. II]} || ${Me.CombatAbility[Eruption of Claws Rk. III]} || ${Me.CombatAbility[Barrage of Claws]} || ${Me.CombatAbility[Barrage of Claws Rk. II]} || ${Me.CombatAbility[Barrage of Claws Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[flurry of claws]} || ${Me.CombatAbility[flurry of claws rk. ii]} || ${Me.CombatAbility[flurry of claws rk. iii]} || ${Me.CombatAbility[tumult of claws]} || ${Me.CombatAbility[tumult of claws rk. ii]} || ${Me.CombatAbility[tumult of claws rk. iii]} || ${Me.CombatAbility[clamor of claws]} || ${Me.CombatAbility[clamor of claws rk. ii]} || ${Me.CombatAbility[clamor of claws rk. iii]} || ${Me.CombatAbility[tempest of claws]} || ${Me.CombatAbility[tempest of claws rk. ii]} || ${Me.CombatAbility[tempest of claws rk. iii]} || ${Me.CombatAbility[Storm of claws]} || ${Me.CombatAbility[Storm of claws Rk. II]} || ${Me.CombatAbility[Storm of claws Rk. III]} || ${Me.CombatAbility[Maelstrom of Claws]} || ${Me.CombatAbility[Maelstrom of Claws Rk. II]} || ${Me.CombatAbility[Maelstrom of Claws Rk. III]} || ${Me.CombatAbility[Eruption of Claws]} || ${Me.CombatAbility[Eruption of Claws Rk. II]} || ${Me.CombatAbility[Eruption of Claws Rk. III]} || ${Me.CombatAbility[Barrage of Claws]} || ${Me.CombatAbility[Barrage of Claws Rk. II]} || ${Me.CombatAbility[Barrage of Claws Rk. III]}),1,0]}");
+//DECLARE_ABILITY_OPTION(pFCLAWST, "fclawst", "[#] Endu% Above? 0=0ff", "${Me.CombatAbility[Focused clamor of claws]} || ${Me.CombatAbility[Focused clamor of claws rk. ii]} || ${Me.CombatAbility[Focused clamor of claws rk. iii]},1,0]}", "${If[${Me.CombatAbility[Focused clamor of claws]} || ${Me.CombatAbility[Focused clamor of claws rk. ii]} || ${Me.CombatAbility[Focused clamor of claws rk. iii]},1,0]}");
 DECLARE_ABILITY_OPTION(pGORSM, "gorillasmash", "[ON/OFF]?", "${If[${Me.AltAbility[gorilla smash]},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[gorilla smash]},1,0]}");
 DECLARE_ABILITY_OPTION(pRAKES, "rake", "[#] Endu% Above? 0=Off", "${If[${Me.CombatAbility[rake]} || ${Me.CombatAbility[harrow]} || ${Me.CombatAbility[harrow rk. ii]} || ${Me.CombatAbility[harrow rk. iii]} || ${Me.CombatAbility[foray]} || ${Me.CombatAbility[foray rk. ii]} || ${Me.CombatAbility[foray rk. iii]} || ${Me.CombatAbility[rush]} || ${Me.CombatAbility[rush rk. ii]} || ${Me.CombatAbility[rush rk. iii]} || ${Me.CombatAbility[Barrage]} || ${Me.CombatAbility[Barrage rk. ii]} || ${Me.CombatAbility[Barrage rk. iii]} || ${Me.CombatAbility[Pummel]} || ${Me.CombatAbility[Pummel rk. ii]} || ${Me.CombatAbility[Pummel rk. iii]} || ${Me.CombatAbility[Maul]} || ${Me.CombatAbility[Maul rk. ii]} || ${Me.CombatAbility[Maul rk. iii]} || ${Me.CombatAbility[Mangle]} || ${Me.CombatAbility[Mangle Rk. II]} || ${Me.CombatAbility[Mangle Rk. III]} || ${Me.CombatAbility[Batter]} || ${Me.CombatAbility[Batter Rk. II]} || ${Me.CombatAbility[Batter Rk. III]} || ${Me.CombatAbility[Clobber]} || ${Me.CombatAbility[Clobber Rk. II]} || ${Me.CombatAbility[Clobber Rk. III]} || ${Me.CombatAbility[Wallop]} || ${Me.CombatAbility[Wallop Rk. II]} || ${Me.CombatAbility[Wallop Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[rake]} || ${Me.CombatAbility[harrow]} || ${Me.CombatAbility[harrow rk. ii]} || ${Me.CombatAbility[harrow rk. iii]} || ${Me.CombatAbility[foray]} || ${Me.CombatAbility[foray rk. ii]} || ${Me.CombatAbility[foray rk. iii]} || ${Me.CombatAbility[rush]} || ${Me.CombatAbility[rush rk. ii]} || ${Me.CombatAbility[rush rk. iii]} || ${Me.CombatAbility[Barrage]} || ${Me.CombatAbility[Barrage rk. ii]} || ${Me.CombatAbility[Barrage rk. iii]} || ${Me.CombatAbility[Pummel]} || ${Me.CombatAbility[Pummel rk. ii]} || ${Me.CombatAbility[Pummel rk. iii]} || ${Me.CombatAbility[Maul]} || ${Me.CombatAbility[Maul rk. ii]} || ${Me.CombatAbility[Maul rk. iii]} || ${Me.CombatAbility[Mangle]} || ${Me.CombatAbility[Mangle Rk. II]} || ${Me.CombatAbility[Mangle Rk. III]} || ${Me.CombatAbility[Batter]} || ${Me.CombatAbility[Batter Rk. II]} || ${Me.CombatAbility[Batter Rk. III]}  || ${Me.CombatAbility[Clobber]} || ${Me.CombatAbility[Clobber Rk. II]} || ${Me.CombatAbility[Clobber Rk. III]} || ${Me.CombatAbility[Wallop]} || ${Me.CombatAbility[Wallop Rk. II]} || ${Me.CombatAbility[Wallop Rk. III]}),1,0]}");
 DECLARE_ABILITY_OPTION(pRAVEN, "ravens", "[ON/OFF]?", "${If[${Me.AltAbility[raven's claw]},1,0]}", "${If[${meleemvi[plugin]} && ${Me.AltAbility[raven's claw]},1,0]}");
@@ -3772,8 +3776,9 @@ void Configure() {
         AbilityFind(&idJOLT, &joltrng2, &joltrng1, 0);
         AbilityFind(&idJLTKICKS, &jltkicks33, &jltkicks32, &jltkicks31, &jltkicks30, &jltkicks29, &jltkicks28, &jltkicks27, &jltkicks26, &jltkicks25, &jltkicks24, &jltkicks23, &jltkicks22, &jltkicks21, &jltkicks20, &jltkicks19, &jltkicks18, &jltkicks17, &jltkicks16, &jltkicks15, &jltkicks14, &jltkicks13, &jltkicks12, &jltkicks11, &jltkicks10, &jltkicks9, &jltkicks8, &jltkicks7, &jltkicks6, &jltkicks5, &jltkicks4, &jltkicks3, &jltkicks2, &jltkicks1, 0);
         AbilityFind(&idENRAGINGKICK, &enragingkick21, &enragingkick20, &enragingkick19, &enragingkick18, &enragingkick17, &enragingkick16, &enragingkick15, &enragingkick14, &enragingkick13, &enragingkick12, &enragingkick11, &enragingkick10, &enragingkick9, &enragingkick8, &enragingkick7, &enragingkick6, &enragingkick5, &enragingkick4, &enragingkick3, &enragingkick2, &enragingkick1, 0);
-        AbilityFind(&idSTORMBLADES, &bladesrng33, &bladesrng32, &bladesrng31, &bladesrng30, &bladesrng29, &bladesrng29, &bladesrng27, &bladesrng26, &bladesrng25, &bladesrng21, &bladesrng20, &bladesrng19, &bladesrng18, &bladesrng17, &bladesrng16, &bladesrng15, &bladesrng14, &bladesrng13, &bladesrng12, &bladesrng11, &bladesrng10, &bladesrng9, &bladesrng8, &bladesrng7, &bladesrng6, &bladesrng5, &bladesrng4, &bladesrng3, &bladesrng2, &bladesrng1, 0);
-        //AbilityFind(&idFEROCIOUSKICK, &ferociouskick, 0);
+        AbilityFind(&idSTORMBLADES, &bladesrng15, &bladesrng14, &bladesrng13, &bladesrng12, &bladesrng11, &bladesrng10, &bladesrng9, &bladesrng8, &bladesrng7, &bladesrng6, &bladesrng5, &bladesrng4, &bladesrng3, &bladesrng2, &bladesrng1, 0);
+        //AbilityFind(&idSTORMBLADESAOE, &bladesrngaoe18, &bladesrngaoe17, &bladesrngaoe16, &bladesrngaoe15, &bladesrngaoe14, &bladesrngaoe13, &bladesrngaoe12, &bladesrngaoe11, &bladesrngaoe10, &bladesrngaoe9, &bladesrngaoe8, &bladesrngaoe7, &bladesrngaoe6, &bladesrngaoe5, &bladesrngaoe4, &bladesrngaoe3, &bladesrngaoe2, &bladesrngaoe1, 0);
+		//AbilityFind(&idFEROCIOUSKICK, &ferociouskick, 0);
         break;
     case  Shadowknight: // SHD
         AbilityFind(&idFEIGN[0], &feigns24, &feigns23, &feigns22, &feigns21, &feigns20, &feigns19, &feigns18, &feigns17, &feigns16, &feigns15, &feigns14, &feigns13, &feigns12, &feigns11, &feigns10, &feigns9, &feigns8, &feigns7, &feigns6, &feigns5, &feigns4, &feigns3, &feigns2, &feigns1, 0);
@@ -3851,8 +3856,9 @@ void Configure() {
         AbilityFind(&idASP, &asp, 0);
         AbilityFind(&idCSTRIKE, &cstrike, 0);
         AbilityFind(&idRAVENS, &ravens, 0);
-        AbilityFind(&idFCLAW, &fclaw27, &fclaw26, &fclaw25, &fclaw24, &fclaw23, &fclaw22, &fclaw21, &fclaw20, &fclaw19, &fclaw18, &fclaw17, &fclaw16, &fclaw15, &fclaw14, &fclaw13, &fclaw12, &fclaw11, &fclaw10, &fclaw9, &fclaw8, &fclaw7, &fclaw6, &fclaw5, &fclaw4, &fclaw3, &fclaw2, &fclaw1, 0);
-        AbilityFind(&idBVIVI, &bvivi15, &bvivi14, &bvivi13, &bvivi12, &bvivi11, &bvivi10, &bvivi9, &bvivi8, &bvivi7, &bvivi6, &bvivi5, &bvivi4, &bvivi3, &bvivi2, &bvivi1, 0);
+        AbilityFind(&idFCLAW, &fclaw24, &fclaw23, &fclaw22, &fclaw21, &fclaw20, &fclaw19, &fclaw18, &fclaw17, &fclaw16, &fclaw15, &fclaw14, &fclaw13, &fclaw12, &fclaw11, &fclaw10, &fclaw9, &fclaw8, &fclaw7, &fclaw6, &fclaw5, &fclaw4, &fclaw3, &fclaw2, &fclaw1, 0);
+        //AbilityFind(&idFCLAWST, &fclaw3, &fclaw2, &fclaw1, 0);
+		AbilityFind(&idBVIVI, &bvivi15, &bvivi14, &bvivi13, &bvivi12, &bvivi11, &bvivi10, &bvivi9, &bvivi8, &bvivi7, &bvivi6, &bvivi5, &bvivi4, &bvivi3, &bvivi2, &bvivi1, 0);
         AbilityFind(&idGORILLASMASH, &gorillasmash, 0);
         break;
     case Berserker: // BER
