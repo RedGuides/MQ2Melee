@@ -34,7 +34,7 @@
 //							| 2019-12-29: Updated by ChatWithThisname-> Added Warrior, Berserker, Rogue discs for ToV. Rearranged information by class instead of alphabetically.
 //							| 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
 //							| 2021-02-13: Updated by BigDorf - fix knights 2H Bash, Nov 2019 AA name change, "Two-Handed Bash" to "Improved Bash"
-//                          | 2025-01-07: Updated by FelisMalum - Updated spells/discs for LS & potion list, corrected some older spell/disc entries, resolved issue #10 "Rabbit Punch ID". Removed single target discs from AoE centric discs for rng/bst.
+//                          | 2025-01-07: Updated by FelisMalum - Updated spells/discs for tOB & potion list, corrected some older spell/disc entries, resolved issue #10 "Rabbit Punch ID". Removed single target discs from AoE centric discs for rng/bst.
 
 //
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
@@ -610,6 +610,9 @@ bladesrng15 = { 62477  ,3 },        // disc: Tempest of Blades Rk. III
 bladesrng16 = { 66439  ,3 },        // disc: Maelstrom of Blades Lv 121 Rng LS
 bladesrng17 = { 66440  ,3 },        // disc: Maelstrom of Blades Rk. II
 bladesrng18 = { 66441  ,3 },        // disc: Maelstorm of Blades Rk. III
+//bladesrng?? = { 70145  ,3 },        // disc: Focused Maelstrom of Blades Lv 124 Rng tOB
+//bladesrng?? = { 70146  ,3 },        // disc: Focused Maelstrom of Blades Rk. II
+//bladesrng?? = { 70147  ,3 },        // disc: Focused Maelstorm of Blades Rk. III
 
 enragingkick1 =  { 28506  ,3 },        // disc: Enraging Crescent lv 92 Voa rng
 enragingkick2 =  { 28507  ,3 },        // disc: Enraging Crescent Kicks Rk. III
@@ -817,6 +820,9 @@ cloud9 = { 50185  ,3 },        // disc: Phantom Pummeling Rk. III
 cloud10 = { 61271  ,3 },        // disc: Phantom Fisticuffs Lv 115 mnk CoV
 cloud11 = { 61272  ,3 },        // disc: Phantom Fisticuffs Rk. II
 cloud12 = { 61273  ,3 },        // disc: Phantom Fisticuffs Rk. III
+cloud13 = { 70275  ,3 },        // disc: Phantom Afterimage Lv 125 mnk tOB
+cloud14 = { 70276  ,3 },        // disc: Phantom Afterimage Rk. II
+cloud15 = { 70277  ,3 },        // disc: Phantom Afterimage Rk. III
 
 fistswu = { 8002   ,3 },        // disc: fists of wu
 
@@ -1446,6 +1452,9 @@ stunber31 = { 60762  ,3 },
 stunber32 = { 64244  ,3 },        // Disc: Temple Shatter Lv 118 Ber ToL
 stunber33 = { 64245  ,3 },        // Disc: Temple Shatter Rk. II
 stunber34 = { 64246  ,3 },        // Disc: Temple Shatter Rk. II
+stunber35 = { 68145  ,3 },        // Disc: Skull Strike Lv 123 Ber tOB
+stunber36 = { 68146  ,3 },        // Disc: Skull Strike Rk. II
+stunber37 = { 68147  ,3 },        // Disc: Skull Strike Rk. II
 
 volley1 = { 6754   ,3 },        // Disc: rage volley
 volley2 = { 6729   ,3 },        // Disc: destroyer's volley
@@ -1517,12 +1526,7 @@ vigber27 = { 68162  ,3 }        // Disc: Rending Axe Throw  Rk. III
 #pragma endregion Updated to LS
 
 
-#define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) char* __var[]  = {\
-                                                                                  __key, \
-                                                                                  __help, \
-                                                                                  __default, \
-                                                                                  __show, \
-                                                                                  };
+#define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) char* __var[]  = { __key, __help, __default, __show };
 #define REGISTER_ABILITY_OPTION( __var, __func, __ability ) MapInsert(&CmdListe, Option(__var[0], __var[1], __var[2], __var[3], __func, __ability));
 
 DECLARE_ABILITY_OPTION(pDEBUG, "debug", "[ON/OFF]?", "0", "${If[${meleemvi[plugin]} && ${meleemvs[debug].Length},1,0]}");
@@ -3813,7 +3817,7 @@ void Configure() {
         AbilityFind(&idSTUN[0], &stunmnk2, &stunmnk1, 0);
         AbilityFind(&idSYNERGY, &synergy27, &synergy26, &synergy25, &synergy24, &synergy23, &synergy22, &synergy21, &synergy20, &synergy19, &synergy18, &synergy17, &synergy16, &synergy15, &synergy14, &synergy13, &synergy12, &synergy11, &synergy10, &synergy9, &synergy8, &synergy7, &synergy6, &synergy5, &synergy4, &synergy3, &synergy2, &synergy1, 0);
         AbilityFind(&idVIGSHURIKEN, &vigmnk3, &vigmnk2, &vigmnk1, 0);
-        AbilityFind(&idCLOUD, &cloud12, &cloud11, &cloud10, &cloud9, &cloud8, &cloud7, &cloud6, &cloud5, &cloud5, &cloud4, &cloud3, &cloud2, &cloud1, 0);
+        AbilityFind(&idCLOUD, &cloud15, &cloud14, &cloud13, &cloud12, &cloud11, &cloud10, &cloud9, &cloud8, &cloud7, &cloud6, &cloud5, &cloud5, &cloud4, &cloud3, &cloud2, &cloud1, 0);
         AbilityFind(&idMONKEY, &monkey3, &monkey2, &monkey1, 0);
         break;
     case  Bard: // BRD
@@ -3877,11 +3881,11 @@ void Configure() {
         AbilityFind(&idOPFRENZY, &opfrenzy27, &opfrenzy26, &opfrenzy25, &opfrenzy24, &opfrenzy23, &opfrenzy22, &opfrenzy21, &opfrenzy20, &opfrenzy19, &opfrenzy18, &opfrenzy17, &opfrenzy16, &opfrenzy15, &opfrenzy14, &opfrenzy13, &opfrenzy12, &opfrenzy11, &opfrenzy10, &opfrenzy9, &opfrenzy8, &opfrenzy7, &opfrenzy6, &opfrenzy5, &opfrenzy4, &opfrenzy3, &opfrenzy2, &opfrenzy1, 0);
         AbilityFind(&idRALLOS, &rallos33, &rallos32, &rallos31, &rallos30, &rallos29, &rallos28, &rallos27, &rallos26, &rallos25, &rallos24, &rallos23, &rallos22, &rallos21, &rallos20, &rallos19, &rallos18, &rallos17, &rallos16, &rallos15, &rallos14, &rallos13, &rallos12, &rallos11, &rallos10, &rallos9, &rallos8, &rallos7, &rallos6, &rallos5, &rallos4, &rallos3, &rallos2, &rallos1, 0);
         AbilityFind(&idSLAPFACE, &slapface24, &slapface23, &slapface22, &slapface21, &slapface20, &slapface19, &slapface18, &slapface17, &slapface16, &slapface15, &slapface14, &slapface13, &slapface12, &slapface11, &slapface10, &slapface9, &slapface8, &slapface7, &slapface6, &slapface5, &slapface4, &slapface3, &slapface2, &slapface1, 0);
-        AbilityFind(&idSTUN[1], &stunber34, &stunber33, &stunber32, &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
+        AbilityFind(&idSTUN[1], &stunber37, &stunber36, &stunber35, &stunber34, &stunber33, &stunber32, &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
         AbilityFind(&idRAGEVOLLEY, &volley38, &volley37, &volley36, &volley35, &volley34, &volley33, &volley32, &volley31, &volley30, &volley29, &volley28, &volley27, &volley26, &volley25, &volley24, &volley23, &volley22, &volley21, &volley20, &volley19, &volley18, &volley17, &volley16, &volley15, &volley14, &volley13, &volley12, &volley11, &volley10, &volley9, &volley8, &volley7, &volley6, &volley5, &volley4, &volley3, &volley2, &volley1, 0);
         AbilityFind(&idVIGAXE, &vigber27, &vigber26, &vigber25, &vigber24, &vigber23, &vigber22, &vigber21, &vigber20, &vigber19, &vigber18, &vigber17, &vigber16, &vigber15, &vigber14, &vigber13, &vigber12, &vigber11, &vigber10, &vigber9, &vigber8, &vigber7, &vigber6, &vigber5, &vigber4, &vigber3, &vigber2, &vigber1, 0);
         //Repeat entry w/ &idSTUN[1]?
-        AbilityFind(&idPROVOKE[1], &stunber34, &stunber33, &stunber32, &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
+        AbilityFind(&idPROVOKE[1], &stunber37, &stunber36, &stunber35, &stunber34, &stunber33, &stunber32, &stunber31, &stunber30, &stunber29, &stunber28, &stunber27, &stunber26, &stunber25, &stunber24, &stunber23, &stunber22, &stunber21, &stunber20, &stunber19, &stunber18, &stunber17, &stunber16, &stunber15, &stunber14, &stunber13, &stunber12, &stunber11, &stunber10, &stunber9, &stunber8, &stunber7, &stunber6, &stunber5, &stunber4, &stunber3, &stunber2, &stunber1, 0);
         AbilityFind(&idFRENZY, &sfrenzy, 0);
         break;
     }
