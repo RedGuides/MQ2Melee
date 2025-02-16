@@ -177,6 +177,11 @@ potfast13 = { 40554  ,7 },        // potion: Distillate of Divine Healing XIV
 potfast14 = { 56941  ,7 },        // potion: Distillate of Divine Healing XV
 potfast15 = { 64612  ,7 },        // potion: Distillate of Divine Healing XVI
 potfast16 = { 135337 ,7 },        // potion: Distillate of Divine Healing XVII
+potfast17 = { 93988  ,7 },        // potion: Distillate of Divine Healing XVIII
+potfast18 = { 152388 ,7 },        // potion: Distillate of Divine Healing XIX
+potfast19 = { 164279 ,7 },        // potion: Distillate of Divine Healing XX
+potfast20 = { 166392 ,7 },        // potion: Distillate of Divine Healing XXI
+potfast21 = { 159910 ,7 },        // potion: Distillate of Divine Healing XXII
 
 potover0 = { 77779  ,7 },        // potion: Distillate of Celestial Healing I
 potover1 = { 77780  ,7 },        // potion: Distillate of Celestial Healing II
@@ -195,6 +200,12 @@ potover13 = { 40555  ,7 },        // potion: Distillate of Celestial Healing XIV
 potover14 = { 56942  ,7 },        // potion: Distillate of Celestial Healing XV
 potover15 = { 64613  ,7 },        // potion: Distillate of Celestial Healing XVI
 potover16 = { 135338 ,7 },        // potion: Distillate of Celestial Healing XVII
+potover17 = { 93989  ,7 },        // potion: Distillate of Celestial Healing XVIII
+potover18 = { 152389 ,7 },        // potion: Distillate of Celestial Healing XIX
+potover19 = { 164280 ,7 },        // potion: Distillate of Celestial Healing XX
+potover20 = { 166393 ,7 },        // potion: Distillate of Celestial Healing XXI
+potover21 = { 159911 ,7 },        // potion: Distillate of Celestial Healing XXII
+
 #pragma endregion
 
 #pragma region Pal/Shd
@@ -3623,8 +3634,8 @@ void Configure() {
     AbilityFind(&idBATTLELEAP, &btlleap, 0);
     AbilityFind(&idTHROWSTONE, &tstone, 0);
 
-    AbilityFind(&idPOTHEALOVER, &potover16, &potover15, &potover14, &potover13, &potover12, &potover11, &potover10, &potover9, &potover8, &potover7, &potover6, &potover5, &potover4, &potover3, &potover2, &potover1, &potover0, 0);
-    AbilityFind(&idPOTHEALFAST, &potfast16, &potfast15, &potfast14, &potfast13, &potfast12, &potfast11, &potfast10, &potfast9, &potfast8, &potfast7, &potfast6, &potfast5, &potfast4, &potfast3, &potfast2, &potfast1, &potfast0, 0);
+    AbilityFind(&idPOTHEALOVER, &potover21, &potover20, &potover19, &potover18, &potover17, &potover16, &potover15, &potover14, &potover13, &potover12, &potover11, &potover10, &potover9, &potover8, &potover7, &potover6, &potover5, &potover4, &potover3, &potover2, &potover1, &potover0, 0);
+    AbilityFind(&idPOTHEALFAST, &potfast21, &potfast20, &potfast19, &potfast18, &potfast17, &potfast16, &potfast15, &potfast14, &potfast13, &potfast12, &potfast11, &potfast10, &potfast9, &potfast8, &potfast7, &potfast6, &potfast5, &potfast4, &potfast3, &potfast2, &potfast1, &potfast0, 0);
     doSTAB = 0;
     switch (Class) {
     case  Warrior: // WAR
