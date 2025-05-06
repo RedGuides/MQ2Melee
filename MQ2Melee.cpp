@@ -2044,11 +2044,11 @@ int AAReady(unsigned long index) {
             if (PALTABILITY ability = GetAAByIdWrapper(index, level))
             {
                 //unsigned long i = 0;
-                //i = pAltAdvManager->GetCalculatedTimer(pPCData, ability);
+                //i = pAltAdvManager->GetCalculatedTimer(pLocalPC, ability);
                 //DebugSpew("ability timer: %d", i);
-                if (pAltAdvManager->GetCalculatedTimer((PcClient*)pPCData, ability) > 0)
+                if (pAltAdvManager->GetCalculatedTimer((PcClient*)pLocalPC, ability) > 0)
                 {
-                    pAltAdvManager->IsAbilityReady((PcClient*)pPCData, ability, &result);
+                    pAltAdvManager->IsAbilityReady((PcClient*)pLocalPC, ability, &result);
                     //DebugSpew("result: %d", result);
                 }
             }
@@ -2099,7 +2099,7 @@ int CACheck(unsigned long id) {
 }
 
 int CAPress(unsigned long id) {
-    pCharData->DoCombatAbility(id);
+    pLocalPC->DoCombatAbility(id);
     return true;
 }
 
@@ -2175,8 +2175,8 @@ int SKReady(unsigned long id) {
 }
 
 int SKPress(unsigned long id) {
-    if (pCharData) {
-        pCharData->UseSkill((unsigned char)id, pCharData->me);
+    if (pLocalPC) {
+        pLocalPC->UseSkill((unsigned char)id, pLocalPC->me);
         return true;
     }
     return false;
@@ -2458,7 +2458,7 @@ public:
                             strcpy_s(NAME, pCDBStr->GetString(ability->nName, eAltAbilityName, NULL));
                             sprintf_s(COMM, "%d|ALT", ID);
                             EFFECT = spell;
-                            REUSE = pAltAdvManager->GetCalculatedTimer(pCharData, ability) * 1000 + spell->CastTime + delay * 3;
+                            REUSE = pAltAdvManager->GetCalculatedTimer(pLocalPC, ability) * 1000 + spell->CastTime + delay * 3;
                             INDEX = AAIndex;
                             TYPE = AA;
                             return true;
@@ -2544,7 +2544,7 @@ public:
             if (TYPE != AA)
             {
                 //DebugSpew("EFFECT->ReuseTimerIndex Name: %s  ID: %d Type: %dVal: %d", NAME, ID, TYPE, EFFECT->ReuseTimerIndex);
-                if (((unsigned long)pPCData->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
+                if (((unsigned long)pLocalPC->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
             }
         	// TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
