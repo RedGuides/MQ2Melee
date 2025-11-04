@@ -27,13 +27,13 @@
 //                          | 2017-12-12: UPdated by rswiders (Ring of Scale abilities)
 //                          | 2018-01-19: Updated by Saar (rest of the RoS abilities)
 //                          | 2018-04-24: Updated by Eqmule (Slam Fix)
-//						    | 2019-01-28: Updated by s0rcier down/holyflag=3 parse when no macro running. increase down/holy shits to 90. stickmode=2 (disable sticking)
-//							| 2019-02-01: Updated Immobile flags to return false for a litte after being summoned
-//							| 2019-02-07: Fixed Two Handed Bash skills... + saar zerker tbl disc...
-//							| 2019-11-14: Updated by Sic/CWTN Yaulp to default to "off"
-//							| 2019-12-29: Updated by ChatWithThisname-> Added Warrior, Berserker, Rogue discs for ToV. Rearranged information by class instead of alphabetically.
-//							| 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
-//							| 2021-02-13: Updated by BigDorf - fix knights 2H Bash, Nov 2019 AA name change, "Two-Handed Bash" to "Improved Bash"
+//                          | 2019-01-28: Updated by s0rcier down/holyflag=3 parse when no macro running. increase down/holy shits to 90. stickmode=2 (disable sticking)
+//                          | 2019-02-01: Updated Immobile flags to return false for a litte after being summoned
+//                          | 2019-02-07: Fixed Two Handed Bash skills... + saar zerker tbl disc...
+//                          | 2019-11-14: Updated by Sic/CWTN Yaulp to default to "off"
+//                          | 2019-12-29: Updated by ChatWithThisname-> Added Warrior, Berserker, Rogue discs for ToV. Rearranged information by class instead of alphabetically.
+//                          | 2020-01-06: Updated by Sic - Added Paladin, Shadowknight, Ranger, Monk, Necro, and Beastlord ToV discs/spells
+//                          | 2021-02-13: Updated by BigDorf - fix knights 2H Bash, Nov 2019 AA name change, "Two-Handed Bash" to "Improved Bash"
 //
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // SHOW_ABILITY:    0=0ff, 1=Display every ability that plugin use.
@@ -121,7 +121,7 @@ char      StickArg[128]  = { 0 };           // Stick Saved Arguments
 char      Reserved[MAX_STRING] = { 0 };     // string buffer
 char      Workings[MAX_STRING] = { 0 };     // string buffer
 
-typedef   void(__cdecl *Function)(void);
+using     Function = void(*)();
 struct    infodata { long i, t; } *pinfodata;
 //Rogue Strike Fix htw 2/20/2011
 bool StrikeFail = false;
@@ -455,9 +455,9 @@ honor21 = { 43324  ,5 },        // spell: Impose for Honor rk. iii
 honor22 = { 55353  ,5 },        // spell: Refute for Honor Lv 107 Pal RoS
 honor23 = { 55354  ,5 },        // spell: Refute for Honor Rk. II
 honor24 = { 55355  ,5 },        // spell: Refute for Honor Rk. III
-honor25 = { 58811  ,5 },		// spell: Protest for Honor
-honor26 = { 58812  ,5 },		// spell: Protest for Honor Rk. II
-honor27 = { 58813  ,5 },		// spell: Protest for Honor Rk. III
+honor25 = { 58811  ,5 },        // spell: Protest for Honor
+honor26 = { 58812  ,5 },        // spell: Protest for Honor Rk. II
+honor27 = { 58813  ,5 },        // spell: Protest for Honor Rk. III
 honor28 = { 62325  ,5 },        // spell: Parlay for Honor Lv 117 Pal ToL
 honor29 = { 62326  ,5 },        // spell: Parlay for Honor Rk. II
 honor30 = { 62327  ,5 },        // spell: Parlay for Honor Rk. III
@@ -476,9 +476,9 @@ rightidg9 =  { 34403  ,3 },        // disc: Righteous Umbrage Rk. III
 rightidg10 = { 55389  ,3 },        // disc: Righteous Condemnation Lv 108 pal RoS
 rightidg11 = { 55390  ,3 },        // disc: Righteous Condemnation Rk. II
 rightidg12 = { 55391  ,3 },        // disc: Righteous Condemnation Rk. III
-rightidg13 = { 58838  ,3 },		   // disc: Righteous Antipathy
-rightidg14 = { 58839  ,3 },		   // disc: Righteous Antipathy Rk. II
-rightidg15 = { 58840  ,3 },		   // disc: Righteous Antipathy Rk. III
+rightidg13 = { 58838  ,3 },        // disc: Righteous Antipathy
+rightidg14 = { 58839  ,3 },        // disc: Righteous Antipathy Rk. II
+rightidg15 = { 58840  ,3 },        // disc: Righteous Antipathy Rk. III
 rightidg16 = { 62358  ,3 },        // disc: Righteous Censure Lv 118 pal ToL
 rightidg17 = { 62359  ,3 },        // disc: Righteous Censure Rk. II
 rightidg18 = { 62360  ,3 },        // disc: Righteous Censure Rk. III
@@ -862,12 +862,12 @@ assault15 = { 44174  ,3 },        // disc: Barrage Rk. III
 assault16 = { 56324  ,3 },        // disc: Fellstrike Lv 110 rog RoS
 assault17 = { 56325  ,3 },        // disc: Fellstrike Rk. II
 assault18 = { 56326  ,3 },        // disc: Fellstrike Rk. III
-assault19 = { 59646  ,3 },		  // Disc: Blitzstrike - Level 115 - TOV
+assault19 = { 59646  ,3 },        // Disc: Blitzstrike - Level 115 - TOV
 assault20 = { 59647  ,3 },
 assault21 = { 59648  ,3 },
-assault22 = { 63170  ,3 },		  // Disc: Shadowstrike Lv 120 rog ToL
-assault23 = { 63171  ,3 },		  // Disc: Shadowstrike Rk. II
-assault24 = { 63172  ,3 },		  // Disc: Shadowstrike Rk. III
+assault22 = { 63170  ,3 },        // Disc: Shadowstrike Lv 120 rog ToL
+assault23 = { 63171  ,3 },        // Disc: Shadowstrike Rk. II
+assault24 = { 63172  ,3 },        // Disc: Shadowstrike Rk. III
 
 bleed1 =  { 19247  ,3 },        // disc: bleed Lv 83 rog UF
 bleed2 =  { 19248  ,3 },        // disc: bleed Rk. II
@@ -981,7 +981,7 @@ strike25 = { 44180  ,3 },        // disc: Daggergash rk. iii
 strike26 = { 56330  ,3 },        // disc: Daggerslice Lv 110 Rog RoS
 strike27 = { 56331  ,3 },        // disc: Daggerslice Rk. II
 strike28 = { 56332  ,3 },        // disc: Daggerslice Rk. III
-strike29 = { 59652  ,3 },		 // Disc: Daggerslash - Level 115 - ToV
+strike29 = { 59652  ,3 },        // Disc: Daggerslash - Level 115 - ToV
 strike30 = { 59653  ,3 },
 strike31 = { 59654  ,3 },
 
@@ -1008,7 +1008,7 @@ vigrog15 = { 44150  ,3 },        // disc: Exuberant Dagger-Throw Rk. III
 vigrog16 = { 56300  ,3 },        // disc: Forceful Dagger-Throw 108 Rog RoS
 vigrog17 = { 56301  ,3 },        // disc: Forceful Dagger-Throw Rk. II
 vigrog18 = { 56302  ,3 },        // disc: Forceful Dagger-Throw Rk. III
-vigrog19 = { 59622  ,3 },		 // Disc: Powerful Dagger-Throw - Level 113 - ToV
+vigrog19 = { 59622  ,3 },        // Disc: Powerful Dagger-Throw - Level 113 - ToV
 vigrog20 = { 59622  ,3 },
 vigrog21 = { 59622  ,3 },
 vigrog22 = { 63135  ,3 },        // disc: Precise Dagger-Throw 118 Rog ToL
@@ -1182,7 +1182,7 @@ cripple25 = { 45226  ,3 },        // Disc: Tendon Tear Rk. III
 cripple26 = { 57516  ,3 },        // Disc: Tendon Rupture Lv 106 Ber RoS
 cripple27 = { 57517  ,3 },        // Disc: Tendon Rupture Rk. II
 cripple28 = { 57518  ,3 },        // Disc: Tendon Rupture Rk. III
-cripple29 = { 60730  ,3 },	      // Disc: Tendon Rip - Level 111 - TOV
+cripple29 = { 60730  ,3 },        // Disc: Tendon Rip - Level 111 - TOV
 cripple30 = { 60731  ,3 },
 cripple31 = { 60732  ,3 },
 cripple32 = { 64205  ,3 },        // Disc: Tendon Shred Lv 116 Ber ToL
@@ -1278,9 +1278,9 @@ rallos21 = { 58275  ,3 },        // Disc: Axe of Empyr Rk. III
 rallos22 = { 57564  ,3 },        // Disc: Axe of Rekatok Lv 110 Ber RoS
 rallos23 = { 57565  ,3 },        // Disc: Axe of Rekatok Rk. II
 rallos24 = { 57566  ,3 },        // Disc: Axe of Rekatok Rk. III
-rallos25 = { 60787  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
-rallos26 = { 60788  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
-rallos27 = { 60789  ,3 },		   // Disc: Axe of Derakor - Level 115 ToV
+rallos25 = { 60787  ,3 },        // Disc: Axe of Derakor - Level 115 ToV
+rallos26 = { 60788  ,3 },        // Disc: Axe of Derakor - Level 115 ToV
+rallos27 = { 60789  ,3 },        // Disc: Axe of Derakor - Level 115 ToV
 rallos28 = { 64274  ,3 },        // Disc: Axe of Xin Diabo Lv 120 Ber ToL
 rallos29 = { 64275  ,3 },        // Disc: Axe of Xin Diabo Rk. II
 rallos30 = { 64276  ,3 },        // Disc: Axe of Xin Diabo Rk. III
@@ -1300,7 +1300,7 @@ slapface12 = { 45229  ,3 },        // Disc: Kick in the Shins rk. iii
 slapface13 = { 57519  ,3 },        // Disc: Sucker Punch Lv 107 Ber RoS
 slapface14 = { 57520  ,3 },        // Disc: Sucker Punch Rk. II
 slapface15 = { 57521  ,3 },        // Disc: Sucker Punch Rk. III
-slapface16 = { 60734  ,3 },		   // Disc: Rabbit Punch - Level 112 - ToV
+slapface16 = { 60734  ,3 },        // Disc: Rabbit Punch - Level 112 - ToV
 slapface17 = { 60735  ,3 },
 slapface18 = { 60736  ,3 },
 slapface19 = { 64220  ,3 },        // Disc: Swift Punch Lv 117 Ber ToL
@@ -1405,7 +1405,7 @@ vigber24 = { 64249  ,3 };        // Disc: Maiming Axe Throw  Rk. II
 #pragma endregion Updated to ToL
 
 
-#define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) char* __var[]  = {\
+#define DECLARE_ABILITY_OPTION( __var, __key, __help, __default, __show) const char* __var[]  = {\
                                                                                   __key, \
                                                                                   __help, \
                                                                                   __default, \
@@ -1798,8 +1798,8 @@ DECLARE_ABILITY_OPTION(pOFREN, "opfrenzy", "[#] Endu% Above? 0=Off", "${If[${Me.
 DECLARE_ABILITY_OPTION(pVIGAX, "vigaxe", "[#] Endu% Above? 0=Off", "${If[${Me.CombatAbility[Vigorous Axe Throw]} || ${Me.CombatAbility[Vigorous Axe Throw Rk. II]} || ${Me.CombatAbility[Vigorous Axe Throw Rk. III]} || ${Me.CombatAbility[Energetic Axe Throw]} || ${Me.CombatAbility[Energetic Axe Throw Rk. II]} || ${Me.CombatAbility[Energetic Axe Throw Rk. III]} || ${Me.CombatAbility[Spirited Axe Throw]} || ${Me.CombatAbility[Spirited Axe Throw Rk. II]} || ${Me.CombatAbility[Spirited Axe Throw Rk. III]} || ${Me.CombatAbility[Brutal Axe Throw]} || ${Me.CombatAbility[Brutal Axe Throw Rk. II]} || ${Me.CombatAbility[Brutal Axe Throw Rk. III]} || ${Me.CombatAbility[Demolishing Axe Throw]} || ${Me.CombatAbility[Demolishing Axe Throw Rk. II]} || ${Me.CombatAbility[Demolishing Axe Throw Rk. III]} || ${Me.CombatAbility[Mangling Axe Throw]} || ${Me.CombatAbility[Mangling Axe Throw Rk. II]} || ${Me.CombatAbility[Mangling Axe Throw Rk. III]} || ${Me.CombatAbility[Vindicating Axe Throw]} || ${Me.CombatAbility[Vindicating Axe Throw Rk. II]} || ${Me.CombatAbility[Vindicating Axe Throw Rk. III]},20,0]}", "${If[${meleemvi[plugin]} && (${Me.CombatAbility[Vigorous Axe Throw]} || ${Me.CombatAbility[Vigorous Axe Throw Rk. II]} || ${Me.CombatAbility[Vigorous Axe Throw Rk. III]} || ${Me.CombatAbility[Energetic Axe Throw]} || ${Me.CombatAbility[Energetic Axe Throw Rk. II]} || ${Me.CombatAbility[Energetic Axe Throw Rk. III]} || ${Me.CombatAbility[Spirited Axe Throw]} || ${Me.CombatAbility[Spirited Axe Throw Rk. II]} || ${Me.CombatAbility[Spirited Axe Throw Rk. III]} || ${Me.CombatAbility[Brutal Axe Throw]} || ${Me.CombatAbility[Brutal Axe Throw Rk. II]} || ${Me.CombatAbility[Brutal Axe Throw Rk. III]} || ${Me.CombatAbility[Demolishing Axe Throw]} || ${Me.CombatAbility[Demolishing Axe Throw Rk. II]} || ${Me.CombatAbility[Demolishing Axe Throw Rk. III]} || ${Me.CombatAbility[Mangling Axe Throw]} || ${Me.CombatAbility[Mangling Axe Throw Rk. II]} || ${Me.CombatAbility[Mangling Axe Throw Rk. III]} || ${Me.CombatAbility[Vindicating Axe Throw]} || ${Me.CombatAbility[Vindicating Axe Throw Rk. II]} || ${Me.CombatAbility[Vindicating Axe Throw Rk. III]} || ${Me.CombatAbility[Maiming Axe Throw]} || ${Me.CombatAbility[Maiming Axe Throw Rk. II]} || ${Me.CombatAbility[Maiming Axe Throw Rk. III]}),1,0]}");
 #pragma endregion
 
-char* UI_PetBack = "back";
-char* UI_PetAttk = "attack";
+const char* UI_PetBack = "back";
+const char* UI_PetAttk = "attack";
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
@@ -1827,7 +1827,7 @@ long SpawnMask(PSPAWNINFO x);
 int SpellCheck(unsigned long id);
 long SpellGemID(unsigned long ID, long slotid = NOID);
 int SpellReady(unsigned long ID, long SlotID = NOID);
-int Stick(char* command);
+int Stick(const char* command);
 long Unequip(long SlotID);
 //void WinClick(CXWnd *Wnd, char* ScreenID, char* ClickNotification, unsigned long KeyState);
 
@@ -1835,7 +1835,7 @@ long Unequip(long SlotID);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 long doDEBUG;
 
-void Announce(unsigned long Wanted, char* Format, ...) {
+void Announce(unsigned long Wanted, const char* Format, ...) {
     char Output[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, Format); vsprintf_s(Output, Format, vaList);
     if (Output[0]) {
         bool Result = false; auto pPlugin = pPlugins;
@@ -1848,195 +1848,196 @@ void Announce(unsigned long Wanted, char* Format, ...) {
     }
 }
 
-#define GetSpawnID(spawnid) (PSPAWNINFO)GetSpawnByID(spawnid)
-
-static inline int WinState(CXWnd *Wnd) {
-    return (Wnd && Wnd->IsVisible());
+static int WinState(CXWnd* Wnd) {
+    return Wnd && Wnd->IsVisible();
 }
 
-static inline int TargetType(unsigned long mask) {
-    return (SpawnMask(pTarget)&mask);
+static int TargetType(unsigned long mask) {
+    return SpawnMask(pTarget)&mask;
 }
 
-static inline int TargetID(unsigned long ID) {
-    if (ID && pTarget) return (ID == pTarget->SpawnID);
+static int TargetID(unsigned long ID) {
+    if (ID && pTarget)
+        return ID == pTarget->SpawnID;
     return false;
 }
 
-static inline float SpeedRun(PSPAWNINFO x) {
-    if (x && x->Mount) return x->Mount->SpeedRun;
-    if (x) return x->SpeedRun;
+static float SpeedRun(SPAWNINFO* x) {
+    if (x && x->Mount)
+        return x->Mount->SpeedRun;
+    if (x)
+        return x->SpeedRun;
     return 0.0f;
 }
 
-static inline int SpawnType(PSPAWNINFO x, unsigned long mask) {
-    return (SpawnMask(x)&mask);
+static int SpawnType(SPAWNINFO* x, unsigned long mask) {
+    return SpawnMask(x) & mask;
 }
 
-static inline PSPAWNINFO SpawnMe() {
-	return pControlledPlayer;
+static SPAWNINFO* SpawnMe() {
+    return pControlledPlayer;
 }
 
-static inline PSPAWNINFO SpawnMount() {
-    return SpawnMe() ? SpawnMe()->Mount : NULL;
+static SPAWNINFO* SpawnMount() {
+    return pLocalPlayer ? pLocalPlayer->Mount : nullptr;
 }
 
-static inline PSPAWNINFO SpawnPet() {
-    return (SpawnMe() && (long)SpawnMe()->PetID > 0) ? (PSPAWNINFO)GetSpawnByID(SpawnMe()->PetID) : NULL;
+static SPAWNINFO* SpawnPet() {
+    return pLocalPlayer && pLocalPlayer->PetID > 0 ? GetSpawnByID(pLocalPlayer->PetID) : nullptr;
 }
 
-static inline unsigned long StandState() {
+static unsigned long StandState() {
     return SpawnMe() ? SpawnMe()->StandState : 0;
 }
 
-static inline int Stackable(CONTENTS* Item) {
+static int Stackable(CONTENTS* Item) {
     return Item && !Item->IsContainer() && Item->IsStackable();
 }
 
-static inline long StackUnit(CONTENTS* Item) {
-    return (!Stackable(Item)) ? 1 : Item->StackCount;
+static long StackUnit(CONTENTS* Item) {
+    return !Stackable(Item) ? 1 : Item->StackCount;
 }
 
-static inline int IsStunned() {
-    return (GetCharInfo() && GetCharInfo()->Stunned);
+static int IsStunned() {
+    return pLocalPC && pLocalPC->Stunned;
 }
 
-static inline int IsStanding() {
+static int IsStanding() {
     if (SpawnMount()) return true;
     return StandState() == STANDSTATE_STAND;
 }
 
-static inline int IsSneaking() {
+static int IsSneaking() {
     return (SpawnMe() && SpawnMe()->Sneak);
 }
 
-static inline int IsInvisible() {
-    return (SpawnMe() && SpawnMe()->HideMode);
+static int IsInvisible() {
+    return SpawnMe() && SpawnMe()->HideMode;
 }
 
-static inline int IsGrouped() {
-    return (GetCharInfo() && GetCharInfo()->pGroupInfo);
+static int IsGrouped() {
+    return pLocalPC && pLocalPC->pGroupInfo;
 }
 
-static inline int IsFeigning() {
+static int IsFeigning() {
     return StandState() == STANDSTATE_FEIGN;
 }
 
-static inline int InRange(PSPAWNINFO a, PSPAWNINFO b, float d) {
+static int InRange(PSPAWNINFO a, PSPAWNINFO b, float d) {
     if (!a || !b) return false;
     return (DistanceToSpawn(a, b) <= d);
 }
 
-static inline int InGame() {
-    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetPcProfile() && GetCharInfo() && GetCharInfo()->Stunned != 3);
+static int InGame() {
+    return (gbInZone && gGameState == GAMESTATE_INGAME && SpawnMe() && GetPcProfile() && pLocalPC && pLocalPC->Stunned != 3);
 }
 
-static inline CXWnd* XMLChild(CXWnd* window, char* screenid) {
+static CXWnd* XMLChild(CXWnd* window, char* screenid) {
     if (window) return window->GetChildItem(screenid);
-    return NULL;
+    return nullptr;
 }
 
-static inline int XMLEnabled(CXWnd* window) {
+static int XMLEnabled(CXWnd* window) {
     return (window && window->IsEnabled());
 }
 
-static inline CONTENTS* ContAmmo() {
+static CONTENTS* ContAmmo() {
     if (PcProfile* Me = GetPcProfile())
-		return Me->GetInventorySlot(InvSlot_Ammo).get();
+        return Me->GetInventorySlot(InvSlot_Ammo).get();
     return nullptr;
 }
 
-static inline CONTENTS* ContPrimary() {
+static CONTENTS* ContPrimary() {
     if (PcProfile* Me = GetPcProfile())
-		return Me->GetInventorySlot(InvSlot_Primary).get();
+        return Me->GetInventorySlot(InvSlot_Primary).get();
     return nullptr;
 }
 
-static inline CONTENTS* ContRange() {
-	if (PcProfile* Me = GetPcProfile())
-		return Me->GetInventorySlot(InvSlot_Range).get();
-    return nullptr;
-}
-
-static inline CONTENTS* ContSecondary() {
+static CONTENTS* ContRange() {
     if (PcProfile* Me = GetPcProfile())
-		return Me->GetInventorySlot(InvSlot_Secondary).get();
+        return Me->GetInventorySlot(InvSlot_Range).get();
     return nullptr;
 }
 
-static inline int PokerType(CONTENTS* item) {
+static CONTENTS* ContSecondary() {
+    if (PcProfile* Me = GetPcProfile())
+        return Me->GetInventorySlot(InvSlot_Secondary).get();
+    return nullptr;
+}
+
+static int PokerType(CONTENTS* item) {
     return item && item->GetItemClass() == ItemClass_Piercing;
 }
 
-static inline int ShieldType(CONTENTS* item) {
-	return item && item->GetItemClass() == ItemClass_Shield;
+static int ShieldType(CONTENTS* item) {
+    return item && item->GetItemClass() == ItemClass_Shield;
 }
 
-static inline int TwohandType(CONTENTS* item) {
-	if (item) {
-		switch (item->GetItemClass()) {
-		case ItemClass_2HSlashing:
-		case ItemClass_2HBlunt:
-		case ItemClass_2HPiercing:
-			return true;
-		default: break;
-		}
-	}
-	return false;
+static int TwohandType(CONTENTS* item) {
+    if (item) {
+        switch (item->GetItemClass()) {
+        case ItemClass_2HSlashing:
+        case ItemClass_2HBlunt:
+        case ItemClass_2HPiercing:
+            return true;
+        default: break;
+        }
+    }
+    return false;
 }
 
 unsigned long AACheck(unsigned long id) {
     int level = -1;
-    if (PSPAWNINFO pMe = (PSPAWNINFO)pLocalPlayer) {
-        level = pMe->Level;
+    if (pLocalPlayer) {
+        level = pLocalPlayer->Level;
     }
-	if (pAltAdvManager)
-	{
-		if (PcProfile* Me = GetPcProfile())
-		{
-			if (id)
-			{
-				for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
-				{
-					if (long AAIndex = Me->AAList[nAbility].AAIndex)
-					{
-						if (PALTABILITY ability = GetAAByIdWrapper(AAIndex, level))
-						{
-							if (ability->ID == id)
-							{
-								return AAIndex;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    if (pAltAdvManager)
+    {
+        if (PcProfile* Me = GetPcProfile())
+        {
+            if (id)
+            {
+                for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
+                {
+                    if (long AAIndex = Me->AAList[nAbility].AAIndex)
+                    {
+                        if (PALTABILITY ability = GetAAByIdWrapper(AAIndex, level))
+                        {
+                            if (ability->ID == id)
+                            {
+                                return AAIndex;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     return false;
 }
 
 unsigned long AAPoint(unsigned long index) {
-	if (index)
-	{
-		if (PcProfile* Me = GetPcProfile())
-		{
-			for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
-			{
-				if (index == Me->AAList[nAbility].AAIndex)
-				{
-					return Me->AAList[nAbility].PointsSpent;
-				}
-			}
-		}
-	}
+    if (index)
+    {
+        if (PcProfile* Me = GetPcProfile())
+        {
+            for (unsigned long nAbility = 0; nAbility < AA_CHAR_MAX_REAL; nAbility++)
+            {
+                if (index == Me->AAList[nAbility].AAIndex)
+                {
+                    return Me->AAList[nAbility].PointsSpent;
+                }
+            }
+        }
+    }
     return 0;
 }
 
 int AAReady(unsigned long index) {
     int result = 0;
     int level = -1;
-    if (PSPAWNINFO pMe = (PSPAWNINFO)pLocalPlayer) {
-    level = pMe->Level;
+    if (pLocalPlayer) {
+        level = pLocalPlayer->Level;
     }
     if (pAltAdvManager)
     {
@@ -2058,7 +2059,7 @@ int AAReady(unsigned long index) {
 
 long Aggroed(unsigned long id) {
     if (PSPAWNINFO self = SpawnMe())
-        if (PSPAWNINFO kill = GetSpawnID(id))
+        if (PSPAWNINFO kill = GetSpawnByID(id))
             if (PSPAWNINFO targ = pTarget) {
                 if (targ == kill && self->SpawnID == self->TargetOfTarget)  return  1; // im on hott
                 if (fabs(AngularHeading(kill, self))<8.0f)       return  1; // it's facing me
@@ -2082,19 +2083,19 @@ DOUBLE AngularHeading(PSPAWNINFO t, PSPAWNINFO s) {
 
 int CACheck(unsigned long id) {
     if (PcProfile* Me = GetPcProfile())
-		if (id)
-		{
-			for (unsigned long nCombat = 0; nCombat < NUM_COMBAT_ABILITIES; nCombat++)
-			{
-				if (pCombatSkillsSelectWnd->ShouldDisplayThisSkill(nCombat))
-				{
-					if (id == Me->CombatAbilities[nCombat])
-					{
-						return true;
-					}
-				}
-			}
-		}
+        if (id)
+        {
+            for (unsigned long nCombat = 0; nCombat < NUM_COMBAT_ABILITIES; nCombat++)
+            {
+                if (pCombatSkillsSelectWnd->ShouldDisplayThisSkill(nCombat))
+                {
+                    if (id == Me->CombatAbilities[nCombat])
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
     return false;
 }
 
@@ -2113,7 +2114,7 @@ int Casting(char* command) {
     return false;
 }
 
-void Command(char* zFormat, ...) {
+void Command(const char* zFormat, ...) {
     CHAR zOutput[MAX_STRING] = { 0 }; va_list vaList; va_start(vaList, zFormat);
     vsprintf_s(zOutput, zFormat, vaList);
     if (zOutput[0]) EzCommand(zOutput);
@@ -2189,7 +2190,7 @@ long SpawnMask(PSPAWNINFO x) {
     if (x->Type != SPAWN_NPC)       return st_x;
     if (strstr(x->Name, "s_Mount")) return st_x;
     if (!x->MasterID)               return st_n;
-    PSPAWNINFO m = GetSpawnID(x->MasterID);
+    PSPAWNINFO m = GetSpawnByID(x->MasterID);
     return (!m || m->Type != SPAWN_PLAYER) ? st_wn : st_wp;
 }
 
@@ -2238,18 +2239,18 @@ bool HandleMoveUtils(void)
     return false;
 }
 
-unsigned char PetButtonEnabled(char* pszButtonName)
+unsigned char PetButtonEnabled(const char* pszButtonName)
 {
     for (int i = 0; i < PET_BUTTONS; i++)
     {
         if (auto pButton = pPetInfoWnd->pButton[i])
-			if (ci_equals(pButton->GetWindowText(), pszButtonName))
-				return pButton->IsEnabled();
+            if (ci_equals(pButton->GetWindowText(), pszButtonName))
+                return pButton->IsEnabled();
     }
     return 0;
 }
 
-int Stick(char* command)
+int Stick(const char* command)
 {
     char szPasser[MAX_STRING] = { 0 };
     //typedef void (__cdecl *fCALL)(PSPAWNINFO, char*);
@@ -2449,8 +2450,8 @@ public:
             }
             if (TYPE == AA || TYPE == UNKNOWN) {
                 int level = -1;
-                if (PSPAWNINFO pMe = (PSPAWNINFO)pLocalPlayer) {
-                    level = pMe->Level;
+                if (pLocalPlayer) {
+                    level = pLocalPlayer->Level;
                 }
                 if (long AAIndex = AACheck(ID)) {
                     if (PALTABILITY ability = GetAAByIdWrapper(AAIndex, level)) {
@@ -2546,7 +2547,7 @@ public:
                 //DebugSpew("EFFECT->ReuseTimerIndex Name: %s  ID: %d Type: %dVal: %d", NAME, ID, TYPE, EFFECT->ReuseTimerIndex);
                 if (((unsigned long)pLocalPC->GetCombatAbilityTimer(EFFECT->ReuseTimerIndex, EFFECT->SpellGroup) - (unsigned long)time(NULL)) < 0) return 0x16; // discipline timer not ready
             }
-        	// TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
+            // TODO:  There's no reason to check for zero since 0 < 0 is false.  There's no reason to cast either unless you're trying to round, in which case do that instead.
             if ((long)EFFECT->ReagentID[0]>0 && (long)CountItemByID(EFFECT->ReagentID[0]) < (long)EFFECT->ReagentCount[0])        return 0x0A;  // out of reagent
             if (EFFECT->EnduranceCost && (int)GetPcProfile()->Endurance < EFFECT->EnduranceCost)                                  return 0x0B;  // out of endurance
             if (EFFECT->ManaCost && (int)GetPcProfile()->Mana < EFFECT->ManaCost)                                                 return 0x0C;  // out of mana
@@ -2554,7 +2555,7 @@ public:
             {
                 if (!pTarget)                                                                                                     return 0x0D;  // no target
                 float SpellRange = (EFFECT->Range) ? EFFECT->Range : EFFECT->AERange;
-                if (SpellRange && !InRange(SpawnMe(), (PSPAWNINFO)pTarget, SpellRange))                                      return 0x0E;  // out of range
+                if (SpellRange && !InRange(SpawnMe(), pTarget, SpellRange))                                      return 0x0E;  // out of range
             }
             else if (EFFECT->DurationCap>0)
             {
@@ -2581,20 +2582,20 @@ public:
                     }
                 }
             }
-			//mq2cast
-			if (TYPE > DISC) {
-				if (FindMQ2DataType("Cast")) {
-					if (!Evaluate("${If[${Cast.Ready[%s]},1,0]}", COMM)) {
-						return 0x11; // mq2cast not ready
-					}
-				}
-				else {
-					if (!Evaluate("${Me.SpellReady}"))
-					{
-						return 0x11;
-					}
-				}
-			}
+            //mq2cast
+            if (TYPE > DISC) {
+                if (FindMQ2DataType("Cast")) {
+                    if (!Evaluate("${If[${Cast.Ready[%s]},1,0]}", COMM)) {
+                        return 0x11; // mq2cast not ready
+                    }
+                }
+                else {
+                    if (!Evaluate("${Me.SpellReady}"))
+                    {
+                        return 0x11;
+                    }
+                }
+            }
             if (TYPE == AA) {
                 if (!AAReady(INDEX))       return 0x13;  // Ability Not Ready
             }
@@ -2626,7 +2627,7 @@ public:
     int Ready(const std::string& test) {
         long Result = Check(test);
         if (DebugReady && Result) {
-            char* Message = "";
+            const char* Message = "";
             switch (Result) {
             case 0x01:  Message = "NOT FOUND";                break;
             case 0x02:  Message = "NOT REFRESHED";            break;
@@ -2695,27 +2696,51 @@ public:
 
 class Option {
 public:
-	// TODO: Give these sane names and make them std::string (lose the pointers)
-    char*    OptionKey;  // key?
-    char*    OptionHelp;  // help?
-    char*    OptionDefault;  // default?
-    char*    OptionShow;  // show?
-    std::string  *OptionCondition;  // condition?
-    Ability *OptionAbility;  // ability?
-    long    *OptionValue;  // value?
-    Function OptionFunction;  // function?
-    int      OptionUpdate;  // update?
+    // TODO: Give these sane names and make them std::string (lose the pointers)
+    const char*  OptionKey;  // key?
+    const char*  OptionHelp;  // help?
+    const char*  OptionDefault;  // default?
+    const char*  OptionShow;  // show?
+    std::string* OptionCondition;  // condition?
+    Ability*     OptionAbility;  // ability?
+    long*        OptionValue;  // value?
+    Function     OptionFunction;  // function?
+    int          OptionUpdate;  // update?
 
-    Option(char* k, char* h, char* d, char* s, Function f, std::string *c) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = c; OptionAbility = nullptr; OptionValue = nullptr;
+    Option(const char* key, const char* help, const char* default_, const char* show, Function func, std::string* condition) {
+        OptionKey = key;
+        OptionHelp = help;
+        OptionDefault = default_;
+        OptionShow = show;
+        OptionFunction = func;
+        OptionUpdate = false;
+        OptionCondition = condition;
+        OptionAbility = nullptr;
+        OptionValue = nullptr;
     }
 
-    Option(char* k, char* h, char* d, char* s, Function f, Ability *a) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = nullptr; OptionAbility = a; OptionValue = nullptr;
+    Option(const char* key, const char* help, const char* default_, const char* show, Function func, Ability* ability) {
+        OptionKey = key;
+        OptionHelp = help;
+        OptionDefault = default_;
+        OptionShow = show;
+        OptionFunction = func;
+        OptionUpdate = false;
+        OptionCondition = nullptr;
+        OptionAbility = ability;
+        OptionValue = nullptr;
     }
 
-    Option(char* k, char* h, char* d, char* s, Function f, long *v) {
-        OptionKey = k; OptionHelp = h; OptionDefault = d; OptionShow = s; OptionFunction = f; OptionUpdate = false; OptionCondition = nullptr; OptionAbility = nullptr; OptionValue = v;
+    Option(const char* key, const char* help, const char* default_, const char* show, Function func, long* value) {
+        OptionKey = key;
+        OptionHelp = help;
+        OptionDefault = default_;
+        OptionShow = show;
+        OptionFunction = func;
+        OptionUpdate = false;
+        OptionCondition = nullptr;
+        OptionAbility = nullptr;
+        OptionValue = value;
     }
 
     void Write() {
@@ -2723,7 +2748,7 @@ public:
             long value = (OptionAbility) ? OptionAbility->ID : (OptionValue) ? *OptionValue : 0;
             if (value > 0) WriteChatf("%s::%s (\ag%d\ax) \ay%s\ax.", PLUGIN_NAME, OptionKey, value, OptionHelp);
             else           WriteChatf("%s::%s (\ar0\ax) \ay%s\ax.", PLUGIN_NAME, OptionKey, OptionHelp);
-		}
+        }
     }
 
     void Setup(char* value) {
@@ -2733,8 +2758,8 @@ public:
             if (!_stricmp("false", value) || !_stricmp("off", value))    *OptionValue = 0;
             else if (!_stricmp("true", value) || !_stricmp("on", value)) *OptionValue = 1;
             else *OptionValue = atol(value);
-		}
-		if (OptionFunction) this->OptionFunction();
+        }
+        if (OptionFunction) this->OptionFunction();
     }
 
     void *Value() {
@@ -2752,7 +2777,7 @@ public:
     void Reset() {
         if (OptionKey[0]) {
             if (OptionCondition) *OptionCondition = OptionDefault;
-        	else {
+            else {
                 strcpy_s(Reserved, OptionDefault);
                 if (Reserved[0])
                     ParseMacroData(Reserved, sizeof(Reserved));
@@ -3283,11 +3308,11 @@ public:
                     Dest.Type = mq::datatypes::pBoolType;
                     return true;
                 case BackAngle:
-                    Dest.Float = pTarget ? AngularDistance(((PSPAWNINFO)pTarget)->Heading, SpawnMe()->Heading) : 0.0f;
+                    Dest.Float = pTarget ? AngularDistance(pTarget->Heading, SpawnMe()->Heading) : 0.0f;
                     Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case ViewAngle:
-                    Dest.Float = pTarget ? (float)AngularHeading(SpawnMe(), (PSPAWNINFO)pTarget) : 0.0f;
+                    Dest.Float = pTarget ? (float)AngularHeading(SpawnMe(), pTarget) : 0.0f;
                     Dest.Type = mq::datatypes::pFloatType;
                     return true;
                 case Immobilize:
@@ -3322,32 +3347,31 @@ public:
                 {
                     Dest.DWord = true;
                     Dest.Type = mq::datatypes::pBoolType;
-                    if (PCHARINFO pChar = GetCharInfo()) {
-                        if (ExtendedTargetList *xtm = pChar->pXTargetMgr) {
-                            DWORD x = 0;
-                            for (int n = 0; n < xtm->XTargetSlots.Count; n++)
+                    if (pLocalPC) {
+                        ExtendedTargetList* etl = pLocalPC->pXTargetMgr;
+                        DWORD x = 0;
+                        for (int n = 0; n < etl->XTargetSlots.Count; n++)
+                        {
+                            ExtendedTargetSlot& xts = pLocalPC->pXTargetMgr->XTargetSlots[n];
+                            if (xts.xTargetType == XTARGET_AUTO_HATER && xts.XTargetSlotStatus)
                             {
-                                ExtendedTargetSlot& xts = xtm->XTargetSlots[n];
-                                if (xts.xTargetType == XTARGET_AUTO_HATER && xts.XTargetSlotStatus)
-                                {
-                                    x++;
-                                }
+                                x++;
                             }
-                            if (x > 1) {
-                                if (pAggroInfo) {
-                                    for (int i = 0; i < xtm->XTargetSlots.Count; i++) {
-                                        ExtendedTargetSlot& xts = xtm->XTargetSlots[i];
-                                        if (DWORD spID = xts.SpawnID) {
-                                            if (PSPAWNINFO pSpawn = (PSPAWNINFO)GetSpawnByID(spID)) {
-                                                if (pTarget && ((PSPAWNINFO)pTarget)->SpawnID == pSpawn->SpawnID)
-                                                    continue;
-                                                if (pSpawn->Type == SPAWN_NPC && xts.xTargetType == XTARGET_AUTO_HATER) {
-                                                    DWORD agropct = pAggroInfo->aggroData[AD_xTarget1 + i].AggroPct;
-                                                    //WriteChatf("Checking aggro on %s its %d",xta->pXTargetData[i].Name,agropct);
-                                                    if (agropct < 100) {
-                                                        Dest.DWord = false;
-                                                        break;
-                                                    }
+                        }
+                        if (x > 1) {
+                            if (pAggroInfo) {
+                                for (int i = 0; i < etl->XTargetSlots.Count; i++) {
+                                    ExtendedTargetSlot& xts = etl->XTargetSlots[i];
+                                    if (DWORD spID = xts.SpawnID) {
+                                        if (PSPAWNINFO pSpawn = GetSpawnByID(spID)) {
+                                            if (pTarget && pTarget->SpawnID == pSpawn->SpawnID)
+                                                continue;
+                                            if (pSpawn->Type == SPAWN_NPC && xts.xTargetType == XTARGET_AUTO_HATER) {
+                                                DWORD agropct = pAggroInfo->aggroData[AD_xTarget1 + i].AggroPct;
+                                                //WriteChatf("Checking aggro on %s its %d",xta->pXTargetData[i].Name,agropct);
+                                                if (agropct < 100) {
+                                                    Dest.DWord = false;
+                                                    break;
                                                 }
                                             }
                                         }
@@ -3484,14 +3508,13 @@ bool isAAPurchased(const char* AAName) {
 
 void Configure() {
     PcProfile* pChar2 = GetPcProfile();
-    PCHARINFO pChar = GetCharInfo();
-    if (!pChar2 || !pChar)
+    if (!pChar2)
         return;
     long Class = pChar2->Class;
     long Races = pChar2->Race;
     long Level = pChar2->Level;
     int SOValue = 0;
-    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, GetServerShortName(), pChar->Name);
+    sprintf_s(INIFileName, "%s\\%s_%s.ini", gPathConfig, GetServerShortName(), pLocalPC->Name);
     sprintf_s(section, "%s_%d_%s_%s", PLUGIN_NAME, Level, pEverQuest->GetRaceDesc(Races), pEverQuest->GetClassDesc(Class));
     Shrouded = pChar2->Shrouded; if (!Shrouded) section[strlen(PLUGIN_NAME)] = 0;
     BuffMax = GetCharMaxBuffSlots();
@@ -3713,8 +3736,8 @@ void Configure() {
         AbilityFind(&idJUGULAR, &jugular27, &jugular26, &jugular25, &jugular24, &jugular23, &jugular22, &jugular21, &jugular20, &jugular19, &jugular18, &jugular17, &jugular16, &jugular15, &jugular14, &jugular13, &jugular12, &jugular11, &jugular10, &jugular9, &jugular8, &jugular7, &jugular6, &jugular5, &jugular4, &jugular3, &jugular2, &jugular1, 0);
         AbilityFind(&idESCAPE, &escape, 0);
         AbilityFind(&idTWISTEDSHANK, &twisted, 0);
-		AbilityFind(&idBACKSTAB, &sbkstab, 0);
-		AbilityFind(&idPICKPOCKET, &sppocket, 0);
+        AbilityFind(&idBACKSTAB, &sbkstab, 0);
+        AbilityFind(&idPICKPOCKET, &sppocket, 0);
         // Seized Opportunity position fix 05/01/2011 (htw)
         SOValue = AAPoint(GetAAIndexByName("Seized Opportunity"));
         if (SOValue >= 74)
@@ -3830,9 +3853,9 @@ void Exporting() {
     sprintf_s(output, "%1.3f", MQ2Version); WritePrivateProfileString(section, "version", output, INIFileName);
 }
 
-void MapInsert(Liste *MyList, Option MyOption)
+void MapInsert(Liste* MyList, Option&& MyOption)
 {
-    MyList->insert(Liste::value_type(MyOption.OptionKey, MyOption));
+    MyList->emplace(MyOption.OptionKey, std::move(MyOption));
 }
 
 void MeleeHelp()
@@ -3872,18 +3895,18 @@ void PetATTK()
 {
     if (MeleeTarg)
     {
-        PSPAWNINFO MTarg = GetSpawnID(MeleeTarg);
+        PSPAWNINFO MTarg = GetSpawnByID(MeleeTarg);
         Announce(SHOW_CONTROL, "%s::Checking PetEngageHPs [\ay%d<%d\ax].", PLUGIN_NAME, MTarg->HPCurrent, doPETENGAGEHPS);
         if (doPETASSIST && !(MTarg->HPCurrent<doPETENGAGEHPS)) return;
     }
     PetSEEN();
-    if (doPETASSIST && pPetInfoWnd && !(onEVENT & 0x0003) && MeleeTarg && PetButtonEnabled(UI_PetAttk) && SpawnType(GetSpawnID(MeleeTarg), NPC_TYPE))
+    if (doPETASSIST && pPetInfoWnd && !(onEVENT & 0x0003) && MeleeTarg && PetButtonEnabled(UI_PetAttk) && SpawnType(GetSpawnByID(MeleeTarg), NPC_TYPE))
     {
         Announce(SHOW_CONTROL, "%s::Command [\ay%s\ax].", PLUGIN_NAME, "/pet attack");
         if (!TargetID(MeleeTarg))
         {
             PSPAWNINFO Current = pTarget;
-            pTarget = GetSpawnID(MeleeTarg);
+            pTarget = GetSpawnByID(MeleeTarg);
             EzCommand("/pet attack");
             if (Current) Command("/squelch /target id %d", Current->SpawnID);
         }
@@ -4002,7 +4025,7 @@ void StabPress() {
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
-PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
+PLUGIN_API void ThrowIT(PlayerClient* pChar, const char* Cmd) {
     if (pEverQuestInfo->PrimaryAttackReady && pTarget && TargetType(NPC_TYPE) &&
         !InRange(SpawnMe(), pTarget, 35) &&
         fabs(AngularHeading(SpawnMe(), pTarget)) < 50 &&
@@ -4094,7 +4117,7 @@ PLUGIN_API void ThrowIT(PSPAWNINFO pChar, char* Cmd) {
     }
 }
 
-PLUGIN_API void Override(PSPAWNINFO pChar, char* Cmd)
+PLUGIN_API void Override(PlayerClient*, const char* Cmd)
 {
     Announce(SHOW_OVERRIDE, Cmd, PLUGIN_NAME);
     MeleeTime = (unsigned long)clock() + delay;
@@ -4110,7 +4133,7 @@ PLUGIN_API void Override(PSPAWNINFO pChar, char* Cmd)
     OtherReset();
 }
 
-PLUGIN_API void Melee(PSPAWNINFO pChar, char* Cmd)
+PLUGIN_API void Melee(PlayerClient* pChar, const char* Cmd)
 {
     char Tmp[MAX_STRING]; char Var[MAX_STRING]; char Set[MAX_STRING]; BYTE Parm = 1; bool Help = true;
     Liste::iterator c; Liste::iterator ec = CmdListe.end();
@@ -4165,7 +4188,7 @@ PLUGIN_API void Melee(PSPAWNINFO pChar, char* Cmd)
     if (Help) MeleeHelp();
 }
 
-PLUGIN_API void KillThis(PSPAWNINFO pChar, char* Cmd)
+PLUGIN_API void KillThis(PlayerClient* pChar, const char* Cmd)
 {
     if ((doMELEE || doPETASSIST)  && doSKILL && pTarget && !TargetID(MeleeTarg) && TargetType(NPC_TYPE) && InGame())
     {
@@ -4173,10 +4196,10 @@ PLUGIN_API void KillThis(PSPAWNINFO pChar, char* Cmd)
         StickReset();
         OtherReset();
         AggroReset();
-        MeleeTarg = ((PSPAWNINFO)pTarget)->SpawnID;
-        strcpy_s(MeleeName, ((PSPAWNINFO)pTarget)->DisplayedName);
+        MeleeTarg = pTarget->SpawnID;
+        strcpy_s(MeleeName, pTarget->DisplayedName);
         MeleeSize = (long)strlen(MeleeName) + 1;
-        MeleeType = SpawnMask((PSPAWNINFO)pTarget);
+        MeleeType = SpawnMask(pTarget);
         if (doMELEE) {
             onEVENT |= 0x0008;
             Announce(SHOW_ATTACKING, "%s::Attacking [\ay%s\ax].", PLUGIN_NAME, MeleeName, MeleeTarg);
@@ -4184,10 +4207,10 @@ PLUGIN_API void KillThis(PSPAWNINFO pChar, char* Cmd)
     }
 }
 
-PLUGIN_API void EnrageON(PSPAWNINFO pChar, char* Cmd) {
+PLUGIN_API void EnrageON(PlayerClient* pChar, const char* Cmd) {
     if (long val = atol(Cmd)) if (val != MeleeTarg) return;
     if (doSKILL && doENRAGE && MeleeTarg && InGame()) {
-        PSPAWNINFO KillTarg = GetSpawnID(MeleeTarg);
+        PSPAWNINFO KillTarg = GetSpawnByID(MeleeTarg);
         if (!(onEVENT & 0x0001)) {
             if (!(onEVENT & 0x0002) && doPETASSIST) PetBACK();
             onEVENT |= 0x0001;
@@ -4204,7 +4227,7 @@ PLUGIN_API void EnrageON(PSPAWNINFO pChar, char* Cmd) {
     }
 }
 
-PLUGIN_API void EnrageOFF(PSPAWNINFO pChar, char* Cmd) {
+PLUGIN_API void EnrageOFF(PlayerClient* pChar, const char* Cmd) {
     if (long val = atol(Cmd)) if (val != MeleeTarg) return;
     if (doSKILL && doENRAGE && MeleeTarg && onEVENT & 0x0001 && InGame()) {
         onEVENT &= 0xFFFE;
@@ -4213,7 +4236,7 @@ PLUGIN_API void EnrageOFF(PSPAWNINFO pChar, char* Cmd) {
     }
 }
 
-PLUGIN_API void InfuriateON(PSPAWNINFO pChar, char* Cmd) {
+PLUGIN_API void InfuriateON(PlayerClient* pChar, const char* Cmd) {
     if (long val = atol(Cmd)) if (val != MeleeTarg) return;
     if (doSKILL && doINFURIATE && MeleeTarg && InGame()) {
         if (!(onEVENT & 0x0002)) {
@@ -4228,7 +4251,7 @@ PLUGIN_API void InfuriateON(PSPAWNINFO pChar, char* Cmd) {
     }
 }
 
-PLUGIN_API void InfuriateOFF(PSPAWNINFO pChar, char* Cmd) {
+PLUGIN_API void InfuriateOFF(PlayerClient* pChar, const char* Cmd) {
     if (long val = atol(Cmd)) if (val != MeleeTarg) return;
     if (doSKILL && doINFURIATE && MeleeTarg && onEVENT & 0x0002 && InGame()) {
         onEVENT &= 0xFFFD;
@@ -4236,26 +4259,26 @@ PLUGIN_API void InfuriateOFF(PSPAWNINFO pChar, char* Cmd) {
         Announce(SHOW_ENRAGING, "MQ2Melee:\agINFURIATE\ax ended, taking action!");
     }
 }
-BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&out)
+
+bool ParseMacroLine(char* szOriginal, size_t BufferSize, std::vector<std::string>& out)
 {
     // find each {}
-    PCHAR pBrace = strstr(szOriginal, "${");
+    char* pBrace = strstr(szOriginal, "${");
     if (!pBrace)
         return false;
-    unsigned long NewLength;
-    BOOL Changed = false;
-    //PCHAR pPos;
-    //PCHAR pStart;
-    //PCHAR pIndex;
-    CHAR szCurrent[MAX_STRING] = { 0 };
-    //MQTypeVar Result = { 0 };
+
+    size_t NewLength = 0;
+    bool Changed = false;
+    char szCurrent[MAX_STRING] = { 0 };
+
     do
     {
         // find this brace's end
-        PCHAR pEnd = &pBrace[1];
-        BOOL Quote = false;
-        BOOL BeginParam = false;
+        char* pEnd = &pBrace[1];
+        bool Quote = false;
+        bool BeginParam = false;
         int nBrace = 1;
+
         while (nBrace)
         {
             ++pEnd;
@@ -4268,10 +4291,13 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
                 }
                 continue;
             }
+
             if (*pEnd == 0)
-            {// unmatched brace or quote
-                goto pmdbottom;
+            {
+                // unmatched brace or quote
+                continue;
             }
+
             if (Quote)
             {
                 if (*pEnd == '\"')
@@ -4295,67 +4321,76 @@ BOOL ParseMacroLine(PCHAR szOriginal, SIZE_T BufferSize,std::list<std::string>&o
                 else if (*pEnd == '[' || *pEnd == ',')
                     BeginParam = true;
             }
-
         }
+
         *pEnd = 0;
         strcpy_s(szCurrent, &pBrace[2]);
         if (szCurrent[0] == 0)
         {
-            goto pmdbottom;
+            continue;
         }
-        if (ParseMacroLine(szCurrent, sizeof(szCurrent),out))
+
+        if (ParseMacroLine(szCurrent, sizeof(szCurrent), out))
         {
-            unsigned long NewLength = (unsigned long)strlen(szCurrent);
+            size_t NewLength = strlen(szCurrent);
             memmove(&pBrace[NewLength + 1], &pEnd[1], strlen(&pEnd[1]) + 1);
+
             int addrlen = (int)(pBrace - szOriginal);
             memcpy_s(pBrace, BufferSize - addrlen, szCurrent, NewLength);
+
             pEnd = &pBrace[NewLength];
             *pEnd = 0;
         }
-        if(!strchr(szCurrent,'[') && !strchr(szCurrent,'.'))
-            out.push_back(szCurrent);
 
-        NewLength = (unsigned long)strlen(szCurrent);
+        if (!strchr(szCurrent, '[') && !strchr(szCurrent, '.'))
+            out.emplace_back(szCurrent);
+
+        NewLength = strlen(szCurrent);
         memmove(&pBrace[NewLength], &pEnd[1], strlen(&pEnd[1]) + 1);
+
         int addrlen = (int)(pBrace - szOriginal);
         memcpy_s(pBrace, BufferSize - addrlen, szCurrent, NewLength);
-        if (bAllowCommandParse == false) {
+
+        if (!bAllowCommandParse)
+        {
             bAllowCommandParse = true;
             Changed = false;
             break;
         }
-        else {
+        else
+        {
             Changed = true;
         }
-    pmdbottom:;
     } while (pBrace = strstr(&pBrace[1], "${"));
+
     if (Changed)
-        while (ParseMacroLine(szOriginal, BufferSize,out))
-        {
-            Sleep(0);
-        }
+    {
+        while (ParseMacroLine(szOriginal, BufferSize, out))
+            ;
+    }
+
     return Changed;
 }
+
 bool OKtoParseShit(std::string &str)
 {
     CHAR szBuffer[MAX_STRING] = { 0 };
     strcpy_s(szBuffer, str.c_str());
-    std::list<std::string> out;
+    std::vector<std::string> out;
     ParseMacroLine(szBuffer, MAX_STRING, out);
     bool bOkToCheck = true;
     if (out.size()) {
-        for (std::list<std::string>::iterator i = out.begin(); i != out.end(); i++) {
+        for (const std::string& line : out) {
             bOkToCheck = false;
-			PCHAR pChar = (PCHAR)(*i).c_str();
-			if (FindMQ2Data(pChar)) {
-				bOkToCheck = true;
+            if (FindMQ2Data(line.c_str())) {
+                bOkToCheck = true;
                 continue;
             }
             if (!bOkToCheck)
             {
                 //ok fine we didnt find it in the tlo map...
                 //lets check variables
-                if (FindMQ2DataVariable(pChar)) {
+                if (FindMQ2DataVariable(line.c_str())) {
                     bOkToCheck = true;
                     continue;
                 }
@@ -4382,23 +4417,23 @@ void DowntimeHandle()
                 {
                     case 1://not a macro dependant flag
                     {
-                        EzCommand((char*)DOWNSHIT[doDOWN].c_str());
+                        EzCommand(DOWNSHIT[doDOWN].c_str());
                         break;
                     }
                     case 2://a macro must be running and the variable MUST exist
                     {
                         if (gRunning) {
                             if (OKtoParseShit(DOWNSHIT[doDOWN])) {
-                                EzCommand((char*)DOWNSHIT[doDOWN].c_str());
+                                EzCommand(DOWNSHIT[doDOWN].c_str());
                             }
                         }
                         break;
                     }
-					case 3: //only parsed when no macro running
-					{
-						if (!gRunning) EzCommand((char*)DOWNSHIT[doDOWN].c_str());
-						break;
-					}
+                    case 3: //only parsed when no macro running
+                    {
+                        if (!gRunning) EzCommand(DOWNSHIT[doDOWN].c_str());
+                        break;
+                    }
                     default:
                         break;
                 }
@@ -4485,7 +4520,7 @@ void MeleeHandle()
         else if (doPOTHEALOVER && Health <= doPOTHEALOVER && idPOTHEALOVER.Ready(ifPOTHEALOVER)) UseThis = &idPOTHEALOVER;
         if (UseThis) {
             if (UseThis->ID == idLAYHAND.ID) {
-                PSPAWNINFO TargetSave = pTarget ? (PSPAWNINFO)pTarget : NULL;
+                PSPAWNINFO TargetSave = pTarget;
                 pTarget = SpawnMe();
                 idLAYHAND.Press();
                 pTarget = TargetSave;
@@ -4513,7 +4548,7 @@ void MeleeHandle()
     }
     if (MeleeTarg)
     {
-        if (PSPAWNINFO Tar = GetSpawnID(MeleeTarg))
+        if (PSPAWNINFO Tar = GetSpawnByID(MeleeTarg))
         {
             if (!MeleeLife || Tar->HPCurrent < MeleeLife) TimerLife = (unsigned long)clock() + 1500;
             MeleeLife = Tar->HPCurrent;
@@ -4585,7 +4620,7 @@ void MeleeHandle()
     if (doPETASSIST && MeleeTarg)
     {
         PSPAWNINFO Pet = SpawnPet();
-        PSPAWNINFO Tar = GetSpawnID(MeleeTarg);
+        PSPAWNINFO Tar = GetSpawnByID(MeleeTarg);
         if (Pet && Tar)
         {
             if (doPETMEND && Pet->HPCurrent <= doPETMEND && idPETMEND.Ready("")) idPETMEND.Press();
@@ -4612,18 +4647,18 @@ void MeleeHandle()
 
     // target is in range? could we engage and kill it?
     // ***** hard-coded override if we are more than 250 away  ****
-    if ((MeleeDist = DistanceToSpawn(SpawnMe(), (PSPAWNINFO)pTarget)) > 250)
+    if ((MeleeDist = DistanceToSpawn(SpawnMe(), pTarget)) > 250)
     {
         Override(NULL, "");
         return;
     }
     // end 250 range enforce
 
-    MeleeSpeed = fabs(FindSpeed((PSPAWNINFO)pTarget));
-    MeleeBack = fabs(AngularDistance(((PSPAWNINFO)pTarget)->Heading, SpawnMe()->Heading));
-    MeleeView = fabs(AngularHeading(SpawnMe(), (PSPAWNINFO)pTarget));
-    MeleeFlee = (MeleeFlee || (MeleeLife <= 85 && MeleeSpeed > 25.0f && IsMobFleeing(SpawnMe(), (PSPAWNINFO)pTarget)));
-    MeleeKill = ((PSPAWNINFO)pTarget)->AvatarHeight + 12.0f;
+    MeleeSpeed = fabs(FindSpeed(pTarget));
+    MeleeBack = fabs(AngularDistance(pTarget->Heading, SpawnMe()->Heading));
+    MeleeView = fabs(AngularHeading(SpawnMe(), pTarget));
+    MeleeFlee = (MeleeFlee || (MeleeLife <= 85 && MeleeSpeed > 25.0f && IsMobFleeing(SpawnMe(), pTarget)));
+    MeleeKill = pTarget->AvatarHeight + 12.0f;
     //Sticking=Evaluate("$If[$Stick.Active},1,0]}");
     if (bMULoaded && bMUPointers) Sticking = *pbStickOn;
 
@@ -4724,35 +4759,35 @@ void MeleeHandle()
                 // *** if a range is set and we are greater than this range, this may cause those "open space" problems
                 if (Immobile && !Sticking && (!doSTICKDELAY || (unsigned long)clock()>TimerStik) && (!doSTICKRANGE || doSTICKNORANGE || MeleeDist < doSTICKRANGE)) onSTICK = -1;
             }
-			if (onSTICK < 0)        // set negative by above in cases where we should stick
-			{
-				if (bMULoaded && bMUPointers)
-				{
-					switch (doSTICKMODE)
-					{
-						case 0: // stick from mq2melee
-						{
-							long type = Aggroed(MeleeTarg); // set to 1 if cases acceptable to attack (on hott, within range)
-							bool swim = (SpawnMe()->UnderWater == 5); // use "uw" arg if underwater
-							bool stab = (type < 1 && doBACKSTAB && doSTAB<192); // use "behind" if not aggro and strike option enabled, else !front
-							bool tank = (type>0 || (!IsInvisible() && (doAGGRO || !GetCharInfo()->pGroupInfo))); // use "moveback" if tank and aggro, else process stab
-							double dist = MeleeKill - 3.0f - (MeleeFlee*3.0f); // stick numeric parameter for distance
-							sprintf_s(Reserved, "%2.2f id %d%s%s", dist, MeleeTarg, MeleeFlee ? "" : (tank ? " moveback" : (!stab ? " !front" : " behind")), swim ? " uw" : "");
-							if (strcmp(Reserved, StickArg) || (!doSTICKBREAK && !*pbStickOn)) Stick(Reserved);
-							break;
-						}
-						case 1: // stick from ini
-						{
-							strcpy_s(Reserved, StickCMD.c_str()); 			// copy our ini command to Reserved
-							ParseMacroData(Reserved, sizeof(Reserved));     // parse out TLO evaluations
-							if (strcmp(Reserved, StickArg) || (!doSTICKBREAK && !*pbStickOn)) Stick(Reserved);
-							break;
-						}
-						default: // do not stick
-							break;
-					}
-				}
-			}
+            if (onSTICK < 0)        // set negative by above in cases where we should stick
+            {
+                if (bMULoaded && bMUPointers)
+                {
+                    switch (doSTICKMODE)
+                    {
+                        case 0: // stick from mq2melee
+                        {
+                            long type = Aggroed(MeleeTarg); // set to 1 if cases acceptable to attack (on hott, within range)
+                            bool swim = (SpawnMe()->UnderWater == 5); // use "uw" arg if underwater
+                            bool stab = (type < 1 && doBACKSTAB && doSTAB < 192); // use "behind" if not aggro and strike option enabled, else !front
+                            bool tank = (type > 0 || (!IsInvisible() && (doAGGRO || !pLocalPC->pGroupInfo))); // use "moveback" if tank and aggro, else process stab
+                            double dist = MeleeKill - 3.0f - (MeleeFlee * 3.0f); // stick numeric parameter for distance
+                            sprintf_s(Reserved, "%2.2f id %d%s%s", dist, MeleeTarg, MeleeFlee ? "" : (tank ? " moveback" : (!stab ? " !front" : " behind")), swim ? " uw" : "");
+                            if (strcmp(Reserved, StickArg) || (!doSTICKBREAK && !*pbStickOn)) Stick(Reserved);
+                            break;
+                        }
+                        case 1: // stick from ini
+                        {
+                            strcpy_s(Reserved, StickCMD.c_str());           // copy our ini command to Reserved
+                            ParseMacroData(Reserved, sizeof(Reserved));     // parse out TLO evaluations
+                            if (strcmp(Reserved, StickArg) || (!doSTICKBREAK && !*pbStickOn)) Stick(Reserved);
+                            break;
+                        }
+                        default: // do not stick
+                            break;
+                    }
+                }
+            }
         }
         // end stick processing
 
@@ -5069,11 +5104,11 @@ void MeleeHandle()
                 }
                 break;
             }
-			case 3: //only parsed when no macro running
-			{
-				if (!gRunning) EzCommand((char*)HOLYSHIT[doHOLY].c_str());
-				break;
-			}
+            case 3: //only parsed when no macro running
+            {
+                if (!gRunning) EzCommand((char*)HOLYSHIT[doHOLY].c_str());
+                break;
+            }
             default:
                 break;
             }
@@ -5189,7 +5224,7 @@ void __stdcall PETHOLD(unsigned int ID, void *pData, PBLECHVALUE pValues) {
 }
 
 void __stdcall FALLEN(unsigned int ID, void *pData, PBLECHVALUE pValues) {
-    if (!doSKILL || ((long)(uintptr_t)pData && !ci_equals(pValues->Value, GetCharInfo()->Name, strlen(GetCharInfo()->Name) + 1))) return;
+    if (!doSKILL || ((long)(uintptr_t)pData && !ci_equals(pValues->Value, pLocalPC->Name, strlen(pLocalPC->Name) + 1))) return;
     Announce(SHOW_FEIGN, "%s::\arFAILED FEIGN DEATH\ax taking action!", PLUGIN_NAME);
     EzCommand("/stand");
 }
@@ -5323,36 +5358,36 @@ PLUGIN_API void InitializePlugin()
     REGISTER_ABILITY_OPTION(pDWNF58, NULL, &doDOWNFLAG[58]);
     REGISTER_ABILITY_OPTION(pDWNF59, NULL, &doDOWNFLAG[59]);
     REGISTER_ABILITY_OPTION(pDWNF60, NULL, &doDOWNFLAG[60]);
-	REGISTER_ABILITY_OPTION(pDWNF61, NULL, &doDOWNFLAG[61]);
-	REGISTER_ABILITY_OPTION(pDWNF62, NULL, &doDOWNFLAG[62]);
-	REGISTER_ABILITY_OPTION(pDWNF63, NULL, &doDOWNFLAG[63]);
-	REGISTER_ABILITY_OPTION(pDWNF64, NULL, &doDOWNFLAG[64]);
-	REGISTER_ABILITY_OPTION(pDWNF65, NULL, &doDOWNFLAG[65]);
-	REGISTER_ABILITY_OPTION(pDWNF66, NULL, &doDOWNFLAG[66]);
-	REGISTER_ABILITY_OPTION(pDWNF67, NULL, &doDOWNFLAG[67]);
-	REGISTER_ABILITY_OPTION(pDWNF68, NULL, &doDOWNFLAG[68]);
-	REGISTER_ABILITY_OPTION(pDWNF69, NULL, &doDOWNFLAG[69]);
-	REGISTER_ABILITY_OPTION(pDWNF70, NULL, &doDOWNFLAG[70]);
-	REGISTER_ABILITY_OPTION(pDWNF71, NULL, &doDOWNFLAG[71]);
-	REGISTER_ABILITY_OPTION(pDWNF72, NULL, &doDOWNFLAG[72]);
-	REGISTER_ABILITY_OPTION(pDWNF73, NULL, &doDOWNFLAG[73]);
-	REGISTER_ABILITY_OPTION(pDWNF74, NULL, &doDOWNFLAG[74]);
-	REGISTER_ABILITY_OPTION(pDWNF75, NULL, &doDOWNFLAG[75]);
-	REGISTER_ABILITY_OPTION(pDWNF76, NULL, &doDOWNFLAG[76]);
-	REGISTER_ABILITY_OPTION(pDWNF77, NULL, &doDOWNFLAG[77]);
-	REGISTER_ABILITY_OPTION(pDWNF78, NULL, &doDOWNFLAG[78]);
-	REGISTER_ABILITY_OPTION(pDWNF79, NULL, &doDOWNFLAG[79]);
-	REGISTER_ABILITY_OPTION(pDWNF80, NULL, &doDOWNFLAG[80]);
-	REGISTER_ABILITY_OPTION(pDWNF81, NULL, &doDOWNFLAG[81]);
-	REGISTER_ABILITY_OPTION(pDWNF82, NULL, &doDOWNFLAG[82]);
-	REGISTER_ABILITY_OPTION(pDWNF83, NULL, &doDOWNFLAG[83]);
-	REGISTER_ABILITY_OPTION(pDWNF84, NULL, &doDOWNFLAG[84]);
-	REGISTER_ABILITY_OPTION(pDWNF85, NULL, &doDOWNFLAG[85]);
-	REGISTER_ABILITY_OPTION(pDWNF86, NULL, &doDOWNFLAG[86]);
-	REGISTER_ABILITY_OPTION(pDWNF87, NULL, &doDOWNFLAG[87]);
-	REGISTER_ABILITY_OPTION(pDWNF88, NULL, &doDOWNFLAG[88]);
-	REGISTER_ABILITY_OPTION(pDWNF89, NULL, &doDOWNFLAG[89]);
-	REGISTER_ABILITY_OPTION(pDWNF90, NULL, &doDOWNFLAG[90]);
+    REGISTER_ABILITY_OPTION(pDWNF61, NULL, &doDOWNFLAG[61]);
+    REGISTER_ABILITY_OPTION(pDWNF62, NULL, &doDOWNFLAG[62]);
+    REGISTER_ABILITY_OPTION(pDWNF63, NULL, &doDOWNFLAG[63]);
+    REGISTER_ABILITY_OPTION(pDWNF64, NULL, &doDOWNFLAG[64]);
+    REGISTER_ABILITY_OPTION(pDWNF65, NULL, &doDOWNFLAG[65]);
+    REGISTER_ABILITY_OPTION(pDWNF66, NULL, &doDOWNFLAG[66]);
+    REGISTER_ABILITY_OPTION(pDWNF67, NULL, &doDOWNFLAG[67]);
+    REGISTER_ABILITY_OPTION(pDWNF68, NULL, &doDOWNFLAG[68]);
+    REGISTER_ABILITY_OPTION(pDWNF69, NULL, &doDOWNFLAG[69]);
+    REGISTER_ABILITY_OPTION(pDWNF70, NULL, &doDOWNFLAG[70]);
+    REGISTER_ABILITY_OPTION(pDWNF71, NULL, &doDOWNFLAG[71]);
+    REGISTER_ABILITY_OPTION(pDWNF72, NULL, &doDOWNFLAG[72]);
+    REGISTER_ABILITY_OPTION(pDWNF73, NULL, &doDOWNFLAG[73]);
+    REGISTER_ABILITY_OPTION(pDWNF74, NULL, &doDOWNFLAG[74]);
+    REGISTER_ABILITY_OPTION(pDWNF75, NULL, &doDOWNFLAG[75]);
+    REGISTER_ABILITY_OPTION(pDWNF76, NULL, &doDOWNFLAG[76]);
+    REGISTER_ABILITY_OPTION(pDWNF77, NULL, &doDOWNFLAG[77]);
+    REGISTER_ABILITY_OPTION(pDWNF78, NULL, &doDOWNFLAG[78]);
+    REGISTER_ABILITY_OPTION(pDWNF79, NULL, &doDOWNFLAG[79]);
+    REGISTER_ABILITY_OPTION(pDWNF80, NULL, &doDOWNFLAG[80]);
+    REGISTER_ABILITY_OPTION(pDWNF81, NULL, &doDOWNFLAG[81]);
+    REGISTER_ABILITY_OPTION(pDWNF82, NULL, &doDOWNFLAG[82]);
+    REGISTER_ABILITY_OPTION(pDWNF83, NULL, &doDOWNFLAG[83]);
+    REGISTER_ABILITY_OPTION(pDWNF84, NULL, &doDOWNFLAG[84]);
+    REGISTER_ABILITY_OPTION(pDWNF85, NULL, &doDOWNFLAG[85]);
+    REGISTER_ABILITY_OPTION(pDWNF86, NULL, &doDOWNFLAG[86]);
+    REGISTER_ABILITY_OPTION(pDWNF87, NULL, &doDOWNFLAG[87]);
+    REGISTER_ABILITY_OPTION(pDWNF88, NULL, &doDOWNFLAG[88]);
+    REGISTER_ABILITY_OPTION(pDWNF89, NULL, &doDOWNFLAG[89]);
+    REGISTER_ABILITY_OPTION(pDWNF90, NULL, &doDOWNFLAG[90]);
     REGISTER_ABILITY_OPTION(pEAGLE, NULL, &doEAGLESTRIKE);
     REGISTER_ABILITY_OPTION(pERAGE, NULL, &doENRAGE);
     REGISTER_ABILITY_OPTION(pERKCK, NULL, &doENRAGINGKICK);
@@ -5436,37 +5471,37 @@ PLUGIN_API void InitializePlugin()
     REGISTER_ABILITY_OPTION(pHOLF58, NULL, &doHOLYFLAG[58]);
     REGISTER_ABILITY_OPTION(pHOLF59, NULL, &doHOLYFLAG[59]);
     REGISTER_ABILITY_OPTION(pHOLF60, NULL, &doHOLYFLAG[60]);
-	REGISTER_ABILITY_OPTION(pHOLF60, NULL, &doHOLYFLAG[60]);
-	REGISTER_ABILITY_OPTION(pHOLF61, NULL, &doHOLYFLAG[61]);
-	REGISTER_ABILITY_OPTION(pHOLF62, NULL, &doHOLYFLAG[62]);
-	REGISTER_ABILITY_OPTION(pHOLF63, NULL, &doHOLYFLAG[63]);
-	REGISTER_ABILITY_OPTION(pHOLF64, NULL, &doHOLYFLAG[64]);
-	REGISTER_ABILITY_OPTION(pHOLF65, NULL, &doHOLYFLAG[65]);
-	REGISTER_ABILITY_OPTION(pHOLF66, NULL, &doHOLYFLAG[66]);
-	REGISTER_ABILITY_OPTION(pHOLF67, NULL, &doHOLYFLAG[67]);
-	REGISTER_ABILITY_OPTION(pHOLF68, NULL, &doHOLYFLAG[68]);
-	REGISTER_ABILITY_OPTION(pHOLF69, NULL, &doHOLYFLAG[69]);
-	REGISTER_ABILITY_OPTION(pHOLF70, NULL, &doHOLYFLAG[70]);
-	REGISTER_ABILITY_OPTION(pHOLF71, NULL, &doHOLYFLAG[71]);
-	REGISTER_ABILITY_OPTION(pHOLF72, NULL, &doHOLYFLAG[72]);
-	REGISTER_ABILITY_OPTION(pHOLF73, NULL, &doHOLYFLAG[73]);
-	REGISTER_ABILITY_OPTION(pHOLF74, NULL, &doHOLYFLAG[74]);
-	REGISTER_ABILITY_OPTION(pHOLF75, NULL, &doHOLYFLAG[75]);
-	REGISTER_ABILITY_OPTION(pHOLF76, NULL, &doHOLYFLAG[76]);
-	REGISTER_ABILITY_OPTION(pHOLF77, NULL, &doHOLYFLAG[77]);
-	REGISTER_ABILITY_OPTION(pHOLF78, NULL, &doHOLYFLAG[78]);
-	REGISTER_ABILITY_OPTION(pHOLF79, NULL, &doHOLYFLAG[79]);
-	REGISTER_ABILITY_OPTION(pHOLF80, NULL, &doHOLYFLAG[80]);
-	REGISTER_ABILITY_OPTION(pHOLF81, NULL, &doHOLYFLAG[81]);
-	REGISTER_ABILITY_OPTION(pHOLF82, NULL, &doHOLYFLAG[82]);
-	REGISTER_ABILITY_OPTION(pHOLF83, NULL, &doHOLYFLAG[83]);
-	REGISTER_ABILITY_OPTION(pHOLF84, NULL, &doHOLYFLAG[84]);
-	REGISTER_ABILITY_OPTION(pHOLF85, NULL, &doHOLYFLAG[85]);
-	REGISTER_ABILITY_OPTION(pHOLF86, NULL, &doHOLYFLAG[86]);
-	REGISTER_ABILITY_OPTION(pHOLF87, NULL, &doHOLYFLAG[87]);
-	REGISTER_ABILITY_OPTION(pHOLF88, NULL, &doHOLYFLAG[88]);
-	REGISTER_ABILITY_OPTION(pHOLF89, NULL, &doHOLYFLAG[89]);
-	REGISTER_ABILITY_OPTION(pHOLF90, NULL, &doHOLYFLAG[90]);
+    REGISTER_ABILITY_OPTION(pHOLF60, NULL, &doHOLYFLAG[60]);
+    REGISTER_ABILITY_OPTION(pHOLF61, NULL, &doHOLYFLAG[61]);
+    REGISTER_ABILITY_OPTION(pHOLF62, NULL, &doHOLYFLAG[62]);
+    REGISTER_ABILITY_OPTION(pHOLF63, NULL, &doHOLYFLAG[63]);
+    REGISTER_ABILITY_OPTION(pHOLF64, NULL, &doHOLYFLAG[64]);
+    REGISTER_ABILITY_OPTION(pHOLF65, NULL, &doHOLYFLAG[65]);
+    REGISTER_ABILITY_OPTION(pHOLF66, NULL, &doHOLYFLAG[66]);
+    REGISTER_ABILITY_OPTION(pHOLF67, NULL, &doHOLYFLAG[67]);
+    REGISTER_ABILITY_OPTION(pHOLF68, NULL, &doHOLYFLAG[68]);
+    REGISTER_ABILITY_OPTION(pHOLF69, NULL, &doHOLYFLAG[69]);
+    REGISTER_ABILITY_OPTION(pHOLF70, NULL, &doHOLYFLAG[70]);
+    REGISTER_ABILITY_OPTION(pHOLF71, NULL, &doHOLYFLAG[71]);
+    REGISTER_ABILITY_OPTION(pHOLF72, NULL, &doHOLYFLAG[72]);
+    REGISTER_ABILITY_OPTION(pHOLF73, NULL, &doHOLYFLAG[73]);
+    REGISTER_ABILITY_OPTION(pHOLF74, NULL, &doHOLYFLAG[74]);
+    REGISTER_ABILITY_OPTION(pHOLF75, NULL, &doHOLYFLAG[75]);
+    REGISTER_ABILITY_OPTION(pHOLF76, NULL, &doHOLYFLAG[76]);
+    REGISTER_ABILITY_OPTION(pHOLF77, NULL, &doHOLYFLAG[77]);
+    REGISTER_ABILITY_OPTION(pHOLF78, NULL, &doHOLYFLAG[78]);
+    REGISTER_ABILITY_OPTION(pHOLF79, NULL, &doHOLYFLAG[79]);
+    REGISTER_ABILITY_OPTION(pHOLF80, NULL, &doHOLYFLAG[80]);
+    REGISTER_ABILITY_OPTION(pHOLF81, NULL, &doHOLYFLAG[81]);
+    REGISTER_ABILITY_OPTION(pHOLF82, NULL, &doHOLYFLAG[82]);
+    REGISTER_ABILITY_OPTION(pHOLF83, NULL, &doHOLYFLAG[83]);
+    REGISTER_ABILITY_OPTION(pHOLF84, NULL, &doHOLYFLAG[84]);
+    REGISTER_ABILITY_OPTION(pHOLF85, NULL, &doHOLYFLAG[85]);
+    REGISTER_ABILITY_OPTION(pHOLF86, NULL, &doHOLYFLAG[86]);
+    REGISTER_ABILITY_OPTION(pHOLF87, NULL, &doHOLYFLAG[87]);
+    REGISTER_ABILITY_OPTION(pHOLF88, NULL, &doHOLYFLAG[88]);
+    REGISTER_ABILITY_OPTION(pHOLF89, NULL, &doHOLYFLAG[89]);
+    REGISTER_ABILITY_OPTION(pHOLF90, NULL, &doHOLYFLAG[90]);
     REGISTER_ABILITY_OPTION(pHOVER, NULL, &doPOTHEALOVER);
     REGISTER_ABILITY_OPTION(pINFUR, NULL, &doINFURIATE);
     REGISTER_ABILITY_OPTION(pINTIM, NULL, &doINTIMIDATION);
@@ -5685,36 +5720,36 @@ PLUGIN_API void InitializePlugin()
     MapInsert(&IniListe, Option("downshit58", "", "", "", NULL, &DOWNSHIT[58]));
     MapInsert(&IniListe, Option("downshit59", "", "", "", NULL, &DOWNSHIT[59]));
     MapInsert(&IniListe, Option("downshit60", "", "", "", NULL, &DOWNSHIT[60]));
-	MapInsert(&IniListe, Option("downshit61", "", "", "", NULL, &DOWNSHIT[61]));
-	MapInsert(&IniListe, Option("downshit62", "", "", "", NULL, &DOWNSHIT[62]));
-	MapInsert(&IniListe, Option("downshit63", "", "", "", NULL, &DOWNSHIT[63]));
-	MapInsert(&IniListe, Option("downshit64", "", "", "", NULL, &DOWNSHIT[64]));
-	MapInsert(&IniListe, Option("downshit65", "", "", "", NULL, &DOWNSHIT[65]));
-	MapInsert(&IniListe, Option("downshit66", "", "", "", NULL, &DOWNSHIT[66]));
-	MapInsert(&IniListe, Option("downshit67", "", "", "", NULL, &DOWNSHIT[67]));
-	MapInsert(&IniListe, Option("downshit68", "", "", "", NULL, &DOWNSHIT[68]));
-	MapInsert(&IniListe, Option("downshit69", "", "", "", NULL, &DOWNSHIT[69]));
-	MapInsert(&IniListe, Option("downshit70", "", "", "", NULL, &DOWNSHIT[70]));
-	MapInsert(&IniListe, Option("downshit71", "", "", "", NULL, &DOWNSHIT[71]));
-	MapInsert(&IniListe, Option("downshit72", "", "", "", NULL, &DOWNSHIT[72]));
-	MapInsert(&IniListe, Option("downshit73", "", "", "", NULL, &DOWNSHIT[73]));
-	MapInsert(&IniListe, Option("downshit74", "", "", "", NULL, &DOWNSHIT[74]));
-	MapInsert(&IniListe, Option("downshit75", "", "", "", NULL, &DOWNSHIT[75]));
-	MapInsert(&IniListe, Option("downshit76", "", "", "", NULL, &DOWNSHIT[76]));
-	MapInsert(&IniListe, Option("downshit77", "", "", "", NULL, &DOWNSHIT[77]));
-	MapInsert(&IniListe, Option("downshit78", "", "", "", NULL, &DOWNSHIT[78]));
-	MapInsert(&IniListe, Option("downshit79", "", "", "", NULL, &DOWNSHIT[79]));
-	MapInsert(&IniListe, Option("downshit80", "", "", "", NULL, &DOWNSHIT[80]));
-	MapInsert(&IniListe, Option("downshit81", "", "", "", NULL, &DOWNSHIT[81]));
-	MapInsert(&IniListe, Option("downshit82", "", "", "", NULL, &DOWNSHIT[82]));
-	MapInsert(&IniListe, Option("downshit83", "", "", "", NULL, &DOWNSHIT[83]));
-	MapInsert(&IniListe, Option("downshit84", "", "", "", NULL, &DOWNSHIT[84]));
-	MapInsert(&IniListe, Option("downshit85", "", "", "", NULL, &DOWNSHIT[85]));
-	MapInsert(&IniListe, Option("downshit86", "", "", "", NULL, &DOWNSHIT[86]));
-	MapInsert(&IniListe, Option("downshit87", "", "", "", NULL, &DOWNSHIT[87]));
-	MapInsert(&IniListe, Option("downshit88", "", "", "", NULL, &DOWNSHIT[88]));
-	MapInsert(&IniListe, Option("downshit89", "", "", "", NULL, &DOWNSHIT[89]));
-	MapInsert(&IniListe, Option("downshit90", "", "", "", NULL, &DOWNSHIT[90]));
+    MapInsert(&IniListe, Option("downshit61", "", "", "", NULL, &DOWNSHIT[61]));
+    MapInsert(&IniListe, Option("downshit62", "", "", "", NULL, &DOWNSHIT[62]));
+    MapInsert(&IniListe, Option("downshit63", "", "", "", NULL, &DOWNSHIT[63]));
+    MapInsert(&IniListe, Option("downshit64", "", "", "", NULL, &DOWNSHIT[64]));
+    MapInsert(&IniListe, Option("downshit65", "", "", "", NULL, &DOWNSHIT[65]));
+    MapInsert(&IniListe, Option("downshit66", "", "", "", NULL, &DOWNSHIT[66]));
+    MapInsert(&IniListe, Option("downshit67", "", "", "", NULL, &DOWNSHIT[67]));
+    MapInsert(&IniListe, Option("downshit68", "", "", "", NULL, &DOWNSHIT[68]));
+    MapInsert(&IniListe, Option("downshit69", "", "", "", NULL, &DOWNSHIT[69]));
+    MapInsert(&IniListe, Option("downshit70", "", "", "", NULL, &DOWNSHIT[70]));
+    MapInsert(&IniListe, Option("downshit71", "", "", "", NULL, &DOWNSHIT[71]));
+    MapInsert(&IniListe, Option("downshit72", "", "", "", NULL, &DOWNSHIT[72]));
+    MapInsert(&IniListe, Option("downshit73", "", "", "", NULL, &DOWNSHIT[73]));
+    MapInsert(&IniListe, Option("downshit74", "", "", "", NULL, &DOWNSHIT[74]));
+    MapInsert(&IniListe, Option("downshit75", "", "", "", NULL, &DOWNSHIT[75]));
+    MapInsert(&IniListe, Option("downshit76", "", "", "", NULL, &DOWNSHIT[76]));
+    MapInsert(&IniListe, Option("downshit77", "", "", "", NULL, &DOWNSHIT[77]));
+    MapInsert(&IniListe, Option("downshit78", "", "", "", NULL, &DOWNSHIT[78]));
+    MapInsert(&IniListe, Option("downshit79", "", "", "", NULL, &DOWNSHIT[79]));
+    MapInsert(&IniListe, Option("downshit80", "", "", "", NULL, &DOWNSHIT[80]));
+    MapInsert(&IniListe, Option("downshit81", "", "", "", NULL, &DOWNSHIT[81]));
+    MapInsert(&IniListe, Option("downshit82", "", "", "", NULL, &DOWNSHIT[82]));
+    MapInsert(&IniListe, Option("downshit83", "", "", "", NULL, &DOWNSHIT[83]));
+    MapInsert(&IniListe, Option("downshit84", "", "", "", NULL, &DOWNSHIT[84]));
+    MapInsert(&IniListe, Option("downshit85", "", "", "", NULL, &DOWNSHIT[85]));
+    MapInsert(&IniListe, Option("downshit86", "", "", "", NULL, &DOWNSHIT[86]));
+    MapInsert(&IniListe, Option("downshit87", "", "", "", NULL, &DOWNSHIT[87]));
+    MapInsert(&IniListe, Option("downshit88", "", "", "", NULL, &DOWNSHIT[88]));
+    MapInsert(&IniListe, Option("downshit89", "", "", "", NULL, &DOWNSHIT[89]));
+    MapInsert(&IniListe, Option("downshit90", "", "", "", NULL, &DOWNSHIT[90]));
     MapInsert(&IniListe, Option("downshitif", "", "", "", NULL, &DOWNSHITIF));
     MapInsert(&IniListe, Option("holyshit0", "", "", "", NULL, &HOLYSHIT[0]));
     MapInsert(&IniListe, Option("holyshit1", "", "", "", NULL, &HOLYSHIT[1]));
@@ -5777,36 +5812,36 @@ PLUGIN_API void InitializePlugin()
     MapInsert(&IniListe, Option("holyshit58", "", "", "", NULL, &HOLYSHIT[58]));
     MapInsert(&IniListe, Option("holyshit59", "", "", "", NULL, &HOLYSHIT[59]));
     MapInsert(&IniListe, Option("holyshit60", "", "", "", NULL, &HOLYSHIT[60]));
-	MapInsert(&IniListe, Option("holyshit61", "", "", "", NULL, &HOLYSHIT[61]));
-	MapInsert(&IniListe, Option("holyshit62", "", "", "", NULL, &HOLYSHIT[62]));
-	MapInsert(&IniListe, Option("holyshit63", "", "", "", NULL, &HOLYSHIT[63]));
-	MapInsert(&IniListe, Option("holyshit64", "", "", "", NULL, &HOLYSHIT[64]));
-	MapInsert(&IniListe, Option("holyshit65", "", "", "", NULL, &HOLYSHIT[65]));
-	MapInsert(&IniListe, Option("holyshit66", "", "", "", NULL, &HOLYSHIT[66]));
-	MapInsert(&IniListe, Option("holyshit67", "", "", "", NULL, &HOLYSHIT[67]));
-	MapInsert(&IniListe, Option("holyshit68", "", "", "", NULL, &HOLYSHIT[68]));
-	MapInsert(&IniListe, Option("holyshit69", "", "", "", NULL, &HOLYSHIT[69]));
-	MapInsert(&IniListe, Option("holyshit70", "", "", "", NULL, &HOLYSHIT[70]));
-	MapInsert(&IniListe, Option("holyshit71", "", "", "", NULL, &HOLYSHIT[71]));
-	MapInsert(&IniListe, Option("holyshit72", "", "", "", NULL, &HOLYSHIT[72]));
-	MapInsert(&IniListe, Option("holyshit73", "", "", "", NULL, &HOLYSHIT[73]));
-	MapInsert(&IniListe, Option("holyshit74", "", "", "", NULL, &HOLYSHIT[74]));
-	MapInsert(&IniListe, Option("holyshit75", "", "", "", NULL, &HOLYSHIT[75]));
-	MapInsert(&IniListe, Option("holyshit76", "", "", "", NULL, &HOLYSHIT[76]));
-	MapInsert(&IniListe, Option("holyshit77", "", "", "", NULL, &HOLYSHIT[77]));
-	MapInsert(&IniListe, Option("holyshit78", "", "", "", NULL, &HOLYSHIT[78]));
-	MapInsert(&IniListe, Option("holyshit79", "", "", "", NULL, &HOLYSHIT[79]));
-	MapInsert(&IniListe, Option("holyshit80", "", "", "", NULL, &HOLYSHIT[80]));
-	MapInsert(&IniListe, Option("holyshit81", "", "", "", NULL, &HOLYSHIT[81]));
-	MapInsert(&IniListe, Option("holyshit82", "", "", "", NULL, &HOLYSHIT[82]));
-	MapInsert(&IniListe, Option("holyshit83", "", "", "", NULL, &HOLYSHIT[83]));
-	MapInsert(&IniListe, Option("holyshit84", "", "", "", NULL, &HOLYSHIT[84]));
-	MapInsert(&IniListe, Option("holyshit85", "", "", "", NULL, &HOLYSHIT[85]));
-	MapInsert(&IniListe, Option("holyshit86", "", "", "", NULL, &HOLYSHIT[86]));
-	MapInsert(&IniListe, Option("holyshit87", "", "", "", NULL, &HOLYSHIT[87]));
-	MapInsert(&IniListe, Option("holyshit88", "", "", "", NULL, &HOLYSHIT[88]));
-	MapInsert(&IniListe, Option("holyshit89", "", "", "", NULL, &HOLYSHIT[89]));
-	MapInsert(&IniListe, Option("holyshit90", "", "", "", NULL, &HOLYSHIT[90]));
+    MapInsert(&IniListe, Option("holyshit61", "", "", "", NULL, &HOLYSHIT[61]));
+    MapInsert(&IniListe, Option("holyshit62", "", "", "", NULL, &HOLYSHIT[62]));
+    MapInsert(&IniListe, Option("holyshit63", "", "", "", NULL, &HOLYSHIT[63]));
+    MapInsert(&IniListe, Option("holyshit64", "", "", "", NULL, &HOLYSHIT[64]));
+    MapInsert(&IniListe, Option("holyshit65", "", "", "", NULL, &HOLYSHIT[65]));
+    MapInsert(&IniListe, Option("holyshit66", "", "", "", NULL, &HOLYSHIT[66]));
+    MapInsert(&IniListe, Option("holyshit67", "", "", "", NULL, &HOLYSHIT[67]));
+    MapInsert(&IniListe, Option("holyshit68", "", "", "", NULL, &HOLYSHIT[68]));
+    MapInsert(&IniListe, Option("holyshit69", "", "", "", NULL, &HOLYSHIT[69]));
+    MapInsert(&IniListe, Option("holyshit70", "", "", "", NULL, &HOLYSHIT[70]));
+    MapInsert(&IniListe, Option("holyshit71", "", "", "", NULL, &HOLYSHIT[71]));
+    MapInsert(&IniListe, Option("holyshit72", "", "", "", NULL, &HOLYSHIT[72]));
+    MapInsert(&IniListe, Option("holyshit73", "", "", "", NULL, &HOLYSHIT[73]));
+    MapInsert(&IniListe, Option("holyshit74", "", "", "", NULL, &HOLYSHIT[74]));
+    MapInsert(&IniListe, Option("holyshit75", "", "", "", NULL, &HOLYSHIT[75]));
+    MapInsert(&IniListe, Option("holyshit76", "", "", "", NULL, &HOLYSHIT[76]));
+    MapInsert(&IniListe, Option("holyshit77", "", "", "", NULL, &HOLYSHIT[77]));
+    MapInsert(&IniListe, Option("holyshit78", "", "", "", NULL, &HOLYSHIT[78]));
+    MapInsert(&IniListe, Option("holyshit79", "", "", "", NULL, &HOLYSHIT[79]));
+    MapInsert(&IniListe, Option("holyshit80", "", "", "", NULL, &HOLYSHIT[80]));
+    MapInsert(&IniListe, Option("holyshit81", "", "", "", NULL, &HOLYSHIT[81]));
+    MapInsert(&IniListe, Option("holyshit82", "", "", "", NULL, &HOLYSHIT[82]));
+    MapInsert(&IniListe, Option("holyshit83", "", "", "", NULL, &HOLYSHIT[83]));
+    MapInsert(&IniListe, Option("holyshit84", "", "", "", NULL, &HOLYSHIT[84]));
+    MapInsert(&IniListe, Option("holyshit85", "", "", "", NULL, &HOLYSHIT[85]));
+    MapInsert(&IniListe, Option("holyshit86", "", "", "", NULL, &HOLYSHIT[86]));
+    MapInsert(&IniListe, Option("holyshit87", "", "", "", NULL, &HOLYSHIT[87]));
+    MapInsert(&IniListe, Option("holyshit88", "", "", "", NULL, &HOLYSHIT[88]));
+    MapInsert(&IniListe, Option("holyshit89", "", "", "", NULL, &HOLYSHIT[89]));
+    MapInsert(&IniListe, Option("holyshit90", "", "", "", NULL, &HOLYSHIT[90]));
     MapInsert(&IniListe, Option("holyshitif", "", "", "", NULL, &HOLYSHITIF));
 
     VarListe.clear();
@@ -6040,10 +6075,10 @@ PLUGIN_API unsigned long OnIncomingChat(char* Line, unsigned long Color)
     return 0;
 }
 
-float CalcDist = 0.0f;	// Calculate Distance Moved Since Last Pulse
-float SaveX = 0.0f;		// Current Position X
-float SaveY = 0.0f;		// Current Position Y
-float SaveZ = 0.0f;		// Current Position Z
+float CalcDist = 0.0f;  // Calculate Distance Moved Since Last Pulse
+float SaveX = 0.0f;     // Current Position X
+float SaveY = 0.0f;     // Current Position Y
+float SaveZ = 0.0f;     // Current Position Z
 
 PLUGIN_API void OnPulse()
 {
@@ -6059,17 +6094,17 @@ PLUGIN_API void OnPulse()
             if (!HiddenTimer && IsInvisible()) HiddenTimer = (unsigned long)clock();
             if (!SilentTimer && IsSneaking())  SilentTimer = (unsigned long)clock();
 
-			Travel = 5.0f; // assume we moving like a jet :P
-			if (PSPAWNINFO MySpawn = SpawnMe())
-			{
-				CalcDist = fabs(GetDistance3D(SaveX, SaveY, SaveZ, MySpawn->X, MySpawn->Y, MySpawn->Z));
-				SaveX	 = MySpawn->X;
-				SaveY	 = MySpawn->Y;
-				SaveZ	 = MySpawn->Z;
-				Travel	 = SpeedRun(MySpawn);
-			}
-			if (Moving = (Travel > 0.05 || Travel < -0.05 || CalcDist > 12.0f)) TimerMove = (unsigned long)clock() + delay * 7;
-			Immobile = (!(gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
+            Travel = 5.0f; // assume we moving like a jet :P
+            if (PSPAWNINFO MySpawn = SpawnMe())
+            {
+                CalcDist = fabs(GetDistance3D(SaveX, SaveY, SaveZ, MySpawn->X, MySpawn->Y, MySpawn->Z));
+                SaveX    = MySpawn->X;
+                SaveY    = MySpawn->Y;
+                SaveZ    = MySpawn->Z;
+                Travel   = SpeedRun(MySpawn);
+            }
+            if (Moving = (Travel > 0.05 || Travel < -0.05 || CalcDist > 12.0f)) TimerMove = (unsigned long)clock() + delay * 7;
+            Immobile = (!(gbMoving) && (!TimerMove || (unsigned long)clock() > TimerMove));
 
             if (doPETASSIST)
             {
@@ -6079,7 +6114,7 @@ PLUGIN_API void OnPulse()
                     //else if (!PetOnHold && (unsigned long)clock() > PetOnAttk && !Pet->WhoFollowing) PetBACK();
                 }
             }
-            if (MeleeTarg && (!pTarget || MeleeType != SpawnMask(GetSpawnID(MeleeTarg)))) Override(NULL, "");
+            if (MeleeTarg && (!pTarget || MeleeType != SpawnMask(GetSpawnByID(MeleeTarg)))) Override(NULL, "");
             if ((unsigned long)clock() > MeleeTime)
             {
                 MeleeTime = (unsigned long)clock() + delay;
