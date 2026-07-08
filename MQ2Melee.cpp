@@ -1925,7 +1925,7 @@ static int IsFeigning() {
 
 static int InRange(PSPAWNINFO a, PSPAWNINFO b, float d) {
     if (!a || !b) return false;
-    return (DistanceToSpawn(a, b) <= d);
+    return (GetDistance2D(a, b) <= d);
 }
 
 static int InGame() {
@@ -4647,7 +4647,7 @@ void MeleeHandle()
 
     // target is in range? could we engage and kill it?
     // ***** hard-coded override if we are more than 250 away  ****
-    if ((MeleeDist = DistanceToSpawn(SpawnMe(), pTarget)) > 250)
+    if ((MeleeDist = GetDistance2D(SpawnMe(), pTarget)) > 250)
     {
         Override(NULL, "");
         return;
@@ -6097,7 +6097,7 @@ PLUGIN_API void OnPulse()
             Travel = 5.0f; // assume we moving like a jet :P
             if (PSPAWNINFO MySpawn = SpawnMe())
             {
-                CalcDist = fabs(GetDistance3D(SaveX, SaveY, SaveZ, MySpawn->X, MySpawn->Y, MySpawn->Z));
+                CalcDist = fabs(GetDistance(SaveX, SaveY, SaveZ, MySpawn->X, MySpawn->Y, MySpawn->Z));
                 SaveX    = MySpawn->X;
                 SaveY    = MySpawn->Y;
                 SaveZ    = MySpawn->Z;
