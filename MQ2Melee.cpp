@@ -2444,6 +2444,11 @@ public:
                         EFFECT = spell;
                         REUSE = spell->CastTime + spell->RecastTime + delay * 6;
                         TYPE = DISC;
+                        if (pLocalPlayer) {
+                            if (pLocalPlayer->Level < spell->ClassLevel[GetPcProfile()->Class]) {
+                                return false;
+                            }
+                        }
                         return true;
                     }
                 }
