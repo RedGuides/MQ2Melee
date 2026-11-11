@@ -10,9 +10,9 @@ Holds the Melee datatype which is much more interesting
 
 ## Forms
 <!--tlo-forms-start-->
-### {{ renderMember(type='Melee', name='Melee') }}
-
-:   Returns TRUE if plugin is loaded.
+/// member | Melee Melee
+Returns TRUE if plugin is loaded.
+///
 
 <!--tlo-forms-end-->
 

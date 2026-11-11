@@ -10,9 +10,9 @@ A TLO to debug options
 
 ## Forms
 <!--tlo-forms-start-->
-### {{ renderMember(type='string', name='meleemvs', params='option') }}
-
-:   Returns the string value of an INI option. Examples are: `bashif`, `beggingif`, `tauntif`, `holyshit0`, `stickcmd`, etc. 
+/// member | string meleemvs[option]
+Returns the string value of an INI option. Examples are: `bashif`, `beggingif`, `tauntif`, `holyshit0`, `stickcmd`, etc. 
+///
 
 <!--tlo-forms-end-->
 

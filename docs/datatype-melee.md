@@ -10,89 +10,89 @@ Contains members the report status of plugin variables and current target(s)
 
 ## Members
 <!--dt-members-start-->
-### {{ renderMember(type='bool', name='AggroMode') }}
+/// member | bool AggroMode
+TRUE/FALSE if the plugin is operating in Aggro-mode or not.
+///
 
-:   TRUE/FALSE if the plugin is operating in Aggro-mode or not.
+/// member | int Ammunition
+Count of defined ammunition or current equipped ammunition.
+///
 
-### {{ renderMember(type='int', name='Ammunition') }}
+/// member | float BackAngle
+Angle representing heading difference with current target's back.
+///
 
-:   Count of defined ammunition or current equipped ammunition.
+/// member | bool BackStabbing
+TRUE/FALSE if backstab setting is on/off.
+///
 
-### {{ renderMember(type='float', name='BackAngle') }}
+/// member | int Casted
+Time (in miliseconds) elapsed since last detected spell casting (60000 if none).
+///
 
-:   Angle representing heading difference with current target's back.
+/// member | bool Combat
+TRUE/FALSE if plugin enable and got valid kill target. Should replace ${Me.Combat} logic.
+///
 
-### {{ renderMember(type='bool', name='BackStabbing') }}
+/// member | int DiscID
+Spell ID of currently running discipline, 0 if none.
+///
 
-:   TRUE/FALSE if backstab setting is on/off.
+/// member | bool Enable
+TRUE/FALSE if plugin on/off, NULL if not loaded.
+///
 
-### {{ renderMember(type='int', name='Casted') }}
+/// member | bool Enrage
+True if enraged
+///
 
-:   Time (in miliseconds) elapsed since last detected spell casting (60000 if none).
+/// member | bool GotAggro
+TRUE/FALSE if current target seems to be aggroed on you (not perfect).
+///
 
-### {{ renderMember(type='bool', name='Combat') }}
+/// member | bool Immobilize
+TRUE if you have been standing still for more then 250ms, FALSE if not.
+///
 
-:   TRUE/FALSE if plugin enable and got valid kill target. Should replace ${Me.Combat} logic.
+/// member | bool Infuriate
+TRUE if kill target is infuriated!
+///
 
-### {{ renderMember(type='int', name='DiscID') }}
+/// member | bool MeleeMode
+TRUE/FALSE if melee mode is on/off.
+///
 
-:   Spell ID of currently running discipline, 0 if none.
+/// member | bool RangeMode
+TRUE/FALSE if range mode is enabled (i.e. the `range` setting is > 0).
+///
 
-### {{ renderMember(type='bool', name='Enable') }}
+/// member | string Status
+Current plugin status, can be one or more of the following: ENGAGED, WAITING, MELEE, RANGE, ENRAGE, INFURIATE, BACKING, ESCAPING, FEIGNING, EVADING, FALLING, STEALING, BEGGING.
+///
 
-:   TRUE/FALSE if plugin on/off, NULL if not loaded.
+/// member | int Target
+SpawnID of current valid kill target, otherwise 0.
+///
 
-### {{ renderMember(type='bool', name='Enrage') }}
+/// member | float ViewAngle
+Angle of view with current target.
+///
 
-:   True if enraged
+/// member | int Hidden
+How long you've been hidden
+///
 
-### {{ renderMember(type='bool', name='GotAggro') }}
+/// member | int Silent
+How long you've been sneaking
+///
 
-:   TRUE/FALSE if current target seems to be aggroed on you (not perfect).
+/// member | int NumHits
+Total number of hits
+///
 
-### {{ renderMember(type='bool', name='Immobilize') }}
-
-:   TRUE if you have been standing still for more then 250ms, FALSE if not.
-
-### {{ renderMember(type='bool', name='Infuriate') }}
-
-:   TRUE if kill target is infuriated!
-
-### {{ renderMember(type='bool', name='MeleeMode') }}
-
-:   TRUE/FALSE if melee mode is on/off.
-
-### {{ renderMember(type='bool', name='RangeMode') }}
-
-:   TRUE/FALSE if range mode is enabled (i.e. the `range` setting is > 0).
-
-### {{ renderMember(type='string', name='Status') }}
-
-:   Current plugin status, can be one or more of the following: ENGAGED, WAITING, MELEE, RANGE, ENRAGE, INFURIATE, BACKING, ESCAPING, FEIGNING, EVADING, FALLING, STEALING, BEGGING.
-
-### {{ renderMember(type='int', name='Target') }}
-
-:   SpawnID of current valid kill target, otherwise 0.
-
-### {{ renderMember(type='float', name='ViewAngle') }}
-
-:   Angle of view with current target.
-
-### {{ renderMember(type='int', name='Hidden') }}
-
-:   How long you've been hidden
-
-### {{ renderMember(type='int', name='Silent') }}
-
-:   How long you've been sneaking
-
-### {{ renderMember(type='int', name='NumHits') }}
-
-:   Total number of hits
-
-### {{ renderMember(type='bool', name='XTaggro') }}
-
-:   Returns TRUE if you are the highest on aggro for all mobs on your extended target window hate list. FALSE if another person has higher aggro on at least one of them.
+/// member | bool XTaggro
+Returns TRUE if you are the highest on aggro for all mobs on your extended target window hate list. FALSE if another person has higher aggro on at least one of them.
+///
 
 <!--dt-members-end-->
 
